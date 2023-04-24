@@ -11,7 +11,7 @@
 <?php } ?>
 
 
-<?php funtion drawStart() { ?>
+<?php function drawStart() { ?>
     <body>
         <div class="login">
             <a href="login.html"><input type="submit" value="LOGIN"></a>

@@ -4,6 +4,6 @@ require_once(__DIR__ . '/common.tpl.php');
 
 
 setHeader();
-drawStart();
+drawLogin();
 ?>
 

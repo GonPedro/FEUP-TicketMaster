@@ -1,3 +1,6 @@
+<?php
+$start = TRUE;
+?>
 <?php function setHeader() { ?>
     <!DOCTYPE html>
     <html lang="en-US">
@@ -14,11 +17,12 @@
 <?php function drawStart() { ?>
     <body>
         <div class="login">
-            <a href="login.html"><input type="submit" value="LOGIN"></a>
+            <a href="login.php"><input type="submit" value="LOGIN"></a>
             <input type="submit" value="SIGNUP">
         </div>
     </body>
-</html>
+    </html>
+    <?php $start = False; ?>
 <?php } ?>
 
 <?php function drawLogin() { ?>
@@ -32,6 +36,6 @@
 
         </div>
     </body>
-</html>
+    </html>
 <?php } ?>
 

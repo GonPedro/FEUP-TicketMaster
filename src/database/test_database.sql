@@ -23,7 +23,7 @@ CREATE TABLE User (
     userID INTEGER PRIMARY KEY AUTOINCREMENT,
     name TEXT NOT NULL,
     username TEXT NOT NULL,
-    passw TEXT NOT NULL,
+    password TEXT NOT NULL,
     email TEXT NOT NULL
 
 );

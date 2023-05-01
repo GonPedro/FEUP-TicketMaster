@@ -15,7 +15,7 @@ public function __construct(int $id, string $name, string $username, string $ema
 
 
     static function getUser(PDO $db, string $email, string $password) : ?User {
-      $stmt = $db.prepare('SELECT userID, name, username, email
+      $stmt = $db->prepare('SELECT userID, name, username, email
         FROM User
         WHERE lower(email) = ? AND password = ?');
       $stmt->execute(array(strtolower($email), sha1($password)));
@@ -29,3 +29,5 @@ public function __construct(int $id, string $name, string $username, string $ema
       } else return null;
     }
   }
+
+?>

@@ -22,19 +22,18 @@ $start = TRUE;
         </div>
     </body>
     </html>
-    <?php $start = False; ?>
 <?php } ?>
 
 <?php function drawLogin() { ?>
     <body>
-        <div class="login">
+        <form action="/action_login.php" method="post" class="login">
             <label id="namelabel">Username:</label> <br>
-            <input type="text" id="name">
+            <input type="text" name = "username" placeholder = "UserName" id="name">
             <label id="passlabel">Password:</label> <br>
-            <input type="text" id="pass">
+            <input type="password" name = "password" placeholder = "Password" id="pass">
             <input type="submit" value="ENTER">
 
-        </div>
+        </form>
     </body>
     </html>
 <?php } ?>

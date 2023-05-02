@@ -11,5 +11,6 @@ require_once(__DIR__ . '/common.tpl.php');
 
 setHeader();
 if(!$session->isLoggedin()) drawStart();
+else drawTickets();
 ?>
 

@@ -29,6 +29,7 @@
     }
     
     .login input[type="text"],
+    .login input[type="password"],
     .login label {
         position: absolute;
         height: 8%;
@@ -59,4 +60,59 @@
     
     .login label[id="passlabel"] {
         top: 46%
+    }
+
+    .topbar {
+        position: fixed;
+        width: 100%;
+        height: 4em;
+        border-radius: 0;
+        margin: 0;
+        border: none;
+        left: 0;
+        top: 0;
+        display: flex;
+        justify-content: flex-end;
+        flex-direction: row;
+        align-items: center;
+        z-index: 999;
+    }
+    
+    .topbar button {
+        height: 75%;
+        margin-right: 10px;
+        margin-left: 5px;
+        width: 10em;
+    }
+    
+    .list {
+        top: 6em;
+        left: 0;
+        top: 6em;
+        height: auto;
+        max-width: 95%;
+        width: 60em;
+        left: 50%;
+        position: absolute;
+        -ms-transform: translate(-50%, 0);
+        transform: translate(-50%, 0);
+    }
+    
+    .ticket {
+        height: 4em;
+        margin-bottom: 1.5em;
+    }
+    
+    .ticket label {
+        position: relative;
+        left: .5em;
+    }
+    
+    .ticket label[id="title"] {
+        top: 17.5%;
+        height: 50%;
+        left: .75em;
+        width: 50%;
+        padding: 0;
+        border: none;
     }

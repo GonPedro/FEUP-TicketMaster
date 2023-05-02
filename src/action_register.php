@@ -13,9 +13,15 @@ $db = getDatabaseConnection();
 
 require_once(__DIR__. '/database/user.class.php');
 
-$user = User::addUser($db, $_POST['email'], $_POST['username'], $_POST['password']);
+$password_regex = "^(.{0,7}|[^0-9]*|[^A-Z]*|[^a-z]*|[a-zA-Z0-9]*)$";
 
-$session->setID($user->id);
-$session->serName($user->name);
+if(preg_match($password_regex, $_POST['password']) == 0){
+    $user = User::addUser($db, $_POST['email'], $_POST['username'], $_POST['password']);
 
-header('Location: ' . index.php);
+    $session->setID($user->id);
+    $session->serName($user->name);
+
+    header('Location: ' . index.php);
+} else {
+    header('Location:' . $_SERVER['HTTP_REFERER']);
+}

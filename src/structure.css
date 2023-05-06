@@ -65,6 +65,38 @@
             top: 46%
         }
         
+        .login input[id="rpassrepeat"] {
+            top: 60%
+        }
+        
+        .login label[id="rpassrepeatlabel"] {
+            top: 56%
+        }
+        
+        .login input[id="rpass"] {
+            top: 45%
+        }
+        
+        .login label[id="rpasslabel"] {
+            top: 41%
+        }
+        
+        .login input[id="rmail"] {
+            top: 30%
+        }
+        
+        .login label[id="rmaillabel"] {
+            top: 26%
+        }
+        
+        .login input[id="rname"] {
+            top: 15%
+        }
+        
+        .login label[id="rnamelabel"] {
+            top: 11%
+        }
+        
         .topbar {
             position: fixed;
             width: 100%;

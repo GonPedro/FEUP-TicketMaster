@@ -128,7 +128,7 @@ $start = TRUE;
         <label id="rpasslabel">Password:</label> <br>
         <input type="password" name = "rpass" id="rpass">
         <label id="rpassrepeatlabel">Repeat Your Password:</label> <br>
-        <input type="password" id="rpassrepeat">
+        <input type="password" name = "rpassrepeat" id="rpassrepeat">
         <input type="submit" value="ENTER">
     </form>
 </body>

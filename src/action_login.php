@@ -15,7 +15,7 @@
 
     if($user){
         $session->setID($user->id);
-        $session->setName($user->name);
+        $session->setName($user->username);
         $session->addMessage('sucess', 'Login successful');
     } else {
         $session->addMessage('failure', 'Wrong password');

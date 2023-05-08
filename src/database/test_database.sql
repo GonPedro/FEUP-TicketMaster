@@ -21,7 +21,6 @@ DROP TABLE IF EXISTS User;
 
 CREATE TABLE User (
     userID INTEGER PRIMARY KEY AUTOINCREMENT,
-    name TEXT,
     username TEXT NOT NULL,
     password TEXT NOT NULL,
     email TEXT NOT NULL

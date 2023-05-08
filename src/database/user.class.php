@@ -31,7 +31,7 @@ public function __construct(int $id, string $name, string $username, string $ema
 
 
     static function addUser(PDO $db, string $email, string $username, string $password) : ?User{
-      $stmt = $db->prepare('INSERT INTO TABLE User Values (NULL, ?, ?, ?)');
+      $stmt = $db->prepare('INSERT INTO User (name, username, password, email) Values (NULL, ?, ?, ?)');
       $stmt->execute(array(strtolower($username), sha1($password), strtolower($email)));
       $stmt = $db->prepare('SELECT userID, name, username, email
         FROM User

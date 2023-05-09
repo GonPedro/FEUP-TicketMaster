@@ -1,3 +1,13 @@
+<?php
+
+declare(strict_types = 1);
+
+require_once(__DIR__ . '/session.php');
+require_once(__DIR__ . '/database/ticket.class.php');
+
+?>
+
+
 <?php function setHeader() { ?>
     <!DOCTYPE html>
     <html lang="en-US">
@@ -22,13 +32,13 @@
 <?php } ?>
 
 
-<?php function drawTicket(){ ?>
+<?php function drawTicket(array $ticket){ ?>
     <div class="ticket">
-        <label id="title"></label>
+        <a href = "ticket.php?id=<?=$ticket['ticketID']>"><label id="title"><?=$ticket['title']></label></a>
     </div>
-}
+<?php } ?> 
 
-<?php function drawTickets(){ ?>
+<?php function drawTickets(Session $session){ ?>
     <div class="topbar">
         <a href = "/index.php"><button id="mticket">MY TICKETS</button></a>
         <button id="nticket">NEW TICKET</button>
@@ -37,6 +47,14 @@
         </form>
     </div>
 
+    <div class="list">
+        <?php
+        $tickets = Ticket::getTickets($session->getID());
+        foreach($tickets as $ticket){
+            drawTicket($ticket);
+        }
+        ?>
+    </div>
 
     <div class="list">
         <div class="ticket">

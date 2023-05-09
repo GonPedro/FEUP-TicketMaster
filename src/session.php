@@ -30,6 +30,10 @@ Class Session {
         $_SESSION['id'] = $id;
     }
 
+    public function getID(){
+       return $_SESSION['id'];
+    }
+
     public function setName(string $name){
         $_SESSION['name'] = name;
     }

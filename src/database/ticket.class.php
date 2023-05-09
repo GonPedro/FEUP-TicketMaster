@@ -102,7 +102,7 @@ class Ticket{
     static function getTickets(PDO $db, int $client_id){
         $stmt = $db->prepare('SELECT ticketID, title, departmentID
         FROM Ticket
-        where clientID = ?')
+        where clientID = ?');
         $stmt->execute(array($client_id));
         if($tickets = $stmt->fetchAll()){
             return $tickets;

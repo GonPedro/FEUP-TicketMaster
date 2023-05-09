@@ -34,7 +34,7 @@ require_once(__DIR__ . '/database/ticket.class.php');
 
 <?php function drawTicket(array $ticket){ ?>
     <div class="ticket">
-        <a href = "ticket.php?id=<?=$ticket['ticketID']>"><label id="title"><?=$ticket['title']></label></a>
+        <a href="/ticket.php?id=<?=$ticket['ticketID']?>"><label id="title"><?=$ticket['title']?></label></a>
     </div>
 <?php } ?> 
 

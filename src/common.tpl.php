@@ -1,6 +1,3 @@
-<?php
-$start = TRUE;
-?>
 <?php function setHeader() { ?>
     <!DOCTYPE html>
     <html lang="en-US">
@@ -23,6 +20,13 @@ $start = TRUE;
     </body>
     </html>
 <?php } ?>
+
+
+<?php function drawTicket(){ ?>
+    <div class="ticket">
+        <label id="title"></label>
+    </div>
+}
 
 <?php function drawTickets(){ ?>
     <div class="topbar">

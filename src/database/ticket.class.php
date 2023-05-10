@@ -99,8 +99,8 @@ class Ticket{
         } else return null;
     }
 
-    static function getTickets(PDO $db, int $client_id){
-        $stmt = $db->prepare('SELECT ticketID, title, departmentID
+    static function getTickets(PDO $db, int $client_id) :?array{
+        $stmt = $db->prepare('SELECT ticketID, title
         FROM Ticket
         where clientID = ?');
         $stmt->execute(array($client_id));

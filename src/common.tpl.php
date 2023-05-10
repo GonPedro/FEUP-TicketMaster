@@ -4,6 +4,7 @@ declare(strict_types = 1);
 
 require_once(__DIR__ . '/session.php');
 require_once(__DIR__ . '/database/ticket.class.php');
+require_once(__DIR__ . '/database/connection.db.php');
 
 ?>
 
@@ -34,13 +35,13 @@ require_once(__DIR__ . '/database/ticket.class.php');
 
 <?php function drawTicket(array $ticket){ ?>
     <div class="ticket">
-        <a href="/ticket.php?id=<?=$ticket['ticketID']?>"><label id="title"><?=$ticket['title']?></label></a>
+        <a href="ticket.php?id=<?=$ticket['ticketID']?>"><label id="title"><?=$ticket['title']?></label></a>
     </div>
 <?php } ?> 
 
 <?php function drawTickets(Session $session){ ?>
     <div class="topbar">
-        <a href = "/index.php"><button id="mticket">MY TICKETS</button></a>
+        <a href = "index.php"><button id="mticket">MY TICKETS</button></a>
         <button id="nticket">NEW TICKET</button>
         <form action = "/action_logout.php" method = "post" class = "logout">
             <button id="logout">LOG OUT</button>
@@ -49,81 +50,14 @@ require_once(__DIR__ . '/database/ticket.class.php');
 
     <div class="list">
         <?php
-        $tickets = Ticket::getTickets($session->getID());
+        $db = getDatabaseConnection();
+        $tickets = Ticket::getTickets($db, $session->getID());
         foreach($tickets as $ticket){
             drawTicket($ticket);
         }
         ?>
     </div>
 
-    <div class="list">
-        <div class="ticket">
-            <label id="title">The Toilet Broke</label>
-        </div>
-        <div class="ticket">
-            <label id="title">The Toilet Broke</label>
-        </div>
-        <div class="ticket">
-            <label id="title">The Toilet Broke</label>
-        </div>
-        <div class="ticket">
-            <label id="title">The Toilet Broke</label>
-        </div>
-
-        <div class="ticket">
-            <label id="title">The Toilet Broke</label>
-        </div>
-        <div class="ticket">
-            <label id="title">The Toilet Broke</label>
-        </div>
-        <div class="ticket">
-            <label id="title">The Toilet Broke</label>
-        </div>
-        <div class="ticket">
-            <label id="title">The Toilet Broke</label>
-        </div>
-        <div class="ticket">
-            <label id="title">The Toilet Broke</label>
-        </div>
-        <div class="ticket">
-            <label id="title">The Toilet Broke</label>
-        </div>
-        <div class="ticket">
-            <label id="title">The Toilet Broke</label>
-        </div>
-        <div class="ticket">
-            <label id="title">The Toilet Broke</label>
-        </div>
-        <div class="ticket">
-            <label id="title">The Toilet Broke</label>
-        </div>
-        <div class="ticket">
-            <label id="title">The Toilet Broke</label>
-        </div>
-        <div class="ticket">
-            <label id="title">The Toilet Broke</label>
-        </div>
-        <div class="ticket">
-            <label id="title">The Toilet Broke</label>
-        </div>
-        <div class="ticket">
-            <label id="title">The Toilet Broke</label>
-        </div>
-        <div class="ticket">
-            <label id="title">The Toilet Broke</label>
-        </div>
-        <div class="ticket">
-            <label id="title">The Toilet Broke</label>
-        </div>
-        <div class="ticket">
-            <label id="title">The Toilet Broke</label>
-        </div>
-        <div class="ticket">
-            <label id="title">The Toilet Broke</label>
-        </div>
-
-
-    </div>
 
 </body>
 

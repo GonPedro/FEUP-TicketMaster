@@ -99,6 +99,13 @@ class Ticket{
         } else return null;
     }
 
+    static function addTicket(PDO $db, int $client_id, string $title, int $department_id){
+        $stmt = $db->prepare('INSERT INTO Ticket(clientID, departmentID, taskID, status_name, title, priority, da)
+        VALUES (?,?,1,"open",?,1,2222-22-22)');
+        $stmt->execute(array($client_id, $department_id, $title));
+        return;
+    }
+
     static function getTickets(PDO $db, int $client_id) :?array{
         $stmt = $db->prepare('SELECT ticketID, title
         FROM Ticket

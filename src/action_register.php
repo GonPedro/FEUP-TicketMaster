@@ -19,6 +19,7 @@ $flag = 1;
 
 if($_POST['rpass'] != $_POST['rpassrepeat']){
     $flag = 0;
+    $session->addMessage('failure', 'Passwords do not match');
 }
 
 if((preg_match($password_regex, $_POST['rpass']) == 0) and $flag == 1){

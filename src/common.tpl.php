@@ -66,9 +66,9 @@ require_once(__DIR__ . '/database/connection.db.php');
 <?php function drawLogin() { ?>
     <form action="/action_login.php" method="post" class="login">
         <label id="namelabel">Username:</label> <br>
-        <input type="text" name = "username" placeholder = "Username" id="name">
+        <input type="text" name = "username" placeholder = "Username" id="name" required>
         <label id="passlabel">Password:</label> <br>
-        <input type="password" name = "password" placeholder = "Password" id="pass">
+        <input type="password" name = "password" placeholder = "Password" id="pass" required>
         <input type="submit" value="ENTER">
     </form>
     </body>
@@ -78,13 +78,13 @@ require_once(__DIR__ . '/database/connection.db.php');
 <?php function drawRegister(){ ?>
     <form action = "/action_register.php" method ="post" class = "login">
         <label id="rnamelabel">Username:</label> <br>
-        <input type="text" name = "rname" id="rname">
+        <input type="text" name = "rname" id="rname" required>
         <label id="rmaillabel">E-mail:</label> <br>
-        <input type="text" name ="rmail" id="rmail">
+        <input type="text" name ="rmail" id="rmail" required>
         <label id="rpasslabel">Password:</label> <br>
-        <input type="password" name = "rpass" id="rpass">
+        <input type="password" name = "rpass" id="rpass" required>
         <label id="rpassrepeatlabel">Repeat Your Password:</label> <br>
-        <input type="password" name = "rpassrepeat" id="rpassrepeat">
+        <input type="password" name = "rpassrepeat" id="rpassrepeat" required>
         <input type="submit" value="ENTER">
     </form>
 </body>

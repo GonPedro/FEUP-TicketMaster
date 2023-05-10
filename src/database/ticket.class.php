@@ -108,5 +108,21 @@ class Ticket{
             return $tickets;
         } else return array();
     }
+
+    static function addAgent(PDO $db, int $ticket_id, int $agent_id){
+        $stmt = $db->prepare('INSERT INTO TicketAgent (ticketID, agentID) VALUES (?,?)');
+        $stmt->execute(array($ticket_id, $agent_id));
+        return;
+    }
+
+    static function getAgents(PDO $db, int $ticket_id) : ?array{
+        $stmt = $db->prepare('SELECT agentID
+        FROM TicketAgent
+        WHERE ticketID = ?');
+        $stmt->execute(array($ticket_id));
+        if($agents = $stmt->fetchAll()){
+            return $agents;
+        } else return array();
+    }
 }
 ?>

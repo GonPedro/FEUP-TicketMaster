@@ -86,7 +86,7 @@ CREATE TABLE Hashtag (
 CREATE TABLE Ticket (
     ticketID INTEGER PRIMARY KEY AUTOINCREMENT,
     clientID INTEGER NOT NULL,
-    departmentID INTEGER NOT NULL,
+    department TEXT NOT NULL,
     taskID INTEGER NOT NULL,
     status_name TEXT NOT NULL,
     title TEXT NOT NULL,
@@ -94,7 +94,7 @@ CREATE TABLE Ticket (
     da DATETIME NOT NULL,
 
     FOREIGN KEY (clientID) REFERENCES User(userID),
-    FOREIGN KEY (departmentID) REFERENCES Department(departmentID),
+    FOREIGN KEY (department) REFERENCES Department(name),
     FOREIGN KEY (taskID) REFERENCES Task(taskID),
     FOREIGN KEY (status_name) REFERENCES Status(name)
 );

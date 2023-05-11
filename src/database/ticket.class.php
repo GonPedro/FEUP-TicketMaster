@@ -25,7 +25,7 @@ class Ticket{
     }
 
     static function getTicket(PDO $db, int $id) : ?Ticket{
-        $stmt = $db->prepare('SELECT ticketID, clientID, departmentID, taskID, status_name, title, priority, da
+        $stmt = $db->prepare('SELECT ticketID, clientID, department, taskID, status_name, title, priority, da
         FROM Ticket
         Where ticketID = ?');
         $stmt->execute(array($id));
@@ -36,13 +36,6 @@ class Ticket{
             Where userID = ?');
             $stmt->execute(array($ticket['clientID']));
             $client_name = $stmt->fetch();
-
-            //get Department name
-            $stmt = $db->prepare('SELECT name
-            FROM Department
-            Where departmentID = ?');
-            $stmt->execute(array($ticket['departmentID']));
-            $department_name = $stmt->fetch();
             
             //get Ticket Hashtags
             $stmt = $db->prepare('SELECT hashtagID
@@ -82,13 +75,13 @@ class Ticket{
 
             //format date
             $date_time = new DateTime($ticket['da']);
-            $formated_date = $date_time->format('d/m/y H:i');
+            $formated_date = $date_time->format('Y-m-d H:i:s');
             return new Ticket(
                 $ticket['ticketID'],
                 $ticket['title'],
                 $ticket['client_name'],
                 $agents,
-                $department_name,
+                $department,
                 $hashtags,
                 $ticket['status_name'],
                 $ticket['taskID'],
@@ -99,13 +92,13 @@ class Ticket{
         } else return null;
     }
 
-    static function addTicket(PDO $db, int $client_id, string $title, int $department_id){
+    static function addTicket(PDO $db, int $client_id, string $title, string $department){
         date_default_timezone_set("Europe/Lisbon");
         $date = getDate();
         $date = date('Y-m-d H:i:s', $date);
-        $stmt = $db->prepare('INSERT INTO Ticket(clientID, departmentID, taskID, status_name, title, priority, da)
+        $stmt = $db->prepare('INSERT INTO Ticket(clientID, department, taskID, status_name, title, priority, da)
         VALUES (?,?,1,"open",?,1,?)');
-        $stmt->execute(array($client_id, $department_id, $title, $date));
+        $stmt->execute(array($client_id, $department, $title, $date));
         return;
     }
 

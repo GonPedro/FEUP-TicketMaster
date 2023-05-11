@@ -61,5 +61,6 @@ class User {
     WHERE userID = ?');
     $stmt->execute(array($user->firstname, $user->lastname, $user->username, $user->email, $user->id));
   }
+
 }
 ?>

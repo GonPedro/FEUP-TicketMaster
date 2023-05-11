@@ -91,7 +91,7 @@ CREATE TABLE Ticket (
     status_name TEXT NOT NULL,
     title TEXT NOT NULL,
     priority INTEGER NOT NULL,
-    da DATE NOT NULL,
+    da DATETIME NOT NULL,
 
     FOREIGN KEY (clientID) REFERENCES User(userID),
     FOREIGN KEY (departmentID) REFERENCES Department(departmentID),

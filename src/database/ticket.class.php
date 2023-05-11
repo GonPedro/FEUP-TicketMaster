@@ -100,9 +100,12 @@ class Ticket{
     }
 
     static function addTicket(PDO $db, int $client_id, string $title, int $department_id){
+        date_default_timezone_set("Europe/Lisbon");
+        $date = getDate();
+        $date = date('Y-m-d H:i:s', $date);
         $stmt = $db->prepare('INSERT INTO Ticket(clientID, departmentID, taskID, status_name, title, priority, da)
-        VALUES (?,?,1,"open",?,1,2222-22-22)');
-        $stmt->execute(array($client_id, $department_id, $title));
+        VALUES (?,?,1,"open",?,1,?)');
+        $stmt->execute(array($client_id, $department_id, $title, $date));
         return;
     }
 

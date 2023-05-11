@@ -56,11 +56,24 @@ class User {
     return User::getUser($db, $username, $password);
   }
 
+  static function promoteClient(PDO $db, int $user_id){
+    $stmt = $db->prepare('INSERT INTO Agent VALUES (?)');
+    $stmt->execute(array($user_id));
+  }
+
+  static function promoteAgent(PDO $db, int $user_id){
+    $stmt = $db->prepare('INSERT INTO Admin VALUES (?)');
+    $stmt->execute(array($user_id));
+  }
+
+
   function save(PDO $db){
     $stmt = $db->prepare('UPDATE User SET firstname = ?, lastname = ?, username = ?, email = ?
     WHERE userID = ?');
     $stmt->execute(array($user->firstname, $user->lastname, $user->username, $user->email, $user->id));
   }
+
+
 
 }
 ?>

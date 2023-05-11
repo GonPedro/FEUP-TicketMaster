@@ -33,7 +33,7 @@ class User {
   }
 
 
-  static function getUserFromID(PDO $db, int $id){
+  static function getUserFromID(PDO $db, int $id) : ?User{
     $stmt = $db->prepare('SELECT userID, firstname, lastname, username, email
       FROM User
       WHERE userID = ?');
@@ -62,5 +62,4 @@ class User {
     $stmt->execute(array($user->firstname, $user->lastname, $user->username, $user->email, $user->id));
   }
 }
-
 ?>

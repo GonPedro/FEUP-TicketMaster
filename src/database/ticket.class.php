@@ -112,6 +112,18 @@ class Ticket{
         } else return array();
     }
 
+
+    static function getTicketsFromDepartment(PDO $db, string $department) : ?array{
+        $stmt = $db->prepare('SELECT ticketID, title
+        FROM Ticket
+        where department = ?');
+        $stmt->execute(array($department));
+        if($tickets = $stmt->fetchAll()){
+            return $tickets;
+        } else return array();
+    }
+
+
     static function addAgent(PDO $db, int $ticket_id, int $agent_id){
         $stmt = $db->prepare('INSERT INTO TicketAgent (ticketID, agentID) VALUES (?,?)');
         $stmt->execute(array($ticket_id, $agent_id));

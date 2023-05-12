@@ -15,6 +15,19 @@ class User {
       $this->email = $email;
     }
 
+  
+
+  static function getName(PDO $db, int $id) : ?string{
+    $stmt = $db->prepare('SELECT username
+    FROM User
+    WHERE userID = ?');
+    $stmt->execute(array($id));
+    if($user = $stmt->fetch()){
+      return $user;
+    }
+  }
+
+
 
   static function getUser(PDO $db, string $username, string $password) : ?User {
     $stmt = $db->prepare('SELECT userID, firstname, lastname, username, email

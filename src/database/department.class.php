@@ -46,4 +46,10 @@ class Department{
         else return null;
     }
 
+    static function addDepartment(PDO $db, string $name, int $creator){
+        $stmt = $db->prepare('INSERT INTO Department(adminID, name) VALUES (?,?)');
+        $stmt->execute(array($creator, $name));
+        return;
+    }
+
 }

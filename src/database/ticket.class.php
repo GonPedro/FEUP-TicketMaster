@@ -113,11 +113,30 @@ class Ticket{
         } else return array();
     }
 
+
+    static function getTicketsFromDepartment(PDO $db, string $department) : ?array{
+        $stmt = $db->prepare('SELECT ticketID, title
+        FROM Ticket
+        where department = ?');
+        $stmt->execute(array($department));
+        if($tickets = $stmt->fetchAll()){
+            return $tickets;
+        } else return array();
+    }
+
+
     static function addAgent(PDO $db, int $ticket_id, int $agent_id){
+        $stmt = $db->prepare('SELECT agentID
+        FROM TicketAgent
+        WHERE ticketID = ?');
+        $stmt->execute(array($ticket_id));
+        if(!$agent = $stmt->fetch()){
+            Ticket::changeStatus($db, $ticket_id, "assigned");
+        }
         $stmt = $db->prepare('INSERT INTO TicketAgent (ticketID, agentID) VALUES (?,?)');
         $stmt->execute(array($ticket_id, $agent_id));
-        return;
     }
+
 
     static function getAgents(PDO $db, int $ticket_id) : ?array{
         $stmt = $db->prepare('SELECT agentID
@@ -127,6 +146,26 @@ class Ticket{
         if($agents = $stmt->fetchAll()){
             return $agents;
         } else return array();
+    }
+
+    static function addMessage(PDO $db, int $ticket_id, int $client_id, string $content){
+        date_default_timezone_set("Europe/Lisbon");
+        $date = getDate();
+        $date = date('Y-m-d H:i:s', $date);
+        $stmt = $db->prepare('INSERT INTO Message (userID,ticketID,da,content) VALUES (?,?,?,?)');
+        $stmt->execute(array($client_id, $ticket_id, $date, $content));
+        return;
+    }
+
+    static function changeDepartment(PDO $db, int $ticket_id, string $department){
+        $stmt = $db->prepare('UPDATE Ticket SET department = ?
+        WHERE ticketID = ?');
+        $stmt->execute(array($department, $ticket_id));
+    }
+
+    static function changeStatus(PDO $db, int $ticket_id, string $status){
+        $stmt = $db->prepare('UPDATE Ticket SET status_name = ?');
+        $stmt->execute(array($status));
     }
 }
 ?>

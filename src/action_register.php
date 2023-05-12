@@ -29,13 +29,10 @@ if(preg_match($white_space_regex,$_POST['rmail']) == 1){
     $session->addMessage('failure', 'No White spaces');
 }
 
-
 if(preg_match($white_space_regex,$_POST['rpass']) == 1){
     $flag = 0;
     $session->addMessage('failure', 'No White spaces');
 }
-
-
 
 if($_POST['rpass'] != $_POST['rpassrepeat']){
     $flag = 0;

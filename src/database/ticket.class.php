@@ -7,11 +7,10 @@ class Ticket{
     public string $department;
     public array $hashtags;
     public string $status;
-    public int $task;
     public int $priority;
     public DateTime $date;
 
-    public function __construct(int $id, string $title, int $client_name , array $agents, string $department, array $hashtags, string $status, int $task, int $priority, DateTime $date){
+    public function __construct(int $id, string $title, int $client_name , array $agents, string $department, array $hashtags, string $status, int $priority, DateTime $date){
         $this->id = $id;
         $this->title = $title;
         $this->client_name = $client_name;
@@ -19,13 +18,12 @@ class Ticket{
         $this->department = $department;
         $this->hashtags = $hashtags;
         $this->status = $status;
-        $this->task = $task;
         $this->priority = $priority;
         $this->date = $date;
     }
 
     static function getTicket(PDO $db, int $id) : ?Ticket{
-        $stmt = $db->prepare('SELECT ticketID, clientID, department, taskID, status_name, title, priority, da
+        $stmt = $db->prepare('SELECT ticketID, clientID, department, status_name, title, priority, da
         FROM Ticket
         Where ticketID = ?');
         $stmt->execute(array($id));
@@ -84,7 +82,6 @@ class Ticket{
                 $department,
                 $hashtags,
                 $ticket['status_name'],
-                $ticket['taskID'],
                 $ticket['priority'],
                 $formated_date
         
@@ -96,8 +93,8 @@ class Ticket{
         date_default_timezone_set("Europe/Lisbon");
         $date = getDate();
         $date = date('Y-m-d H:i:s', $date);
-        $stmt = $db->prepare('INSERT INTO Ticket(clientID, department, taskID, status_name, title, priority, da)
-        VALUES (?,?,1,"open",?,1,?)');
+        $stmt = $db->prepare('INSERT INTO Ticket(clientID, department, status_name, title, priority, da)
+        VALUES (?,?,"open",?,1,?)');
         $stmt->execute(array($client_id, $department, $title, $date));
         //probably still need to insert hashtags into database as well, dont know how i will do that yet
         return;

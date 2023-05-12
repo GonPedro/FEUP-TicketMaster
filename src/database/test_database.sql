@@ -55,10 +55,12 @@ CREATE TABLE FAQ (
 
 CREATE TABLE Task (
     taskID INTEGER PRIMARY KEY AUTOINCREMENT,
-    agentID INTEGER NOT NULL,
+    ticketID INTEGER,
+    agentID INTEGER,
     content TEXT NOT NULL,
 
-    FOREIGN KEY (agentID) REFERENCES Agent(userID)
+    FOREIGN KEY (agentID) REFERENCES Agent(userID),
+    FOREIGN KEY (ticketID) REFERENCES Ticket(ticketID)
 );
 
 CREATE TABLE Status (
@@ -89,7 +91,6 @@ CREATE TABLE Ticket (
     ticketID INTEGER PRIMARY KEY AUTOINCREMENT,
     clientID INTEGER NOT NULL,
     department TEXT NOT NULL,
-    taskID INTEGER NOT NULL,
     status_name TEXT NOT NULL,
     title TEXT NOT NULL,
     priority INTEGER NOT NULL,

@@ -11,9 +11,21 @@ require_once(__DIR__ . '/database/user.class.php');
 
 $db = getDatabaseConnection();
 
+$flag = 1;
+
+if(preg_match($white_space_regex, $_POST['username']) == 1){
+    $flag = 0;
+    $session->addMessage('failure', 'No White spaces');
+}
+
+if(User::findName($db, $_POST['username'])){
+    $flag = 0;
+    $session->addMessage('failure', 'Username already exists');
+}
+
 $user = User::getUserFromID($db, $session->getID());
 
-if($user){
+if($user and $flag == 1){
     $user->username = $_POST['username'];
     $user->firstname = $_POST['firstname'];
     $user->lastname = $_POST['lastname'];

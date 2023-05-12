@@ -15,8 +15,6 @@ class User {
       $this->email = $email;
     }
 
-  
-
   static function getName(PDO $db, int $id) : ?string{
     $stmt = $db->prepare('SELECT username
     FROM User

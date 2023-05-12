@@ -15,7 +15,27 @@ require_once(__DIR__. '/database/user.class.php');
 
 $password_regex = "^(.{0,7}|[^0-9]*|[^A-Z]*|[^a-z]*|[a-zA-Z0-9]*)$";
 
+$white_space_regex = '/\s/';
+
 $flag = 1;
+
+if(preg_match($white_space_regex,$_POST['rname']) == 1){
+    $flag = 0;
+    $session->addMessage('failure', 'No White spaces');
+}
+
+if(preg_match($white_space_regex,$_POST['rmail']) == 1){
+    $flag = 0;
+    $session->addMessage('failure', 'No White spaces');
+}
+
+
+if(preg_match($white_space_regex,$_POST['rpass']) == 1){
+    $flag = 0;
+    $session->addMessage('failure', 'No White spaces');
+}
+
+
 
 if($_POST['rpass'] != $_POST['rpassrepeat']){
     $flag = 0;

@@ -19,6 +19,11 @@ $white_space_regex = '/\s/';
 
 $flag = 1;
 
+if(User::findName($db, $_POST['rname'])){
+    $flag = 0;
+    $session->addMessage('failure', 'Username already exists');
+}
+
 if(preg_match($white_space_regex,$_POST['rname']) == 1){
     $flag = 0;
     $session->addMessage('failure', 'No White spaces');

@@ -27,6 +27,26 @@ class User {
     }
   }
 
+  static function getID(PDO $db, string $username) : ?int{
+    $stmt = $db->prepare('SELECT userID
+    FROM User
+    WHERE username = ?');
+    $stmt->execute(array($username));
+    if($user = $stmt->fetch()){
+      return $user;
+    }
+  }
+
+  static function findName(PDO $db, string $username) : ?bool{
+    $stmt = $db->prepare('SELECT userID
+    FROM User
+    WHERE username = ?');
+    $stmt->execute(array($username));
+    if($user = $stmt->fetch()){
+      return true;
+    } else return false;
+  }
+
 
 
   static function getUser(PDO $db, string $username, string $password) : ?User {

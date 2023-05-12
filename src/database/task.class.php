@@ -30,4 +30,10 @@ class Task{
             );
         }
     }
+
+    static function assignAgent(PDO $db, int $agent, string $content){
+        $agent_id = User::getID($db, $agent);
+        $stmt = $db->prepare('INSERT INTO Task(agentID, content) VALUES (?,?)');
+        $stmt->execute(array($agent_id ,$content));
+    }
 }

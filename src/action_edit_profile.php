@@ -18,6 +18,22 @@ if(preg_match($white_space_regex, $_POST['username']) == 1){
     $session->addMessage('failure', 'No White spaces');
 }
 
+if(preg_match($white_space_regex, $_POST['firstname']) == 1){
+    $flag = 0;
+    $session->addMessage('failure', 'No White spaces');
+}
+
+if(preg_match($white_space_regex, $_POST['lastname']) == 1){
+    $flag = 0;
+    $session->addMessage('failure', 'No White spaces');
+}
+
+if(preg_match($white_space_regex, $_POST['email']) == 1){
+    $flag = 0;
+    $session->addMessage('failure', 'No White spaces');
+}
+
+
 if(User::findName($db, $_POST['username'])){
     $flag = 0;
     $session->addMessage('failure', 'Username already exists');

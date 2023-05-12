@@ -99,6 +99,7 @@ class Ticket{
         $stmt = $db->prepare('INSERT INTO Ticket(clientID, department, taskID, status_name, title, priority, da)
         VALUES (?,?,1,"open",?,1,?)');
         $stmt->execute(array($client_id, $department, $title, $date));
+        //probably still need to insert hashtags into database as well, dont know how i will do that yet
         return;
     }
 

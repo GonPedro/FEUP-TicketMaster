@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+    <title>Create - Ticketinator</title>
+    <meta charset="UTF-8">
+    <link href="style.css" rel="stylesheet">
+    <link href="structure.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="topbar">
+        <button id="mticket">MY TICKETS</button>
+        <button id="nticket">NEW TICKET</button>
+        <button id="logout">LOG OUT</button>
+    </div>
+
+    <div class="config">
+        <label id="titlelabel">Ticket Name:</label>
+        <input type="text" id="title">
+        <label id="departmentlabel">Department:</label>
+        <select id="department">
+            <option value = "none">-- Select the Department --</option>
+            <option value = "logistics">Logistics</option>
+            <option value = "website">Website</option>
+        </select>
+
+        <input type="submit" value="CREATE">
+
+    </div>
+</body>
+
+</html>

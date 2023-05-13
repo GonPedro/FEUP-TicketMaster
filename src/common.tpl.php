@@ -9,12 +9,12 @@ require_once(__DIR__ . '/database/connection.db.php');
 ?>
 
 
-<?php function setHeader() { ?>
+<?php function setHeader(string $topic) { ?>
     <!DOCTYPE html>
     <html lang="en-US">
     
     <head>
-        <title>Ticketinator</title>
+        <title><?=$topic?> - Ticketinator</title>
         <meta charset="UTF-8">
         <link href="style.css" rel="stylesheet">
         <link href="structure.css" rel="stylesheet">
@@ -39,7 +39,9 @@ require_once(__DIR__ . '/database/connection.db.php');
     </div>
 <?php } ?> 
 
-<?php function drawTickets(Session $session){ ?>
+
+
+<?php function drawTopbar(){ ?>
     <div class="topbar">
         <a href = "index.php"><button id="mticket">MY TICKETS</button></a>
         <button id="nticket">NEW TICKET</button>
@@ -47,7 +49,10 @@ require_once(__DIR__ . '/database/connection.db.php');
             <button id="logout">LOG OUT</button>
         </form>
     </div>
+<?php } ?>
 
+
+<?php function drawTickets(Session $session){ ?>
     <div class="list">
         <?php
         $db = getDatabaseConnection();

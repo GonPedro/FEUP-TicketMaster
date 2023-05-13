@@ -9,8 +9,14 @@ $db = getDatabaseConnection();
 require_once(__DIR__ . '/common.tpl.php');
 
 
-setHeader();
-if(!$session->isLoggedin()) drawStart();
-else drawTickets($session);
+if(!$session->isLoggedin()){
+    setHeader("Start");
+    drawStart();
+} 
+else{
+    setHeader("Tickets");
+    drawTopbar();
+    drawTickets($session);
+}
 ?>
 

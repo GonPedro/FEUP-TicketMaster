@@ -5,6 +5,7 @@ declare(strict_types = 1);
 require_once(__DIR__ . '/session.php');
 require_once(__DIR__ . '/database/ticket.class.php');
 require_once(__DIR__ . '/database/connection.db.php');
+require_once(__DIR__ . '/database/department.class.php');
 
 ?>
 
@@ -44,7 +45,7 @@ require_once(__DIR__ . '/database/connection.db.php');
 <?php function drawTopbar(){ ?>
     <div class="topbar">
         <a href = "index.php"><button id="mticket">MY TICKETS</button></a>
-        <button id="nticket">NEW TICKET</button>
+        <a href = "create.php"><button id="nticket">NEW TICKET</button></a>
         <form action = "/action_logout.php" method = "post" class = "logout">
             <button id="logout">LOG OUT</button>
         </form>
@@ -94,5 +95,34 @@ require_once(__DIR__ . '/database/connection.db.php');
     </form>
 </body>
 </html>
+<?php } ?>
+
+
+
+<?php function drawDepartment(Department $department){ ?>
+    <option value = <?=$department->name?>><?=$department->name?></option>
+<?php } ?> 
+
+
+<?php function drawTicketForm(){ ?>
+    <form action = "/action_create_ticket.php" method ="post" class = "create">
+        <div class="config"> 
+            <label id="titlelabel">Ticket Name:</label>
+            <input type="text" name = "title" id="title">
+            <label id="departmentlabel">Department:</label>
+            <select id="department" name = "department">
+                <option value = "none">-- Select the Department --</option>
+                <?php
+                $db = getDatabaseConnection();
+                $departments = Department::getDepartments($db);
+                foreach($departments as $department){ ?>
+                    <option value = <?=$department->name?>><?=$department->name?></option>
+                <?php } ?>
+            </select>
+            <input type="submit" value="CREATE">
+        </div>
+    </form>
+</body>
+
 <?php } ?>
 

@@ -98,7 +98,6 @@ CREATE TABLE Ticket (
 
     FOREIGN KEY (clientID) REFERENCES User(userID),
     FOREIGN KEY (department) REFERENCES Department(name),
-    FOREIGN KEY (taskID) REFERENCES Task(taskID),
     FOREIGN KEY (status_name) REFERENCES Status(name)
 );
 

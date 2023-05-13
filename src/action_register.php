@@ -55,3 +55,5 @@ if((preg_match($password_regex, $_POST['rpass']) == 0) and $flag == 1){
 } else {
     header('Location: ' . $_SERVER['HTTP_REFERER']);
 }
+
+?>

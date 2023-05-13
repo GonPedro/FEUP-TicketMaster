@@ -87,14 +87,32 @@ class User {
     return User::getUser($db, $username, $password);
   }
 
-  static function promoteClient(PDO $db, int $user_id){
-    $stmt = $db->prepare('INSERT INTO Agent VALUES (?)');
-    $stmt->execute(array($user_id));
+  static function promote(PDO $db, int $user_id, string $role){
+    if($role == "agent"){
+      $stmt = $db->prepare('INSERT INTO Agent VALUES (?)');
+      $stmt->execute(array($user_id));
+    } else if($role == "admin"){
+      $stmt = $db->prepare('INSERT INTO Admin VALUES (?)');
+      $stmt->execute(array($user_id));
+    }
   }
 
-  static function promoteAgent(PDO $db, int $user_id){
-    $stmt = $db->prepare('INSERT INTO Admin VALUES (?)');
+  static function depromote(PDO $db, int $user_id){
+    //check rank
+    $stmt=$db->prepare('SELECT adminID
+    FROM Admin
+    where adminID = ?');
     $stmt->execute(array($user_id));
+    if($admin = $stmt->fetch()){
+      $stmt = $db->prepare('DELETE FROM Admin
+      where adminID = ?');
+      $stmt->execute(array($user_id));
+    } else {
+      $stmt = $db->prepare('DELETE FROM Agent
+      where agentID = ?');
+      $stmt->execute(array($user_id));
+    }
+    return;
   }
 
 

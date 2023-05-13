@@ -36,4 +36,11 @@ class Task{
         $stmt = $db->prepare('INSERT INTO Task(agentID, content) VALUES (?,?)');
         $stmt->execute(array($agent_id ,$content));
     }
+
+    static function assignTicket(PDO $db, int $ticket_id, string $content){
+        $stmt = $db->prepare('INSERT INTO Task(ticketID, content) VALUES (?,?)');
+        $stmt->execute(array($ticket_id ,$content));
+    }
 }
+
+?>

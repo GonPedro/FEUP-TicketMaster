@@ -145,14 +145,6 @@ class Ticket{
         } else return array();
     }
 
-    static function addMessage(PDO $db, int $ticket_id, int $client_id, string $content){
-        date_default_timezone_set("Europe/Lisbon");
-        $date = getDate();
-        $date = date('Y-m-d H:i:s', $date);
-        $stmt = $db->prepare('INSERT INTO Message (userID,ticketID,da,content) VALUES (?,?,?,?)');
-        $stmt->execute(array($client_id, $ticket_id, $date, $content));
-        return;
-    }
 
     static function changeDepartment(PDO $db, int $ticket_id, string $department){
         $stmt = $db->prepare('UPDATE Ticket SET department = ?

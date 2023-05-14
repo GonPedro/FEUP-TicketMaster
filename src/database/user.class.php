@@ -55,7 +55,7 @@ class User {
     $stmt->execute(array(strtolower($username), sha1($password)));
     if($user = $stmt->fetch()){
       return new User(
-        $user['userID'],
+        (int)$user['userID'],
         $user['firstname'],
         $user['lastname'],
         $user['username'],

@@ -21,9 +21,9 @@ class Department{
         $stmt->execute();
         $departments = array();
         while($department = $stmt->fetch()){
-            $name = User::getName($db, $department['adminID']);
+            $name = User::getName($db, (int)$department['adminID']);
             $departments[] = new Department(
-                $department['departmentID'],
+                (int)$department['departmentID'],
                 $name,
                 $department['name']
             );
@@ -37,9 +37,9 @@ class Department{
         WHERE departmentID = ?');
         $stmt->execute(array($id));
         if($department = $stmt->fetch()){
-            $name = User::getName($db, $department['adminID']);
+            $name = User::getName($db, (int)$department['adminID']);
             return new Department(
-                $department['departmentID'],
+                (int)$department['departmentID'],
                 $name,
                 $department['name']
             );
@@ -47,7 +47,7 @@ class Department{
         else return null;
     }
 
-    static function addDepartment(PDO $db, string $name, int $creator){
+    static function addDepartment(PDO $db, int $creator, string $name){
         $stmt = $db->prepare('INSERT INTO Department(adminID, name) VALUES (?,?)');
         $stmt->execute(array($creator, $name));
         return;

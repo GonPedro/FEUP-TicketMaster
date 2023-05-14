@@ -51,7 +51,7 @@ if((preg_match($password_regex, $_POST['rpass']) == 0) and $flag == 1){
     $session->setName($user->username);
     $session->addMessage('sucess', 'register successfull');
 
-    header('Location: ' . index.php);
+    header('Location: /index.php');
 } else {
     header('Location: ' . $_SERVER['HTTP_REFERER']);
 }

@@ -7,11 +7,11 @@
     $session = new Session();
 
     require_once(__DIR__ . '/database/connection.db.php');
-    require_once(__DIR__ . '/database/message.class.php');
+    require_once(__DIR__ . '/database/department.class.php');
 
     $db = getDatabaseConnection();
 
-    Message::addMessage($db, $_GET['id'], $session->getID(), $_POST['message']);
+    Department::addDepartment($db, $session->getID(), $_POST['name']);
 
     header('Location: ' . $_SERVER['HTTP_REFERER']);
 

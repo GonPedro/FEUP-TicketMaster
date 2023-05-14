@@ -72,7 +72,7 @@ class User {
     $stmt->execute(array($id));
     if($user = $stmt->fetch()){
       return new User(
-        $user['userID'],
+        (int)$user['userID'],
         $user['firstname'],
         $user['lastname'],
         $user['username'],

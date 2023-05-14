@@ -94,7 +94,7 @@ CREATE TABLE Ticket (
     status_name TEXT NOT NULL,
     title TEXT NOT NULL,
     priority INTEGER NOT NULL,
-    da DATETIME NOT NULL,
+    da TEXT NOT NULL,
 
     FOREIGN KEY (clientID) REFERENCES User(userID),
     FOREIGN KEY (department) REFERENCES Department(name),
@@ -123,7 +123,7 @@ CREATE TABLE Message (
     messageID INTEGER PRIMARY KEY AUTOINCREMENT,
     userID INTEGER NOT NULL,
     ticketID INTEGER NOT NULL,
-    da DATETIME NOT NULL,
+    da TEXT NOT NULL,
     content TEXT NOT NULL,
 
     FOREIGN KEY (userID) REFERENCES User(userID),
@@ -134,7 +134,7 @@ CREATE TABLE Change (
     changeID INTEGER PRIMARY KEY AUTOINCREMENT,
     agentID INTEGER NOT NULL,
     ticketID INTEGER NOT NULL,
-    da DATETIME NOT NULL,
+    da TEXT NOT NULL,
     content TEXT NOT NULL,
 
     FOREIGN KEY (agentID) REFERENCES Agent(userID),

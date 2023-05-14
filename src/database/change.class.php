@@ -1,11 +1,13 @@
 <?php
+declare(strict_types = 1);
+
 class Change{
     public string $agent;
     public string $content;
-    public DateTime $date;
+    public string $date;
 
 
-    public function __construct(string $agent, string $content, DateTime $date){
+    public function __construct(string $agent, string $content, string $date){
         $this->agent = $agent;
         $this->content = $content;
         $this->date = $date;
@@ -19,10 +21,6 @@ class Change{
 
         $changes = array();
         while($change = $stmt->fetch()){
-            //format date
-            $date_time = new DateTime($ticket['da']);
-            $formated_date = $date_time->format('Y-m-d H:i:s');
-
             //get agent username
             $sub = $db->prepare('SELECT username
             FROM User
@@ -33,7 +31,7 @@ class Change{
             $changes[] = new Change(
                 $agent,
                 $change['content'],
-                $formated_date
+                $change['da']
             );
         }
         return $changes;

@@ -1,4 +1,6 @@
 <?php
+declare(strict_types = 1);
+
 class Ticket{
     public int $id;
     public string $title;
@@ -8,9 +10,9 @@ class Ticket{
     public array $hashtags;
     public string $status;
     public int $priority;
-    public DateTime $date;
+    public string $date;
 
-    public function __construct(int $id, string $title, int $client_name , array $agents, string $department, array $hashtags, string $status, int $priority, DateTime $date){
+    public function __construct(int $id, string $title, int $client_name , array $agents, string $department, array $hashtags, string $status, int $priority, string $date){
         $this->id = $id;
         $this->title = $title;
         $this->client_name = $client_name;
@@ -70,10 +72,6 @@ class Ticket{
                 $agents[$index] = $a['username'];
                 $index = $index + 1;
             }
-
-            //format date
-            $date_time = new DateTime($ticket['da']);
-            $formated_date = $date_time->format('Y-m-d H:i:s');
             return new Ticket(
                 $ticket['ticketID'],
                 $ticket['title'],
@@ -83,16 +81,14 @@ class Ticket{
                 $hashtags,
                 $ticket['status_name'],
                 $ticket['priority'],
-                $formated_date
+                $ticket['da']
         
             );
         } else return null;
     }
 
     static function addTicket(PDO $db, int $client_id, string $title, string $department){
-        date_default_timezone_set("Europe/Lisbon");
-        $date = getDate();
-        $date = date('Y-m-d H:i:s', $date);
+        $date = date("Y-m-d H:i");
         $stmt = $db->prepare('INSERT INTO Ticket(clientID, department, status_name, title, priority, da)
         VALUES (?,?,"open",?,1,?)');
         $stmt->execute(array($client_id, $department, $title, $date));

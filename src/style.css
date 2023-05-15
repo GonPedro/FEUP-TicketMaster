@@ -1,6 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Georama&display=swap');
 body {
     background-color: #4F4F4F;
+}
+
+label,
+p {
     font-family: "Georama";
 }
 
@@ -17,11 +21,11 @@ input:focus {
 }
 
 .login input[type="submit"],
-.config input[type="submit"] {
+.config input[type="submit"],
+.msginput input[type="submit"] {
     background-color: #D9D9D9;
     color: #3B3B3B;
     border: none;
-    /* font-size: 35px; */
     padding: 0%;
     margin: 0 0;
     font-family: "Georama";
@@ -78,4 +82,57 @@ select {
 .ticket label[id="title"] {
     color: #D9D9D9;
     font-size: 35px;
+}
+
+.msginput input[type="text"] {
+    padding: 0 0 0 0;
+    color: #D9D9D9;
+    font-family: "Georama";
+    height: 100%;
+    font-size: 20px;
+    border: solid 0.3vh #D9D9D9;
+    background-color: #3B3B3B;
+    border-radius: 8px;
+    padding-left: 15px;
+}
+
+.msginput input[type="submit"] {
+    font-size: 30px;
+}
+
+.msg {
+    word-wrap: break-word;
+    border-radius: 8px;
+    padding-bottom: 5px;
+    background-color: #3B3B3B;
+    color: #D9D9D9;
+}
+
+.msg p {
+    word-wrap: break-word;
+    padding-left: 10px;
+    font-size: 20px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin-bottom: 0;
+    margin-top: 0;
+    text-align: justify;
+    text-justify: inter-word;
+}
+
+.msg label {
+    padding-left: 10px;
+    font-size: 15px;
+    text-align: right;
+    padding-right: 10px;
+}
+
+.extradata {
+    display: flex;
+    justify-content: space-between;
+}
+
+.msg[id="yours"] {
+    background-color: #D9D9D9;
+    color: #3B3B3B;
 }

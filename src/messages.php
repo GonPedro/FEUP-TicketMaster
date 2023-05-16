@@ -17,7 +17,13 @@ require_once(__DIR__ . "/common.tpl.php");
 require_once(__DIR__ . "/message.tpl.php");
 
 setHeader("Messages");
-drawTopbar();
-drawMessages($session, $messages);
+
+if($session->isLoggedin()){
+    drawTopbar();
+    drawMessages($session, $messages);
+} else {
+    header("Location : /index.php");
+}
+
 
 ?>

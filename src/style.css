@@ -89,6 +89,7 @@ select {
 .ticket label {
     color: #D9D9D9;
     font-family: "Georama";
+    overflow: hidden;
 }
 
 .ticket label[id="title"] {

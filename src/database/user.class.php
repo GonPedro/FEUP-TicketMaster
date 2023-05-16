@@ -88,23 +88,44 @@ class User {
     return User::getUser($db, $username, $password);
   }
 
+
+  static function getRole(PDO $db, int $user_id) : ?string{
+    $stmt=$db->prepare('SELECT userID
+    FROM Admin
+    where userID = ?');
+    $stmt->execute(array($user_id));
+    if($stmt->fetch()){
+      return "admin";
+    }
+
+    $stmt=$db->prepare('SELECT userID
+    FROM Agent
+    where userID = ?');
+    $stmt->execute(array($user_id));
+
+    if($stmt->fetch()){
+      return "agent";
+    } else {
+      return "client";
+    }
+
+  }
   static function promote(PDO $db, int $user_id, string $role){
     if($role == "agent"){
       $stmt = $db->prepare('INSERT INTO Agent VALUES (?)');
       $stmt->execute(array($user_id));
     } else if($role == "admin"){
+      if(User::getRole($db, $user_id) == "client"){
+        $stmt = $db->prepare('INSERT INTO Agent VALUES (?)');
+        $stmt->execute(array($user_id));
+      }
       $stmt = $db->prepare('INSERT INTO Admin VALUES (?)');
       $stmt->execute(array($user_id));
     }
   }
 
   static function depromote(PDO $db, int $user_id){
-    //check rank
-    $stmt=$db->prepare('SELECT adminID
-    FROM Admin
-    where adminID = ?');
-    $stmt->execute(array($user_id));
-    if($admin = $stmt->fetch()){
+    if(User::getRole($db, $user_id) == "admin"){
       $stmt = $db->prepare('DELETE FROM Admin
       where adminID = ?');
       $stmt->execute(array($user_id));

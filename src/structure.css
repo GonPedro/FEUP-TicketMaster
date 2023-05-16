@@ -4,7 +4,8 @@ body {
 }
 
 .config,
-.profile {
+.profile,
+.profileedit {
     position: absolute;
     max-width: 100%;
     max-height: calc(100% - 12em);
@@ -35,7 +36,8 @@ body {
 .login input,
 .config input,
 select,
-.profile button {
+.profile button,
+.profileedit input {
     position: absolute;
     left: 20%;
     width: 60%;
@@ -50,7 +52,10 @@ select,
 .login input[type="text"],
 .login label,
 .login input[type="password"],
-.config label {
+.config label,
+.profileedit input[type="text"],
+.profileedit input[type="password"],
+.profileedit label {
     position: absolute;
     height: 8%;
     width: 60%;
@@ -58,6 +63,7 @@ select,
 }
 
 .config label {
+    position: absolute;
     left: 10%
 }
 
@@ -190,22 +196,21 @@ select {
     margin-bottom: 1vh;
 }
 
-.profile {
+.profile img,
+.profileedit img {
     position: absolute;
-    -ms-transform: translate(-50%, -50%);
-    transform: translate(-50%, -50%);
-    top: 50%;
-    left: 50%;
-}
-
-.profile img {
-    position: absolute;
-    top: 4vh;
+    top: 3vh;
     left: 50%;
     height: auto;
     width: 33%;
     -ms-transform: translate(-50%, 0);
     transform: translate(-50%, 0);
+    object-fit: cover;
+    aspect-ratio: 1;
+}
+
+.profileedit img {
+    width: 20%;
 }
 
 .profile button {
@@ -236,6 +241,10 @@ select {
 .login input[value="ENTER"],
 .profile button {
     top: 72.5%;
+}
+
+.profileedit input[type="submit"] {
+    top: 85%
 }
 
 .login input[id="name"] {
@@ -319,22 +328,54 @@ select {
 }
 
 .profile label[id="username"] {
-    top: 35%
+    top: 37.5%
 }
 
 .profile label[id="fullname"] {
-    top: 42.5%
+    top: 45%
 }
 
 .profile label[id="email"] {
-    top: 50%
+    top: 52.5%
 }
 
 .profile label[id="role"] {
-    top: 57.5%
+    top: 60%
 }
 
 .profile label[id="closedticks"] {
-    top: 57.5%;
+    top: 60%;
     left: 50%;
+}
+
+.profileedit label[id="usernamelabel"] {
+    top: 22.5%
+}
+
+.profileedit input[id="username"] {
+    top: 27.5%
+}
+
+.profileedit label[id="fullnamelabel"] {
+    top: 37.5%
+}
+
+.profileedit input[id="fullname"] {
+    top: 42.5%
+}
+
+.profileedit label[id="emaillabel"] {
+    top: 52.5%
+}
+
+.profileedit input[id="email"] {
+    top: 57.5%
+}
+
+.profileedit label[id="passwordlabel"] {
+    top: 67.5%
+}
+
+.profileedit input[id="password"] {
+    top: 72.5%
 }

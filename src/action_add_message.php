@@ -11,7 +11,7 @@
 
     $db = getDatabaseConnection();
 
-    Message::addMessage($db, $_GET['id'], $session->getID(), $_POST['message']);
+    Message::addMessage($db, (int)$_GET['id'], $session->getID(), $_POST['message']);
 
     header('Location: ' . $_SERVER['HTTP_REFERER']);
 

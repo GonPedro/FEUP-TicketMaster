@@ -3,7 +3,8 @@ body {
     background-color: #4F4F4F;
 }
 
-.config {
+.config,
+.profile {
     position: absolute;
     max-width: 100%;
     max-height: calc(100% - 12em);
@@ -33,7 +34,8 @@ body {
 
 .login input,
 .config input,
-select {
+select,
+.profile button {
     position: absolute;
     left: 20%;
     width: 60%;
@@ -188,8 +190,38 @@ select {
     margin-bottom: 1vh;
 }
 
+.profile {
+    position: absolute;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    top: 50%;
+    left: 50%;
+}
+
+.profile img {
+    position: absolute;
+    top: 4vh;
+    left: 50%;
+    height: auto;
+    width: 33%;
+    -ms-transform: translate(-50%, 0);
+    transform: translate(-50%, 0);
+}
+
+.profile button {
+    position: absolute;
+    -ms-transform: translate(-50%, 0);
+    transform: translate(-50%, 0);
+    left: 50%;
+}
+
 .msg[id="yours"] {
     margin-left: 5%;
+}
+
+.profile label {
+    position: absolute;
+    left: 2vw
 }
 
 .login input[value="LOGIN"] {
@@ -201,7 +233,8 @@ select {
 }
 
 .login input[value="SIGNUP"],
-.login input[value="ENTER"] {
+.login input[value="ENTER"],
+.profile button {
     top: 72.5%;
 }
 
@@ -283,4 +316,25 @@ select {
 
 .config select[id="priority"] {
     top: 64%
+}
+
+.profile label[id="username"] {
+    top: 35%
+}
+
+.profile label[id="fullname"] {
+    top: 42.5%
+}
+
+.profile label[id="email"] {
+    top: 50%
+}
+
+.profile label[id="role"] {
+    top: 57.5%
+}
+
+.profile label[id="closedticks"] {
+    top: 57.5%;
+    left: 50%;
 }

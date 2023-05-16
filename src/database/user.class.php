@@ -162,9 +162,15 @@ class User {
 
 
   function save(PDO $db, string $password){
-    $stmt = $db->prepare('UPDATE User SET fullname = ?, username = ?, email = ?, password = ?
-    WHERE userID = ?');
-    $stmt->execute(array($user->fullname, $user->username, $user->email, sha1($password), $user->id));
+    if(strcmp($password, "") == 0){
+      $stmt = $db->prepare('UPDATE User SET fullname = ?, username = ?, email = ?
+      WHERE userID = ?');
+      $stmt->execute(array($this->fullname, $this->username, $this->email, $this->id));
+    } else {
+      $stmt = $db->prepare('UPDATE User SET fullname = ?, username = ?, email = ?, password = ?
+      WHERE userID = ?');
+      $stmt->execute(array($this->fullname, $this->username, $this->email, sha1($password), $this->id));
+    }
   }
 
 

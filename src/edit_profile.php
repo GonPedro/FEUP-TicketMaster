@@ -17,10 +17,10 @@ $user = User::getUserFromID($db, (int)$_GET['id']);
 require_once(__DIR__ . "/user.tpl.php");
 require_once(__DIR__ . "/common.tpl.php");
 
-setHeader("Profile");
+setHeader("Edit Profile");
 if($session->isLoggedin()){
     drawTopbar();
-    drawProfile($db, $session, $user);
+    drawEditProfile($db, $user);
 } else {
     header("Location : /index.php");
 }

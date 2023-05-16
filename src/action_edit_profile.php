@@ -13,26 +13,12 @@ $db = getDatabaseConnection();
 
 $flag = 1;
 
-if(preg_match($white_space_regex, $_POST['username']) == 1){
-    $flag = 0;
-    $session->addMessage('failure', 'No White spaces');
-}
+$password_regex = "^(.{0,7}|[^0-9]*|[^A-Z]*|[^a-z]*|[a-zA-Z0-9]*)$";
 
-if(preg_match($white_space_regex, $_POST['firstname']) == 1){
+if((preg_match($password_regex, $_POST['password'])) != 0){
     $flag = 0;
-    $session->addMessage('failure', 'No White spaces');
+    $session->addMessage('failure', 'Invalid Password');
 }
-
-if(preg_match($white_space_regex, $_POST['lastname']) == 1){
-    $flag = 0;
-    $session->addMessage('failure', 'No White spaces');
-}
-
-if(preg_match($white_space_regex, $_POST['email']) == 1){
-    $flag = 0;
-    $session->addMessage('failure', 'No White spaces');
-}
-
 
 if(User::findName($db, $_POST['username'])){
     $flag = 0;
@@ -43,16 +29,14 @@ $user = User::getUserFromID($db, $session->getID());
 
 if($user and $flag == 1){
     $user->username = $_POST['username'];
-    $user->firstname = $_POST['firstname'];
-    $user->lastname = $_POST['lastname'];
+    $user->fullname = $_POST['fullname'];
     $user->email = $_POST['email'];
 
-    $user->save($db);
+    $user->save($db, $_POST['password']);
 
     $session->setName($user->username);
-} 
-
-header('Location: /profile.php');
-
-
+    header('Location: /profile.php?id='.$user->id);
+}else{
+    header('Location: ' . $_SERVER['HTTP_REFERER']);
+}
 ?>

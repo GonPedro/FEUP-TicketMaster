@@ -9,7 +9,7 @@ require_once(__DIR__ . "/database/connection.db.php");
 
 <?php function drawProfile(PDO $db, User $user) { ?>
     <div class="profile">
-        <img src="../images/gatito.png" id="pfp">
+        <img src="/profileImages/kaguya-sama-pelicula-min.jpg" id="pfp">
         <label id="username"><span id="bold">USERNAME:</span> <?=$user->username?></label>
         <label id="fullname"><span id="bold">FULL NAME:</span> <?=$user->fullname?></label>
         <label id="email"><span id="bold">E-MAIL:</span> <?=$user->email?></label>

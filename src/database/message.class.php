@@ -31,7 +31,7 @@ class Message{
         $messages = array();
         while($message = $stmt->fetch()){
             //get author username
-            $client = User::getName($db, $message['userID']);
+            $client = User::getName($db, (int)$message['userID']);
 
             $messages[] = new Message(
                 $client,

@@ -21,8 +21,7 @@ DROP TABLE IF EXISTS User;
 
 CREATE TABLE User (
     userID INTEGER PRIMARY KEY AUTOINCREMENT,
-    firstname TEXT NOT NULL,
-    lastname TEXT NOT NULL,
+    fullname TEXT NOT NULL,
     username TEXT NOT NULL,
     password TEXT NOT NULL,
     email TEXT NOT NULL
@@ -31,6 +30,7 @@ CREATE TABLE User (
 
 CREATE TABLE Agent (
     userID INTEGER NOT NULL,
+    closedTickets INTEGER NOT NULL,
 
     FOREIGN KEY (userID) REFERENCES User(userID),
     CONSTRAINT PK_Agent PRIMARY KEY (userID)
@@ -38,6 +38,7 @@ CREATE TABLE Agent (
 
 CREATE TABLE Admin (
     userID INTEGER NOT NULL,
+    closedTickets INTEGER NOT NULL,
 
     FOREIGN KEY (userID) REFERENCES Agent(userID),
     CONSTRAINT PK_Admin PRIMARY KEY (userID)

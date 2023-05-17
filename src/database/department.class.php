@@ -47,6 +47,24 @@ class Department{
         else return null;
     }
 
+
+    static function getAgentDepartments(PDO $db, int $agent_id) : ?array{
+        $stmt = $db->prepare('SELECT Department.departmentID, adminID, name
+        FROM Department, AgentDepartment
+        WHERE Department.departmentID = AgentDepartment.departmentID AND AgentDepartment.agentID = ?');
+        $stmt->execute(array($agent_id));
+        $departments = array();
+        while($department = $stmt->fetch()){
+            $name = User::getName($db, (int)$department['adminID']);
+            $departments[] = new Department(
+                (int)$department['departmentID'],
+                $name,
+                $department['name']
+            );
+        }
+        return $departments;
+    }
+
     static function addDepartment(PDO $db, int $creator, string $name){
         $stmt = $db->prepare('INSERT INTO Department(adminID, name) VALUES (?,?)');
         $stmt->execute(array($creator, $name));

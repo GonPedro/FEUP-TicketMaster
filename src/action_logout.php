@@ -5,5 +5,5 @@ require_once(__DIR__ . '/session.php');
 $session = new Session();
 $session->logout();
 
-header('Location: ' . $_SERVER['HTTP_REFERER']);
+header('Location: /index.php');
 ?>

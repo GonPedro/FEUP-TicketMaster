@@ -37,5 +37,9 @@ Class Session {
     public function setName(string $name){
         $_SESSION['name'] = name;
     }
+
+    public function getName(){
+        return $_SESSION['name'];
+    }
 }
 ?>

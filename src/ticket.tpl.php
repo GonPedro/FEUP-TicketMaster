@@ -4,9 +4,21 @@ declare(strict_types = 1);
 
 require_once(__DIR__ . '/session.php');
 require_once(__DIR__ . '/database/message.class.php');
+require_once(__DIR__ . '/database/ticket.class.php');
 ?>
 
 
+<?php function drawTicketInfo(Ticket $ticket){ ?>
+    <div class="ticketdata">
+        <label id="title"><?=$ticket->title?></label>
+        <div class="extradata">
+            <label id="author"><span id="bold">BY:</span> <?=$ticket->client_name?></label>
+            <label id="status"><span id="bold">STATUS:</span> <?=$ticket->status?></label>
+            <label id="department"><span id="bold">DEPARTMENT:</span> <?=$ticket->department?></label>
+        </div>
+        <img id="confi" src="/profileImages/gatito.png">
+    </div>
+<?php } ?>
 
 
 <?php function drawMessages(Session $session, array $messages){ ?>

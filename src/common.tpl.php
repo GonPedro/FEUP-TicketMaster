@@ -37,6 +37,7 @@ require_once(__DIR__ . '/database/department.class.php');
 <?php function drawTicket(array $ticket){ ?>
     <div class="ticket">
         <a href="ticket.php?id=<?=$ticket['ticketID']?>"><label id="title"><?=$ticket['title']?></label></a>
+        <img id="config" src="/profileImages/gatito.png">
     </div>
 <?php } ?> 
 

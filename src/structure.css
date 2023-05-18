@@ -135,17 +135,28 @@ select {
     position: absolute;
     -ms-transform: translate(-50%, 0);
     transform: translate(-50%, 0);
-    top: 12em;
+    top: 19em;
     left: 50%;
     width: 60em;
     max-width: calc(100% - 50px);
+}
+
+.ticketdata {
+    position: absolute;
+    -ms-transform: translate(-50%, 0);
+    transform: translate(-50%, 0);
+    top: 6em;
+    left: 50%;
+    width: 60em;
+    max-width: calc(100% - 50px);
+    height: 6em;
 }
 
 .msginput {
     position: absolute;
     -ms-transform: translate(-50%, 0);
     transform: translate(-50%, 0);
-    top: 6em;
+    top: 14em;
     left: 50%;
     width: 60em;
     height: 3em;
@@ -224,11 +235,35 @@ select {
     left: 50%;
 }
 
-.ticket img {
+.ticket img,
+.extradata img {
     top: 1vh;
     width: auto;
     height: calc(100% - 2vh);
     margin-right: 1vh;
+}
+
+.ticketdata .extradata {
+    position: absolute;
+    -ms-transform: translate(0%, -100%);
+    transform: translate(0%, -100%);
+    top: 100%;
+    width: 100%;
+}
+
+.ticketdata label[id="title"],
+.ticketdata .extradata {
+    max-width: 70%;
+}
+
+.ticketdata img {
+    position: absolute;
+    -ms-transform: translate(-100%, 0%);
+    transform: translate(-100%, 0%);
+    left: 100%;
+    object-fit: cover;
+    aspect-ratio: 1;
+    width: calc(5% + 1em);
 }
 
 .msg[id="yours"] {
@@ -389,4 +424,9 @@ select {
 
 .profileedit input[id="password"] {
     top: 72.5%
+}
+
+.extradata label {
+    top: 0vh;
+    position: relative;
 }

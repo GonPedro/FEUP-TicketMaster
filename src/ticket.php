@@ -13,13 +13,18 @@ require_once(__DIR__ . "/database/message.class.php");
 
 $messages = Message::getMessages($db, (int)$_GET['id']);
 
-require_once(__DIR__ . "/common.tpl.php");
-require_once(__DIR__ . "/message.tpl.php");
+require_once(__DIR__ . '/database/ticket.class.php');
 
-setHeader("Messages");
+$ticket = Ticket::getTicket($db, (int)$_GET['id']);
+
+require_once(__DIR__ . "/common.tpl.php");
+require_once(__DIR__ . "/ticket.tpl.php");
+
+setHeader("Ticket");
 
 if($session->isLoggedin()){
     drawTopbar();
+    drawTicketInfo($ticket);
     drawMessages($session, $messages);
 } else {
     header("Location : /index.php");

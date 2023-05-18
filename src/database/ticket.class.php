@@ -12,7 +12,7 @@ class Ticket{
     public int $priority;
     public string $date;
 
-    public function __construct(int $id, string $title, int $client_name , array $agents, string $department, array $hashtags, string $status, int $priority, string $date){
+    public function __construct(int $id, string $title, string $client_name , array $agents, string $department, array $hashtags, string $status, int $priority, string $date){
         $this->id = $id;
         $this->title = $title;
         $this->client_name = $client_name;
@@ -73,14 +73,14 @@ class Ticket{
                 $index = $index + 1;
             }
             return new Ticket(
-                $ticket['ticketID'],
+                (int)$ticket['ticketID'],
                 $ticket['title'],
-                $ticket['client_name'],
+                $client_name['username'],
                 $agents,
-                $department,
+                $ticket['department'],
                 $hashtags,
                 $ticket['status_name'],
-                $ticket['priority'],
+                (int)$ticket['priority'],
                 $ticket['da']
         
             );

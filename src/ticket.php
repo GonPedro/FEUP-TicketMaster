@@ -25,6 +25,7 @@ setHeader("Ticket");
 if($session->isLoggedin()){
     drawTopbar();
     drawTicketInfo($ticket);
+    drawMessageInput();
     drawMessages($session, $messages);
 } else {
     header("Location : /index.php");

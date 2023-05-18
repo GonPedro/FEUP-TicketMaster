@@ -17,6 +17,8 @@ require_once(__DIR__ . '/database/department.class.php');
     <head>
         <title><?=$topic?> - Ticketinator</title>
         <meta charset="UTF-8">
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> <!-- Include jQuery library -->
+        <script src="script.js"></script>
         <link href="style.css" rel="stylesheet">
         <link href="structure.css" rel="stylesheet">
     </head>

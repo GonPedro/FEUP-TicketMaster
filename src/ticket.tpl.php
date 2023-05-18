@@ -1,14 +1,10 @@
 <?php
-
 declare(strict_types = 1);
-
 require_once(__DIR__ . '/session.php');
 require_once(__DIR__ . '/database/message.class.php');
 require_once(__DIR__ . '/common.tpl.php');
 require_once(__DIR__ . '/database/ticket.class.php');
 ?>
-
-
 <?php function drawTicketInfo(Ticket $ticket){ ?>
     <div class="ticketdata">
         <label id="title"><?=$ticket->title?></label>
@@ -20,17 +16,16 @@ require_once(__DIR__ . '/database/ticket.class.php');
         <img id="confi" src="/profileImages/gatito.png">
     </div>
 <?php } ?>
-
-
-<?php function drawMessages(Session $session, array $messages){ ?>
+<?php function drawMessageInput() { ?>
     <div class="msginput">
-        <form action = "/action_add_message.php?id=<?=$_GET['id']?>" method = "post">
-            <input type="text" name = "message">
-            <input type="submit" value="Send">
-        </form>
-    </div>
-
-    <div class="msglist">
+    <form id ="messageForm" action = "/action_add_message.php?id=<?=$_GET['id']?>" method = "post">
+        <input type="text" name = "message">
+        <input type="submit" value="Send">
+    </form>
+</div>
+<?php } ?>
+<?php function drawMessages(Session $session, array $messages){ ?>
+    <div id ="msglist" class="msglist">
         <?php foreach($messages as $message){
             if(strcmp($message->author, $session->getName()) == 0){ ?>
                 <div class = "msg" id = "yours">    
@@ -52,8 +47,6 @@ require_once(__DIR__ . '/database/ticket.class.php');
         } ?>
     </div>
 <?php } ?>
-
-
 <?php function drawDepartmentTickets(string $department) { ?>
     <div class="list">
         <?php
@@ -64,5 +57,4 @@ require_once(__DIR__ . '/database/ticket.class.php');
         }
         ?>
     </div>
-
 <?php } ?>

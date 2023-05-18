@@ -99,11 +99,6 @@ require_once(__DIR__ . '/database/department.class.php');
 
 
 
-<?php function drawDepartment(Department $department){ ?>
-    <option value = <?=$department->name?>><?=$department->name?></option>
-<?php } ?> 
-
-
 <?php function drawTicketForm(){ ?>
     <form action = "/action_create_ticket.php" method ="post" class = "create">
         <div class="config"> 

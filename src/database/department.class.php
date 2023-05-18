@@ -71,6 +71,17 @@ class Department{
         return;
     }
 
+    static function getDepartmentName(PDO $db, int $id) : ?string{
+        $stmt = $db->prepare('SELECT name
+        FROM Department
+        WHERE departmentID = ?');
+        $stmt->execute(array($id));
+        if($department = $stmt->fetch()){
+            return $department['name'];
+        }
+        else return null;
+    }
+
 }
 
 ?>

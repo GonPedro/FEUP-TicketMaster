@@ -4,6 +4,7 @@ declare(strict_types = 1);
 
 require_once(__DIR__ . '/session.php');
 require_once(__DIR__ . '/database/message.class.php');
+require_once(__DIR__ . '/common.tpl.php');
 require_once(__DIR__ . '/database/ticket.class.php');
 ?>
 
@@ -50,4 +51,18 @@ require_once(__DIR__ . '/database/ticket.class.php');
             <?php }
         } ?>
     </div>
+<?php } ?>
+
+
+<?php function drawDepartmentTickets(string $department) { ?>
+    <div class="list">
+        <?php
+        $db = getDatabaseConnection();
+        $tickets = Ticket::getTicketsFromDepartment($db, $department);
+        foreach($tickets as $ticket){
+           drawTicket($ticket);
+        }
+        ?>
+    </div>
+
 <?php } ?>

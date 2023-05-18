@@ -25,7 +25,7 @@
             </div>
         </div>
         <div class="listinput" id="collaborators">
-            <label id="name">Hashtags:</label>
+            <label id="name">Collaborators:</label>
             <input type="text">
             <div id="list">
                 <label>Afoba</label>
@@ -33,11 +33,26 @@
                 <label>Afoba</label>
             </div>
         </div>
-        <label id="statuslabel">Status:</label>
-        <select>
-            <option value="open">Open</option>
-            <option value="closed">Closed</option>
-        </select>
+        <div class="labels">
+            <label id="status">Status:</label>
+            <label id="department">Department:</label>
+            <label id="priority">Priority:</label>
+        </div>
+        <div class="othersettings">
+            <select id="status">
+                <option value="open">Open</option>
+                <option value="closed">Closed</option>
+            </select>
+            <select id="department">
+                <option value="website">Website</option>
+                <option value="logistics">Logistics</option>
+            </select>
+            <select id="priority">
+                <option value="5">5</option>
+                <option value="1">1</option>
+            </select>
+        </div>
+
         <input type="submit" id="edit" value="SAVE">
     </div>
 </body>

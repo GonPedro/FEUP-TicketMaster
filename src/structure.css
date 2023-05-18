@@ -450,10 +450,6 @@ select,
     position: relative;
 }
 
-.ticketmenu select {
-    top: 70%;
-}
-
 .ticketmenu label {
     top: 65%;
 }
@@ -487,4 +483,33 @@ select,
     width: 85%;
     text-align: center;
     margin-bottom: 1vh;
+}
+
+.labels,
+.othersettings {
+    position: absolute;
+    display: flex;
+    justify-content: space-evenly;
+    height: 10%;
+    top: 65%;
+    width: 100%;
+}
+
+.labels {
+    height: 5%;
+    top: 65%
+}
+
+.othersettings {
+    top: 70%
+}
+
+.labels label,
+.othersettings select {
+    flex-shrink: 1;
+    position: relative;
+    left: 0%;
+    width: 25%;
+    top: 0%;
+    height: 100%;
 }

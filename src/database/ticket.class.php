@@ -3,6 +3,7 @@ declare(strict_types = 1);
 
 require_once(__DIR__ . '/change.class.php');
 require_once(__DIR__ . '/user.class.php');
+require_once(__DIR__ . '/hashtag.class.php');
 
 class Ticket{
     public int $id;
@@ -90,6 +91,74 @@ class Ticket{
         } else return null;
     }
 
+    static function checkAssignedAgent(PDO $db, int $ticket_id, string $agent) : ?bool{
+        if(strcmp($agent,"") == 0) return true;
+        $stmt = $db->prepare('SELECT agentID
+        FROM TicketAgent
+        WHERE ticketID = ?');
+        $stmt->execute(array($ticket_id));
+        $agents = $stmt->fetchAll();
+        foreach($agents as $sub){
+            $name = User::getName($db, (int)$sub['agentID']);
+            if(strcmp($name,$agent) == 0){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    static function getAgents(PDO $db, int $ticket_id) : ?array{
+        $stmt = $db->prepare('SELECT agentID
+        FROM TicketAgent
+        WHERE ticketID = ?');
+        $agents = array();
+        $stmt->execute(array($ticket_id));
+        while($agent = $stmt->fetch()){
+            $agents[] = User::getName($db, (int)$agent['agentID']);
+        }
+        return $agents;
+    }
+
+    static function getFilteredTickets(PDO $db, string $author, string $department, string $hashtag, string $status, string $date, int $priority, string $agent) : ?array{
+        $author_id = User::getID($db, $author);
+        $stmt = $db->prepare('SELECT ticketID, clientID, department, status_name, title, priority, da
+        FROM Ticket
+        Where clientID = ? AND department = ? AND status_name = ? AND priority = ?');
+        $tickets = array();
+        $stmt->execute(array($author_id, $department, $status, $priority));
+        while($ticket = $stmt->fetch()){
+            $dateflag = (strcmp($date, ""));
+            $date1 = DateTime::createFromFormat('Y-m-d H:i', $ticket['da']);
+            if ($date1 instanceof DateTime) {
+                $dateString1 = $date1->format('Y-m-d');
+            } else {
+                continue;
+            }
+            $hashtags = Hashtag::getTicketHashtags($db, (int)$ticket['ticketID']);
+            $flag = 1;
+            foreach($hashtags as $hash){
+                if(strcmp($hash->text, $hashtag) == 0) $flag = 0;
+            }
+            if(strcmp($hashtag, "") == 0) $flag = 0;
+            if(Ticket::checkAssignedAgent($db, (int)$ticket['ticketID'], $agent) and ($dateString1 == $date or $dateflag) and $flag == 0){
+                $tickets[] = new Ticket(
+                    (int)$ticket['ticketID'],
+                    $ticket['title'],
+                    $author,
+                    Ticket::getAgents($db, (int)$ticket['ticketID']),
+                    $department,
+                    $hashtags,
+                    $status,
+                    $priority,
+                    $date1->format('Y-m-d H:i')
+                );
+            }
+
+        }
+        return $tickets;
+    }
+
+
     static function addTicket(PDO $db, int $client_id, string $title, int $priority, string $department){
         $date = date("Y-m-d H:i");
         $stmt = $db->prepare('INSERT INTO Ticket(clientID, department, status_name, title, priority, da)
@@ -135,18 +204,6 @@ class Ticket{
         $name = User::getName($db, $agent_id);
         Change::addChange($db, $ticket_id, $agent_id, "Assigned " . $name . " to Ticket");
     }
-
-
-    static function getAgents(PDO $db, int $ticket_id) : ?array{
-        $stmt = $db->prepare('SELECT agentID
-        FROM TicketAgent
-        WHERE ticketID = ?');
-        $stmt->execute(array($ticket_id));
-        if($agents = $stmt->fetchAll()){
-            return $agents;
-        } else return array();
-    }
-
 
     static function changeDepartment(PDO $db, int $ticket_id, int $agent_id, string $department){
         $stmt = $db->prepare('UPDATE Ticket SET department = ?

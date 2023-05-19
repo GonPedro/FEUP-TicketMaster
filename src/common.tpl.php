@@ -9,6 +9,7 @@ require_once(__DIR__ . '/database/department.class.php');
 require_once(__DIR__ . '/database/status.class.php');
 require_once(__DIR__ . '/database/hashtag.class.php');
 
+
 ?>
 
 
@@ -44,6 +45,13 @@ require_once(__DIR__ . '/database/hashtag.class.php');
     </div>
 <?php } ?> 
 
+<?php function drawFilteredTicket(Ticket $ticket) { ?>
+    <div class="ticket">
+        <a href="ticket.php?id=1"><label id="title">Pain</label></a>
+        <img id="config" src="/profileImages/gatito.png">
+    </div>
+<?php } ?>
+
 
 
 <?php function drawTopbar(){ ?>
@@ -58,7 +66,7 @@ require_once(__DIR__ . '/database/hashtag.class.php');
 
 
 <?php function drawTickets(Session $session){ ?>
-    <div class="list">
+    <div id ="list" class="list">
         <?php
         $db = getDatabaseConnection();
         $tickets = Ticket::getTickets($db, $session->getID());
@@ -74,16 +82,15 @@ require_once(__DIR__ . '/database/hashtag.class.php');
 <?php } ?>
 
 <?php function drawFilterBoxes(){ ?>
-    <div class="filterlabels">
-        <label>Agent:</label>
-        <label>Department:</label>
-        <label>Hashtag:</label>
-        <label>Status:</label>
-        <label></label>
-    </div>
-    <div class="filterboxes">
-        <form action = "/action_filter_tickets.php" method = "post">
-            <input type="text" name = "agent">
+    <form id ="ticketFilter" action = "/action_filter_tickets.php" method = "post">
+        <div class="filterlabels" id="row1">
+            <label>Author:</label>
+            <label>Department:</label>
+            <label>Hashtag:</label>
+            <label></label>
+        </div>
+        <div class="filterboxes" id = "row1">
+            <input type="text" name = "author">
             <select id="a" name = "department">
                 <?php
                 $db = getDatabaseConnection();
@@ -93,6 +100,16 @@ require_once(__DIR__ . '/database/hashtag.class.php');
                 <?php } ?>
             </select>
             <input type="text" name = "hashtag">
+            <input type="submit" value="Search">
+
+        </div>
+        <div class="filterlabels" id="row2">
+            <label>Status:</label>
+            <label>Date:</label>
+            <label>Priority:</label>
+            <label>Assigned Agent:</label>
+        </div>
+        <div class="filterboxes" id="row2">
             <select id="b" name = "status">
                 <?php 
                 $statuses = Status::getStatuses($db);
@@ -100,9 +117,23 @@ require_once(__DIR__ . '/database/hashtag.class.php');
                     <option value =<?=$status->name?>><?=$status->name?></option>
                 <?php } ?>
             </select>
-            <input type="submit" value="Search">
-        </form>
-    </div>
+            <input type="date" name = "date">
+            <select id="priority" name = "priority">
+                <option value = "1">1</option>
+                <option value = "2">2</option>
+                <option value = "3">3</option>
+                <option value = "4">4</option>
+                <option value = "5">5</option>
+                <option value = "6">6</option>
+                <option value = "7">7</option>
+                <option value = "8">8</option>
+                <option value = "9">9</option>
+                <option value = "10">10</option>
+            </select>
+            <input type="text" name = "agent">
+        </div>
+        </div>
+    </form>
 <?php } ?>
 
 <?php function drawLogin() { ?>

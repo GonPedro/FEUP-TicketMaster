@@ -5,7 +5,8 @@ body {
 
 .config,
 .profile,
-.profileedit {
+.profileedit,
+.ticketmenu {
     position: absolute;
     max-width: 100%;
     max-height: calc(100% - 12em);
@@ -55,7 +56,9 @@ select,
 .config label,
 .profileedit input[type="text"],
 .profileedit input[type="password"],
-.profileedit label {
+.profileedit label,
+.ticketmenu input,
+.ticketmenu label {
     position: absolute;
     height: 8%;
     width: 60%;
@@ -68,7 +71,7 @@ select,
 }
 
 .config input[type="text"],
-select {
+.config select {
     left: 10%
 }
 
@@ -266,6 +269,24 @@ select {
     width: calc(5% + 1em);
 }
 
+.listinput {
+    top: 5%;
+    position: absolute;
+    width: 50%;
+    height: 55%;
+}
+
+.listinput input[type="text"] {
+    top: 10%;
+    width: 85%;
+    left: 5%;
+    height: 15%
+}
+
+.listinput[id="collaborators"] {
+    left: 50%;
+}
+
 .msg[id="yours"] {
     margin-left: 5%;
 }
@@ -279,17 +300,15 @@ select {
     top: 60%;
 }
 
-.config input[type="submit"] {
-    top: 85%;
-}
-
 .login input[value="SIGNUP"],
 .login input[value="ENTER"],
 .profile button {
     top: 72.5%;
 }
 
-.profileedit input[type="submit"] {
+.profileedit input[type="submit"],
+.config input[type="submit"],
+.ticketmenu input[type="submit"] {
     top: 85%
 }
 
@@ -429,4 +448,68 @@ select {
 .extradata label {
     top: 0vh;
     position: relative;
+}
+
+.ticketmenu label {
+    top: 65%;
+}
+
+.listinput label {
+    top: 0%;
+    left: 5%;
+}
+
+.listinput[id="hashtags"] input {
+    left: 10%
+}
+
+.listinput[id="hashtags"] label {
+    top: 0%;
+    left: 10%;
+}
+
+.listinput div {
+    position: absolute;
+    width: 100%;
+    top: 30%;
+    height: 70%;
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+}
+
+.listinput div label {
+    position: relative;
+    width: 85%;
+    text-align: center;
+    margin-bottom: 1vh;
+}
+
+.labels,
+.othersettings {
+    position: absolute;
+    display: flex;
+    justify-content: space-evenly;
+    height: 10%;
+    top: 65%;
+    width: 100%;
+}
+
+.labels {
+    height: 5%;
+    top: 65%
+}
+
+.othersettings {
+    top: 70%
+}
+
+.labels label,
+.othersettings select {
+    flex-shrink: 1;
+    position: relative;
+    left: 0%;
+    width: 25%;
+    top: 0%;
+    height: 100%;
 }

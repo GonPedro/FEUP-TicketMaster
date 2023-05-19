@@ -66,8 +66,15 @@ class Department{
     }
 
     static function getDepartmentAgents(PDO $db, int $department_id) :? array {
-        $stmt = $db->prepare('SELECT agentID');
-
+        $stmt = $db->prepare('SELECT agentID
+        FROM AgentDepartment
+        where departmentID = ?');
+        $agents = array();
+        $stmt->execute(array($department_id));
+        while($agent = $stmt->fetch()){
+            $agents[] = User::getUserFromID($db, (int)$agent['agentID']);
+        }
+        return $agents;
     }
 
     static function addDepartment(PDO $db, int $creator, string $name){
@@ -87,6 +94,10 @@ class Department{
         else return null;
     }
 
+    static function assignAgentToDepartment(PDO $db, int $agent_id, int $department_id){
+        $stmt = $db->prepare('INSERT INTO AgentDepartment(agentID, departmentID) VALUES (?,?)');
+        $stmt->execute(array($agent_id,$department_id));
+    }
 }
 
 ?>

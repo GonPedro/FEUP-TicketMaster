@@ -30,7 +30,7 @@ class User {
     WHERE username = ?');
     $stmt->execute(array($username));
     if($user = $stmt->fetch()){
-      return $user;
+      return (int)$user['userID'];
     }
   }
 

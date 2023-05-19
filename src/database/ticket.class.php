@@ -140,14 +140,14 @@ class Ticket{
             } else {
                 continue;
             }
-            if(strcmp($date, "") == 0) $date = $dateString1;
+            if(strcmp($date, "") == 0) $dateflag = true;
             $hashtags = Hashtag::getTicketHashtags($db, (int)$ticket['ticketID']);
             $flag = 1;
             foreach($hashtags as $hash){
                 if(strcmp($hash->text, $hashtag) == 0) $flag = 0;
             }
             if(strcmp($hashtag, "") == 0) $flag = 0;
-            if(Ticket::checkAssignedAgent($db, (int)$ticket['ticketID'], $agent) and $dateString1 == $date and $flag == 0){
+            if(Ticket::checkAssignedAgent($db, (int)$ticket['ticketID'], $agent) and ($dateString1 == $date or $dateflag) and $flag == 0){
                 $tickets[] = new Ticket(
                     (int)$ticket['ticketID'],
                     $ticket['title'],

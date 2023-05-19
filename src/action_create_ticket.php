@@ -11,7 +11,7 @@ require_once(__DIR__ . '/database/ticket.class.php');
 
 $db = getDatabaseConnection();
 
-Ticket::addTicket($db, $session->getID(),$_POST['title'],$_POST['department']);
+Ticket::addTicket($db, $session->getID(),$_POST['title'], (int)$_POST['priority'], $_POST['department']);
 
 header('Location: /index.php');
 

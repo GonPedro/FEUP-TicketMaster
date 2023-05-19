@@ -93,11 +93,6 @@ class Department{
         }
         else return null;
     }
-
-    static function assignAgentToDepartment(PDO $db, int $agent_id, int $department_id){
-        $stmt = $db->prepare('INSERT INTO AgentDepartment(agentID, departmentID) VALUES (?,?)');
-        $stmt->execute(array($agent_id,$department_id));
-    }
 }
 
 ?>

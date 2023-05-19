@@ -87,11 +87,11 @@ class Ticket{
         } else return null;
     }
 
-    static function addTicket(PDO $db, int $client_id, string $title, string $department){
+    static function addTicket(PDO $db, int $client_id, string $title, int $priority, string $department){
         $date = date("Y-m-d H:i");
         $stmt = $db->prepare('INSERT INTO Ticket(clientID, department, status_name, title, priority, da)
-        VALUES (?,?,"open",?,1,?)');
-        $stmt->execute(array($client_id, $department, $title, $date));
+        VALUES (?,?,"open",?,?,?)');
+        $stmt->execute(array($client_id, $department, $title, $priority, $date));
         //probably still need to insert hashtags into database as well, dont know how i will do that yet
         return;
     }

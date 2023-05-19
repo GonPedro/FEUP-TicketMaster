@@ -46,9 +46,9 @@ require_once(__DIR__ . '/database/department.class.php');
 
 <?php function drawTopbar(){ ?>
     <div class="topbar">
-        <a href = "index.php"><button id="mticket">MY TICKETS</button></a>
-        <a href = "create.php"><button id="nticket">NEW TICKET</button></a>
-        <form action = "/action_logout.php" method = "post" class = "logout">
+        <button id="mticket"> <a href = "index.php">MY TICKETS</a></button>
+        <button id="nticket"><a href = "create.php">NEW TICKET</a></button>
+        <form action = "/action_logout.php" method = "post">
             <button id="logout">LOG OUT</button>
         </form>
     </div>

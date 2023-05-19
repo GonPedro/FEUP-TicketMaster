@@ -44,3 +44,24 @@ require_once(__DIR__ . "/session.php");
         </div>    
     </form>
 <?php } ?>
+
+<?php function drawUserInfo(User $user) { ?>
+    <div class="ticket">
+        <a href="profile.php?id=<?=$user->id?>"><label id="title"><?=$user->username?></label></a>
+        <img id="config" src="/profileImages/gatito.png">
+    </div>
+
+<?php } ?>
+
+<?php function drawUsers(array $users) { ?>
+    <div class="list">
+        <?php
+        foreach($users as $user){
+            drawUserInfo($user);
+        }
+        ?>
+    </div>
+
+
+</body>
+<?php } ?>

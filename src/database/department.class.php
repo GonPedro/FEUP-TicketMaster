@@ -65,6 +65,11 @@ class Department{
         return $departments;
     }
 
+    static function getDepartmentAgents(PDO $db, int $department_id) :? array {
+        $stmt = $db->prepare('SELECT agentID');
+
+    }
+
     static function addDepartment(PDO $db, int $creator, string $name){
         $stmt = $db->prepare('INSERT INTO Department(adminID, name) VALUES (?,?)');
         $stmt->execute(array($creator, $name));

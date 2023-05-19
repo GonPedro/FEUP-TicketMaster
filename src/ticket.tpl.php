@@ -5,6 +5,7 @@ require_once(__DIR__ . '/database/message.class.php');
 require_once(__DIR__ . '/common.tpl.php');
 require_once(__DIR__ . '/database/ticket.class.php');
 ?>
+
 <?php function drawTicketInfo(Ticket $ticket){ ?>
     <div class="ticketdata">
         <label id="title"><?=$ticket->title?></label>
@@ -16,6 +17,7 @@ require_once(__DIR__ . '/database/ticket.class.php');
         <img id="confi" src="/profileImages/gatito.png">
     </div>
 <?php } ?>
+
 <?php function drawMessageInput() { ?>
     <div class="msginput">
     <form id ="messageForm" action = "/action_add_message.php?id=<?=$_GET['id']?>" method = "post">
@@ -24,6 +26,7 @@ require_once(__DIR__ . '/database/ticket.class.php');
     </form>
 </div>
 <?php } ?>
+
 <?php function drawMessages(Session $session, array $messages){ ?>
     <div id ="msglist" class="msglist">
         <?php foreach($messages as $message){
@@ -47,6 +50,7 @@ require_once(__DIR__ . '/database/ticket.class.php');
         } ?>
     </div>
 <?php } ?>
+
 <?php function drawRefreshedMessages(Session $session, array $messages) {
     foreach($messages as $message){
         if(strcmp($message->author, $session->getName()) == 0){ ?>
@@ -68,6 +72,7 @@ require_once(__DIR__ . '/database/ticket.class.php');
         <?php }
     } 
 } ?>
+
 <?php function drawDepartmentTickets(string $department) { ?>
     <div class="list">
         <?php

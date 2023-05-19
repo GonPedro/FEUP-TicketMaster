@@ -61,6 +61,22 @@ class User {
     } else return null;
   }
 
+  static function getUsers(PDO $db) : ?array {
+    $stmt = $db->prepare('SELECT userID, fullname, username, email
+      FROM User');
+    $stmt->execute(array());
+    $users = array();
+    while($user = $stmt->fetch()){
+      $users[] = new User(
+        (int)$user['userID'],
+        $user['fullname'],
+        $user['username'],
+        $user['email']
+      );
+    }
+    return $users;
+  }
+
 
   static function getUserFromID(PDO $db, int $id) : ?User{
     $stmt = $db->prepare('SELECT userID, fullname, username, email

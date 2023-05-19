@@ -1,6 +1,9 @@
 <?php
 declare(strict_types = 1);
 
+require_once(__DIR__ . '/change.class.php');
+require_once(__DIR__ . '/user.class.php');
+
 class Ticket{
     public int $id;
     public string $title;
@@ -125,9 +128,12 @@ class Ticket{
         $stmt->execute(array($ticket_id));
         if(!$agent = $stmt->fetch()){
             Ticket::changeStatus($db, $ticket_id, "assigned");
+            Change::addChange($db, $ticket_id, $agent_id, "Changed Status from " . $this->status . " to assigned");
         }
         $stmt = $db->prepare('INSERT INTO TicketAgent (ticketID, agentID) VALUES (?,?)');
         $stmt->execute(array($ticket_id, $agent_id));
+        $name = User::getName($db, $agent_id);
+        Change::addChange($db, $ticket_id, $agent_id, "Assigned " . $name . " to Ticket");
     }
 
 
@@ -142,10 +148,11 @@ class Ticket{
     }
 
 
-    static function changeDepartment(PDO $db, int $ticket_id, string $department){
+    static function changeDepartment(PDO $db, int $ticket_id, int $agent_id, string $department){
         $stmt = $db->prepare('UPDATE Ticket SET department = ?
         WHERE ticketID = ?');
         $stmt->execute(array($department, $ticket_id));
+        Change::addChange($db, $ticket_id, $agent_id, "Changed from department " . $this->department . " to " . $department);
     }
 
     static function changeStatus(PDO $db, int $ticket_id, string $status){

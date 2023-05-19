@@ -32,7 +32,8 @@
     .msginput input[type="submit"],
     .profile button,
     .profileedit input[type="submit"],
-    .ticketmenu input[type="submit"] {
+    .ticketmenu input[type="submit"],
+    .filterboxes input[type="submit"] {
         background-color: #D9D9D9;
         color: #3B3B3B;
         border: none;
@@ -50,7 +51,8 @@
     .profileedit input[type="text"],
     .profileedit input[type="password"],
     select,
-    .ticketmenu input[type="text"] {
+    .ticketmenu input[type="text"],
+    .filterboxes input[type="text"] {
         border: solid 0.3vh #D9D9D9;
         background-color: #3B3B3B;
         border-radius: 8px;
@@ -68,7 +70,8 @@
     .login label,
     .config label,
     .profileedit label,
-    .ticketmenu label {
+    .ticketmenu label,
+    .filterlabels label {
         text-align: left;
         font-size: 2.5vh;
         color: #D9D9D9;
@@ -223,5 +226,9 @@
     .othersettings select {
         font-size: 2.5vh;
         text-overflow: ellipsis;
+    }
+    
+    .filterboxes input[type="submit"] {
+        font-size: 2vw;
     }
 

@@ -99,9 +99,8 @@ select,
 }
 
 .list {
-    top: 6em;
+    top: 15em;
     left: 0;
-    top: 6em;
     height: auto;
     max-width: calc(100% - 50px);
     width: 60em;
@@ -512,4 +511,38 @@ select,
     width: 25%;
     top: 0%;
     height: 100%;
+}
+
+.filterlabels,
+.filterboxes {
+    position: absolute;
+    display: flex;
+    max-width: calc(100% - 50px);
+    width: 60em;
+    top: 9em;
+    height: 4em;
+    align-items: center;
+    justify-content: space-between;
+    -ms-transform: translate(-50%, 0%);
+    transform: translate(-50%, 0%);
+    left: 50%;
+}
+
+.filterlabels {
+    top: 6em;
+}
+
+.filterboxes select,
+.filterboxes input {
+    height: 100%;
+    flex-shrink: 1;
+    width: 18%;
+    position: relative;
+    left: 0%;
+    max-height: 6vw;
+}
+
+.filterlabels label {
+    width: 18%;
+    text-align: start;
 }

@@ -26,3 +26,6 @@ INSERT INTO Ticket(clientID, department, status_name, title, priority, da) VALUE
 INSERT INTO TicketHashtag(ticketID, hashtagID) VALUES (1, 1);
 INSERT INTO TicketHashtag(ticketID, hashtagID) VALUES (1, 3);
 
+
+INSERT INTO FAQ(userID, title, content) VALUES (1, "How do i code in PHP?", "After soaking in your own tears for about a week");
+

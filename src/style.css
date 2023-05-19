@@ -52,7 +52,8 @@
     .profileedit input[type="password"],
     select,
     .ticketmenu input[type="text"],
-    .filterboxes input[type="text"] {
+    .filterboxes input[type="text"],
+    .filterboxes input[type="date"] {
         border: solid 0.3vh #D9D9D9;
         background-color: #3B3B3B;
         border-radius: 8px;

@@ -19,7 +19,7 @@ require_once(__DIR__ . "/common.tpl.php");
 
 setHeader("Profile");
 if($session->isLoggedin()){
-    drawTopbar();
+    drawTopbar($session);
     drawProfile($db, $session, $user);
 } else {
     header("Location : /index.php");

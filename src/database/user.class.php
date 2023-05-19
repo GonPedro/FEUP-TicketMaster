@@ -93,6 +93,21 @@ class User {
     } else return null;
   }
 
+  static function getUserFromName(PDO $db, string $username) : ?User{
+    $stmt = $db->prepare('SELECT userID, fullname, username, email
+      FROM User
+      WHERE username = ?');
+    $stmt->execute(array($username));
+    if($user = $stmt->fetch()){
+      return new User(
+        (int)$user['userID'],
+        $user['fullname'],
+        $user['username'],
+        $user['email']
+      );
+    } else return null;
+  }
+
 
   static function addUser(PDO $db, string $email, string $username, string $password) : ?User{
     $stmt = $db->prepare('INSERT INTO User (fullname, username, password, email) VALUES ("Not set", ?, ?, ?)');

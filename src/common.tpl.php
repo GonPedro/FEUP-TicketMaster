@@ -40,7 +40,7 @@ require_once(__DIR__ . '/database/hashtag.class.php');
 
 <?php function drawTicket(array $ticket){ ?>
     <div class="ticket">
-        <a href="ticket.php?id=<?=$ticket['ticketID']?>"><label id="title"><?=$ticket['title']?></label></a>
+        <label id="title"><a href="ticket.php?id=<?=$ticket['ticketID']?>"><?=$ticket['title']?></a></label>
         <img id="config" src="/profileImages/gatito.png">
     </div>
 <?php } ?> 
@@ -58,7 +58,7 @@ require_once(__DIR__ . '/database/hashtag.class.php');
     <div class="topbar">
         <button id="a"><a href = "departments.php">DEPARTMENTS</a></button>
         <button id="nticket"><a href = "users.php">USER SEARCH</a></button>
-        <button id="mticket"><<a href = "index.php">TICKETS</a></button>
+        <button id="mticket"><a href = "index.php">TICKETS</a></button>
         <button id="nticket"><a href = "profile.php?id=<?=$session->getID()?>">PROFILE</a></button>
     </div>
 <?php } ?>
@@ -74,8 +74,7 @@ require_once(__DIR__ . '/database/hashtag.class.php');
         }
         ?>
     </div>
-
-
+    <button class="new"><a href = "create.php">+</a></button>
 </body>
 
 <?php } ?>

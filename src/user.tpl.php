@@ -23,6 +23,9 @@ require_once(__DIR__ . "/session.php");
         if($session->getID() == $user->id){ ?>
             <a href = "edit_profile.php?id=<?=$user->id?>"><button id="edit">EDIT</button></a>
         <?php } ?>
+        <form action = "/action_logout.php" method = "post">
+            <button id="logout">LOG OUT</button>
+        </form>
     </div>
 </body>
 
@@ -45,19 +48,36 @@ require_once(__DIR__ . "/session.php");
     </form>
 <?php } ?>
 
-<?php function drawUserInfo(User $user) { ?>
+<?php function drawUserInfo(Session $session, User $user) { ?>
     <div class="ticket">
-        <a href="profile.php?id=<?=$user->id?>"><label id="title"><?=$user->username?></label></a>
-        <img id="config" src="/profileImages/gatito.png">
+        <label id="title"><a href = "profile.php?id=<?=$user->id?>"><?=$user->username?></a></label>
+        <?php
+        $db = getDatabaseConnection();
+        if((strcmp(User::getRole($db, (int)$session->getID()), "admin") == 0) and ($session->getID() != $user->id)){ ?>
+            <form action = "/action_promote_user.php" method = "post">
+                <select name = "role">
+                    <option value="client">Client</option>
+                    <option value="agent">Agent</option>
+                    <option value="admin">Admin</option>
+                </select>
+            </form>
+        <?php } ?>
     </div>
 
 <?php } ?>
 
-<?php function drawUsers(array $users) { ?>
-    <div class="list">
+<?php function drawUsers(Session $session, array $users) { ?>
+    <div class="userinput">
+        <form id = "searchUser" action = "/action_search_user.php" method = "post">
+                <input type="text" name = "user">
+                <input type="submit" value="Search">
+        </form>
+    </div>
+    
+    <div id = "userlist" class="userlist">
         <?php
         foreach($users as $user){
-            drawUserInfo($user);
+            drawUserInfo($session, $user);
         }
         ?>
     </div>

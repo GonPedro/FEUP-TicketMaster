@@ -9,7 +9,7 @@ require_once(__DIR__ . '/common.tpl.php');
 setHeader("Create");
 
 if($session->isLoggedIn()){
-    drawTopbar();
+    drawTopbar($session);
     drawTicketForm();
 } else header('Location : /index.php');
 

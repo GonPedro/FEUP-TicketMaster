@@ -93,6 +93,10 @@ select {
     color: #D9D9D9;
 }
 
+.new a{
+    text-decoration: none;
+}
+
 .ticket {
     background-color: #3b3b3b;
     box-shadow: 0px 0px 8px #181818;
@@ -110,6 +114,13 @@ select {
     color: #D9D9D9;
     font-size: min(35px, 5vw);
     text-overflow: ellipsis;
+}
+
+.ticket label[id="title"] a {
+    color: #D9D9D9;
+    font-size: min(35px, 5vw);
+    text-overflow: ellipsis;
+    text-decoration: none;
 }
 
 .msginput input[type="text"],

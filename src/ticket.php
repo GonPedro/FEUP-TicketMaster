@@ -23,7 +23,7 @@ require_once(__DIR__ . "/ticket.tpl.php");
 setHeader("Ticket");
 
 if($session->isLoggedin()){
-    drawTopbar();
+    drawTopbar($session);
     drawTicketInfo($ticket);
     drawMessageInput();
     drawMessages($session, $messages);

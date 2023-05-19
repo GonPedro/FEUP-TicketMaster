@@ -120,27 +120,34 @@ class Ticket{
     }
 
     static function getFilteredTickets(PDO $db, string $author, string $department, string $hashtag, string $status, string $date, int $priority, string $agent) : ?array{
-        $author_id = User::getID($db, $author);
-        $stmt = $db->prepare('SELECT ticketID, clientID, department, status_name, title, priority, da
-        FROM Ticket
-        Where clientID = ? AND department = ? AND status_name = ? AND priority = ?');
+        if(strcmp($author, "") == 0){
+            $stmt = $db->prepare('SELECT ticketID, clientID, department, status_name, title, priority, da
+            FROM Ticket
+            Where department = ? AND status_name = ? AND priority = ?');
+            $stmt->execute(array($department, $status, $priority));
+        } else {
+            $author_id = User::getID($db, $author);
+            $stmt = $db->prepare('SELECT ticketID, clientID, department, status_name, title, priority, da
+            FROM Ticket
+            Where clientID = ? AND department = ? AND status_name = ? AND priority = ?');
+            $stmt->execute(array($author_id, $department, $status, $priority));
+        }
         $tickets = array();
-        $stmt->execute(array($author_id, $department, $status, $priority));
         while($ticket = $stmt->fetch()){
-            $dateflag = (strcmp($date, ""));
             $date1 = DateTime::createFromFormat('Y-m-d H:i', $ticket['da']);
             if ($date1 instanceof DateTime) {
                 $dateString1 = $date1->format('Y-m-d');
             } else {
                 continue;
             }
+            if(strcmp($date, "") == 0) $date = $dateString1;
             $hashtags = Hashtag::getTicketHashtags($db, (int)$ticket['ticketID']);
             $flag = 1;
             foreach($hashtags as $hash){
                 if(strcmp($hash->text, $hashtag) == 0) $flag = 0;
             }
             if(strcmp($hashtag, "") == 0) $flag = 0;
-            if(Ticket::checkAssignedAgent($db, (int)$ticket['ticketID'], $agent) and ($dateString1 == $date or $dateflag) and $flag == 0){
+            if(Ticket::checkAssignedAgent($db, (int)$ticket['ticketID'], $agent) and $dateString1 == $date and $flag == 0){
                 $tickets[] = new Ticket(
                     (int)$ticket['ticketID'],
                     $ticket['title'],

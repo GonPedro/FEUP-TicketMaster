@@ -47,7 +47,7 @@ require_once(__DIR__ . '/database/hashtag.class.php');
 
 <?php function drawFilteredTicket(Ticket $ticket) { ?>
     <div class="ticket">
-        <a href="ticket.php?id=1"><label id="title">Pain</label></a>
+        <a href="ticket.php?id=<?=$ticket->id?>"><label id="title"><?=$ticket->title?></label></a>
         <img id="config" src="/profileImages/gatito.png">
     </div>
 <?php } ?>

@@ -8,4 +8,4 @@
     $db = getDatabaseConnection();
     if(strcmp("", $_POST['message']) != 0) Message::addMessage($db, (int)$_GET['id'], $session->getID(), $_POST['message']);
     $messages = Message::getMessages($db, (int)$_GET['id']);
-    drawMessages($session, $messages);
+    drawRefreshedMessages($session, $messages);

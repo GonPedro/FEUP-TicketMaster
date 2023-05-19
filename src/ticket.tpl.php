@@ -47,6 +47,27 @@ require_once(__DIR__ . '/database/ticket.class.php');
         } ?>
     </div>
 <?php } ?>
+<?php function drawRefreshedMessages(Session $session, array $messages) {
+    foreach($messages as $message){
+        if(strcmp($message->author, $session->getName()) == 0){ ?>
+            <div class = "msg" id = "yours">    
+                <p id = "content"><?=$message->content?></p>
+                <div class ="extradata">
+                    <label id="author">by <?=$message->author?></label>
+                    <label id="date"><?=$message->date?></label>
+                </div>
+            </div>
+        <?php } else { ?>
+            <div class = "msg">    
+                <p id = "content"><?=$message->content?></p>
+                <div class ="extradata">
+                    <label id="author">by <?=$message->author?></label>
+                    <label id="date"><?=$message->date?></label>
+                </div>
+            </div>
+        <?php }
+    } 
+} ?>
 <?php function drawDepartmentTickets(string $department) { ?>
     <div class="list">
         <?php

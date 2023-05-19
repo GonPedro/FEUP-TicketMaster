@@ -6,6 +6,8 @@ require_once(__DIR__ . '/session.php');
 require_once(__DIR__ . '/database/ticket.class.php');
 require_once(__DIR__ . '/database/connection.db.php');
 require_once(__DIR__ . '/database/department.class.php');
+require_once(__DIR__ . '/database/status.class.php');
+require_once(__DIR__ . '/database/hashtag.class.php');
 
 ?>
 
@@ -69,6 +71,38 @@ require_once(__DIR__ . '/database/department.class.php');
 
 </body>
 
+<?php } ?>
+
+<?php function drawFilterBoxes(){ ?>
+    <div class="filterlabels">
+        <label>Agent:</label>
+        <label>Department:</label>
+        <label>Hashtag:</label>
+        <label>Status:</label>
+        <label></label>
+    </div>
+    <div class="filterboxes">
+        <form action = "/action_filter_tickets.php" method = "post">
+            <input type="text" name = "agent">
+            <select id="a" name = "department">
+                <?php
+                $db = getDatabaseConnection();
+                $departments = Department::getDepartments($db);
+                foreach($departments as $department) { ?>
+                    <option value =<?=$department->name?>><?=$department->name?></option>
+                <?php } ?>
+            </select>
+            <input type="text" name = "hashtag">
+            <select id="b" name = "status">
+                <?php 
+                $statuses = Status::getStatuses($db);
+                foreach($statuses as $status){ ?>
+                    <option value =<?=$status->name?>><?=$status->name?></option>
+                <?php } ?>
+            </select>
+            <input type="submit" value="Search">
+        </form>
+    </div>
 <?php } ?>
 
 <?php function drawLogin() { ?>

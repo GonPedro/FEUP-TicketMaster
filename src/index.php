@@ -16,6 +16,7 @@ if(!$session->isLoggedin()){
 else{
     setHeader("Tickets");
     drawTopbar();
+    drawFilterBoxes();
     drawTickets($session);
 }
 ?>

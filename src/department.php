@@ -15,7 +15,9 @@ $session = new Session();
 setHeader('Department');
 if($session->isLoggedIn()){
     if($department = Department::getDepartmentName($db, (int)$_GET['id'])){
-        drawTopbar();
+        drawTopbar($session);
         drawDepartmentTickets($department);
+    } else{
+        header('Location : /departments.php');
     }
 } else header('Location : /index.php');

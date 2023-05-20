@@ -1,5 +1,5 @@
-INSERT INTO Agent VALUES (1, 0);
-INSERT INTO Admin VALUES (1, 0);
+INSERT INTO Agent VALUES (1);
+INSERT INTO Admin VALUES (1);
 
 INSERT INTO Status(adminID,name) VALUES (1, "open");
 INSERT INTO Status(adminID,name) VALUES (1, "closed");

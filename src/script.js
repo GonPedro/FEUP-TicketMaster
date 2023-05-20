@@ -72,3 +72,24 @@ $(document).ready(function() {
         });
     });
 });
+
+ function changeRole(select) {
+    var selectedValue = select.value;
+    // Perform an AJAX request to trigger the action
+    $.ajax({
+        url: '/action_promote_user.php',
+        method: 'POST',
+        data: $('#roleChange').serialize(),
+        success: function(response) {
+            document.getElementById("userlist").innerHTML = response;
+        },
+        error: function(xhr, status, error) {
+            // Handle the error here
+            console.error('An error occurred:', error);
+        }
+    });
+}
+
+
+
+

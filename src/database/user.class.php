@@ -110,7 +110,7 @@ class User {
 
 
   static function addUser(PDO $db, string $email, string $username, string $password) : ?User{
-    $stmt = $db->prepare('INSERT INTO User (fullname, username, password, email) VALUES ("Not set", ?, ?, ?)');
+    $stmt = $db->prepare('INSERT INTO User (fullname, username, password, email, closedTickets) VALUES ("Not set", ?, ?, ?, 0)');
     $stmt->execute(array(strtolower($username), sha1($password), strtolower($email)));
     return User::getUser($db, $username, $password);
   }
@@ -138,57 +138,31 @@ class User {
 
   }
   static function promote(PDO $db, int $user_id, string $role){
+    $stmt = $db->prepare('DELETE FROM Admin WHERE userID = ?');
+    $stmt->execute(array($user_id));
+
+    $stmt= $db->prepare('DELETE FROM Agent WHERE userID = ?');
+    $stmt->execute(array($user_id));
+    
     if($role == "agent"){
-      $stmt = $db->prepare('INSERT INTO Agent VALUES (?, 0)');
+      $stmt = $db->prepare('INSERT INTO Agent VALUES (?)');
       $stmt->execute(array($user_id));
     } else if($role == "admin"){
-      if(User::getRole($db, $user_id) == "client"){
-        $stmt = $db->prepare('INSERT INTO Agent VALUES (?, 0)');
-        $stmt->execute(array($user_id));
-      }
-      $stmt = $db->prepare('INSERT INTO Admin VALUES (?, 0)');
+      $stmt = $db->prepare('INSERT INTO Agent VALUES (?)');
+      $stmt->execute(array($user_id));
+      
+      $stmt = $db->prepare('INSERT INTO Admin VALUES (?)');
       $stmt->execute(array($user_id));
     }
-  }
-
-  static function depromote(PDO $db, int $user_id){
-    if(User::getRole($db, $user_id) == "admin"){
-      $stmt = $db->prepare('SELECT closedTickets
-      FROM Admin
-      WHERE userID = ?');
-      $stmt->execute(array($user_id));
-      $sub = $stmt->fetch();
-      $tickets = (int)$sub['closedTickets'];
-      $stmt = $db->prepare('UPDATE Agent SET closedTickets = ?
-      WHERE $userID = ?');
-      $stmt->execute(array($tickets));
-      $stmt = $db->prepare('DELETE FROM Admin
-      where adminID = ?');
-      $stmt->execute(array($user_id));
-    } else {
-      $stmt = $db->prepare('DELETE FROM Agent
-      where agentID = ?');
-      $stmt->execute(array($user_id));
-    }
-    return;
   }
 
   static function getClosedTickets(PDO $db, int $user_id) : ?int{
-    if(strcmp(User::getRole($db, $user_id), "admin") == 0){
-      $stmt = $db->prepare('SELECT closedTickets
-      FROM Admin
-      WHERE userID = ?');
-      $stmt->execute(array($user_id));
-      $tickets = $stmt->fetch();
-      return (int)$tickets['closedTickets'];
-    } else {
-      $stmt = $db->prepare('SELECT closedTickets
-      FROM Agent
-      WHERE userID = ?');
-      $stmt->execute(array($user_id));
-      $tickets = $stmt->fetch();
-      return (int)$tickets['closedTickets'];
-    }
+    $stmt = $db->prepare('SELECT closedTickets
+    FROM User
+    WHERE userID = ?');
+    $stmt->execute(array($user_id));
+    $tickets = $stmt->fetch();
+    return (int)$tickets['closedTickets'];
   }
 
 

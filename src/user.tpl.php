@@ -53,13 +53,15 @@ require_once(__DIR__ . "/session.php");
         <label id="title"><a href = "profile.php?id=<?=$user->id?>"><?=$user->username?></a></label>
         <?php
         $db = getDatabaseConnection();
-        if((strcmp(User::getRole($db, (int)$session->getID()), "admin") == 0) and ($session->getID() != $user->id)){ ?>
-            <form action = "/action_promote_user.php" method = "post">
-                <select name = "role">
-                    <option value="client">Client</option>
-                    <option value="agent">Agent</option>
-                    <option value="admin">Admin</option>
+        if((strcmp(User::getRole($db, (int)$session->getID()), "admin") == 0) and ($session->getID() != $user->id)){ 
+            $userRole = User::getRole($db, $user->id); ?>
+            <form id = "roleChange" action = "/action_promote_user.php" method = "post">
+                <select name = "role" onchange = "changeRole(this)">
+                    <option value="client" <?php if($userRole == "client") echo "selected"; ?>>Client</option>
+                    <option value="agent" <?php if($userRole == "agent") echo "selected"; ?>>Agent</option>
+                    <option value="admin" <?php if($userRole == "admin") echo "selected"; ?>>Admin</option>
                 </select>
+                <input type="hidden" name="user" value= <?=$user->id?>>
             </form>
         <?php } ?>
     </div>

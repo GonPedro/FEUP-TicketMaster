@@ -41,14 +41,14 @@ require_once(__DIR__ . '/database/hashtag.class.php');
 <?php function drawTicket(array $ticket){ ?>
     <div class="ticket">
         <label id="title"><a href="ticket.php?id=<?=$ticket['ticketID']?>"><?=$ticket['title']?></a></label>
-        <img id="config" src="/profileImages/gatito.png">
+        <img id="config" src="/profileImages/gear.png">
     </div>
 <?php } ?> 
 
 <?php function drawFilteredTicket(Ticket $ticket) { ?>
     <div class="ticket">
         <a href="ticket.php?id=<?=$ticket->id?>"><label id="title"><?=$ticket->title?></label></a>
-        <img id="config" src="/profileImages/gatito.png">
+        <img id="config" src="/profileImages/gear.png">
     </div>
 <?php } ?>
 

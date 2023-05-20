@@ -11,10 +11,24 @@ $session = new Session();
 
 
 require_once(__DIR__ . '/common.tpl.php');
-require_once(__DIR__ . 'department.tpl.php');
+require_once(__DIR__ . '/department.tpl.php');
+require_once(__DIR__ . '/database/department.class.php');
+require_once(__DIR__ . '/database/user.class.php');
+
 
 setHeader("Departments");
 if($session->isLoggedIn()){
-    drawTopbar();
-    drawDepartments();
+    drawTopbar($session);
+    if(strcmp(User::getRole($db, $session->getID()), "admin") == 0){
+        $departments = Department::getDepartments($db);
+        drawDepartments($departments);
+    } else if(strcmp(User::getRole($db, $session->getID()), "agent") == 0){
+        $departments = Department::getAgentDepartments($db, $session->getID());
+        drawDepartments($departments);
+    } else {
+        header('Location : /index.php');
+    }
+} else {
+    header('Location : /index.php');
 }
+?>

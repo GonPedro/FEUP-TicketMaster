@@ -33,4 +33,16 @@ class Hashtag {
         $stmt->execute(array($admin_id, $name));
         return;
     }
+
+    static function getHashtagsWith(PDO $db, string $term) : ?array{
+        $stmt = $db->prepare("SELECT name
+        FROM Hashtag
+        WHERE name LIKE ? || '%'");
+        $result = array();
+        $stmt->execute(array($term));
+        while($hashtag = $stmt->fetch()){
+            $result[] = $hashtag['name'];
+        }
+        return $result;
+    }
 }

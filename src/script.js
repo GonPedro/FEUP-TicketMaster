@@ -71,6 +71,26 @@ $(document).ready(function() {
             }
         });
     });
+
+    $('#hashtag-input').on('input', function() {
+        var inputText = $(this).val();
+        
+        if (inputText.startsWith('#')) {
+            $.ajax({
+                url: '/get_hashtags.php',
+                method: 'POST',
+                data: { search: inputText.substring(1) },
+                success: function(response) {
+                    displayAutocompleteOptions(response);
+                },
+                error: function(xhr, status, error) {
+                    console.error('An error occurred:', error);
+                }
+            });
+        } else {
+            $('#autocomplete-results').empty();
+        }
+    });
 });
 
  function changeRole(select) {
@@ -90,6 +110,48 @@ $(document).ready(function() {
     });
 }
 
+function displayAutocompleteOptions(options) {
+    var resultsDiv = $('#autocomplete-results');
+    resultsDiv.empty();
+
+    options.forEach(function(option) {
+        var optionDiv = $('<div class="autocomplete-option">' + option + '</div>');
+
+        optionDiv.click(function() {
+            var selectedHashtag = '#' + option;
+            displaySelectedHashtag(selectedHashtag);
+            updateHashtagsInput();
+            $('#hashtag-input').val('').focus();
+            resultsDiv.empty();
+        });
+
+        resultsDiv.append(optionDiv);
+    });
+}
+
+function displaySelectedHashtag(hashtag) {
+    var selectedHashtagsContainer = $('#selected-hashtags');
+    var hashtagDiv = $('<div class="selected-hashtag">' + hashtag + '</div>');
+
+    hashtagDiv.click(function() {
+        $(this).remove();
+    });
+
+    selectedHashtagsContainer.append(hashtagDiv);
+}
+
+function updateHashtagsInput() {
+    var selectedHashtags = $('.selected-hashtag').map(function() {
+        return $(this).text();
+    }).get().join(',');
+
+    $('#hashtag-input').val(selectedHashtags);
+}
+
+$('#selected-hashtags').on('click', '.selected-hashtag', function() {
+    $(this).remove();
+    updateHashtagsInput();
+});
 
 
 

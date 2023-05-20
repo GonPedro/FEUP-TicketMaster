@@ -97,7 +97,10 @@ require_once(__DIR__ . '/database/hashtag.class.php');
                     <option value =<?=$department->name?>><?=$department->name?></option>
                 <?php } ?>
             </select>
-            <input type="text" name = "hashtag">
+            <input type="text" id="hashtag-input">
+            <div id="autocomplete-results"></div>
+            <div id="selected-hashtags" class="selected-hashtag"></div>
+            <input type="hidden" name="hashtag" class = "hashtag-input">
             <input type="submit" value="Search">
 
         </div>

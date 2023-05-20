@@ -41,41 +41,11 @@ class Ticket{
             $stmt->execute(array($ticket['clientID']));
             $client_name = $stmt->fetch();
             
-            //get Ticket Hashtags
-            $stmt = $db->prepare('SELECT hashtagID
-            FROM TicketHashtag
-            Where ticketID = ?');
-            $stmt->execute(array($id));
-            $sub = $stmt->fetchAll();
-            $hashtags = array();
-            $index = 0;
-            foreach($sub as $hashtag){
-                $stmt = $db->prepare('SELECT name
-                FROM Hashtag
-                Where hashtagID = ?');
-                $stmt->execute(array($hashtag));
-                $tag = $stmt->fetch();
-                $hashtags[$index] = $tag['name'];
-                $index = $index + 1;
-            }
+            $hashtags = Hashtag::getTicketHashtags($db, (int)$ticket['ticketID']);
             
             //get Ticket Agents
-            $stmt = $db->prepare('SELECT agentID
-            FROM TicketAgent
-            Where ticketID = ?');
-            $stmt->execute(array($id));
-            $sub = $stmt->fetchAll();
-            $agents = array();
-            $index = 0;
-            foreach($sub as $agent){
-                $stmt = $db->prepare('SELECT username
-                FROM User
-                Where userID = ?');
-                $stmt->execute(array($agent));
-                $a = $stmt->fetch();
-                $agents[$index] = $a['username'];
-                $index = $index + 1;
-            }
+            $agents = Ticket::getAgents($db, (int)$ticket['ticketID']);
+        
             return new Ticket(
                 (int)$ticket['ticketID'],
                 $ticket['title'],
@@ -143,7 +113,7 @@ class Ticket{
             if(strcmp($date, "") == 0) $dateflag = true;
             $hashtags = Hashtag::getTicketHashtags($db, (int)$ticket['ticketID']);
             $flag = 1;
-            $diff = array_diff($hashtags, $hashtag);
+            $diff = array_diff($hashtag, $hashtags);
             if(empty($diff) or empty($hashtag)){
                 $flag = 0;
             }
@@ -165,13 +135,11 @@ class Ticket{
         return $tickets;
     }
 
-
     static function addTicket(PDO $db, int $client_id, string $title, int $priority, string $department){
         $date = date("Y-m-d H:i");
         $stmt = $db->prepare('INSERT INTO Ticket(clientID, department, status_name, title, priority, da)
         VALUES (?,?,"open",?,?,?)');
         $stmt->execute(array($client_id, $department, $title, $priority, $date));
-        //probably still need to insert hashtags into database as well, dont know how i will do that yet
         return;
     }
 
@@ -213,15 +181,42 @@ class Ticket{
     }
 
     static function changeDepartment(PDO $db, int $ticket_id, int $agent_id, string $department){
+        $stmt = $db->prepare('SELECT department
+        FROM Ticket
+        WHERE ticketID = ?');
+        $stmt->execute(array($ticket_id));
+        $depa = $stmt->fetch()['department'];
+        
         $stmt = $db->prepare('UPDATE Ticket SET department = ?
         WHERE ticketID = ?');
         $stmt->execute(array($department, $ticket_id));
-        Change::addChange($db, $ticket_id, $agent_id, "Changed from department " . $this->department . " to " . $department);
+        Change::addChange($db, $ticket_id, $agent_id, "Changed from department " . $depa . " to " . $department);
     }
 
-    static function changeStatus(PDO $db, int $ticket_id, string $status){
-        $stmt = $db->prepare('UPDATE Ticket SET status_name = ?');
-        $stmt->execute(array($status));
+    static function changeStatus(PDO $db, int $ticket_id, int $agent_id, string $status){
+        $stmt = $db->prepare('SELECT status_name
+        FROM Ticket
+        WHERE ticketID = ?');
+        $stmt->execute(array($ticket_id));
+        $sta = $stmt->fetch()['status_name'];
+
+        $stmt = $db->prepare('UPDATE Ticket SET status_name = ?
+        WHERE ticketID = ?');
+        $stmt->execute(array($status, $ticket_id));
+        Change::addChange($db, $ticket_id, $agent_id, "Changed Status from " . $sta . " to " . $status);
+    }
+
+    static function changePriority(PDO $db, int $ticket_id, int $agent_id, int $priority){
+        $stmt = $db->prepare('SELECT priority
+        FROM Ticket
+        WHERE ticketID = ?');
+        $stmt->execute(array($ticket_id));
+        $prio = $stmt->fetch()['priority'];
+
+        $stmt = $db->prepare('UPDATE Ticket SET priority = ?
+        WHERE ticketID = ?');
+        $stmt->execute(array($priority, $ticket_id));
+        Change::addChange($db, $ticket_id, $agent_id, "Changed Priority from " . $prio . " to " . $priority);
     }
 }
 ?>

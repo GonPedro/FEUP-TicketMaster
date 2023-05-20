@@ -74,23 +74,23 @@ $(document).ready(function() {
 
     $('#hashtag-input').on('input', function() {
         var inputText = $(this).val();
-        
+      
         if (inputText.startsWith('#')) {
-            $.ajax({
-                url: '/get_hashtags.php',
-                method: 'POST',
-                data: { search: inputText.substring(1) },
-                success: function(response) {
-                    displayAutocompleteOptions(response);
-                },
-                error: function(xhr, status, error) {
-                    console.error('An error occurred:', error);
-                }
-            });
+          $.ajax({
+            url: '/get_hashtags.php',
+            method: 'POST',
+            data: { search: inputText.substring(1) },
+            success: function(response) {
+              displayAutocompleteOptions(response);
+            },
+            error: function(xhr, status, error) {
+              console.error('An error occurred:', error);
+            }
+          });
         } else {
-            $('#autocomplete-results').empty();
+          $('#autocomplete-results').empty();
         }
-    });
+      });
 });
 
  function changeRole(select) {
@@ -110,48 +110,106 @@ $(document).ready(function() {
     });
 }
 
+function changeStatus(select) {
+    var selectedValue = select.value;
+    // Perform an AJAX request to trigger the action
+    $.ajax({
+        url: '/action_change_status.php',
+        method: 'POST',
+        data: $('#statusChange').serialize(),
+        success: function(response) {
+            document.getElementById("ticketmenu").innerHTML = response;
+        },
+        error: function(xhr, status, error) {
+            // Handle the error here
+            console.error('An error occurred:', error);
+        }
+    });
+}
+
+function changeDepartment(select) {
+    var selectedValue = select.value;
+    // Perform an AJAX request to trigger the action
+    $.ajax({
+        url: '/action_change_department.php',
+        method: 'POST',
+        data: $('#departmentChange').serialize(),
+        success: function(response) {
+            document.getElementById("ticketmenu").innerHTML = response;
+        },
+        error: function(xhr, status, error) {
+            // Handle the error here
+            console.error('An error occurred:', error);
+        }
+    });
+}
+
+function changePriority(select) {
+    var selectedValue = select.value;
+    // Perform an AJAX request to trigger the action
+    $.ajax({
+        url: '/action_change_priority.php',
+        method: 'POST',
+        data: $('#priorityChange').serialize(),
+        success: function(response) {
+            document.getElementById("ticketmenu").innerHTML = response;
+        },
+        error: function(xhr, status, error) {
+            // Handle the error here
+            console.error('An error occurred:', error);
+        }
+    });
+}
+
 function displayAutocompleteOptions(options) {
     var resultsDiv = $('#autocomplete-results');
     resultsDiv.empty();
-
+  
     options.forEach(function(option) {
-        var optionDiv = $('<div class="autocomplete-option">' + option + '</div>');
-
-        optionDiv.click(function() {
-            var selectedHashtag = '#' + option;
-            displaySelectedHashtag(selectedHashtag);
-            updateHashtagsInput();
-            $('#hashtag-input').val('').focus();
-            resultsDiv.empty();
-        });
-
-        resultsDiv.append(optionDiv);
+      var optionDiv = $('<div class="autocomplete-option">' + option + '</div>');
+  
+      optionDiv.click(function() {
+        var selectedHashtag = '#' + option;
+        displaySelectedHashtag(selectedHashtag);
+        updateHashtagsInput();
+        $('#hashtag-input').val('').focus();
+        resultsDiv.empty();
+      });
+  
+      resultsDiv.append(optionDiv);
     });
-}
-
-function displaySelectedHashtag(hashtag) {
+  }
+  
+  function displaySelectedHashtag(hashtag) {
     var selectedHashtagsContainer = $('#selected-hashtags');
     var hashtagDiv = $('<div class="selected-hashtag">' + hashtag + '</div>');
-
+  
     hashtagDiv.click(function() {
-        $(this).remove();
+      $(this).remove();
+      updateHashtagsInput();
     });
-
-    selectedHashtagsContainer.append(hashtagDiv);
-}
-
-function updateHashtagsInput() {
+  
+    // Check if the hashtag already exists before appending
+    var existingHashtag = selectedHashtagsContainer.find('.selected-hashtag:contains("' + hashtag + '")');
+    if (existingHashtag.length === 0) {
+      selectedHashtagsContainer.append(hashtagDiv);
+    }
+  }
+  
+  function updateHashtagsInput() {
     var selectedHashtags = $('.selected-hashtag').map(function() {
-        return $(this).text();
-    }).get().join(',');
-
-    $('#hashtag-input').val(selectedHashtags);
-}
-
-$('#selected-hashtags').on('click', '.selected-hashtag', function() {
-    $(this).remove();
-    updateHashtagsInput();
-});
+      return $(this).text().trim();
+    }).get();
+  
+    var selectedHashtagsString = selectedHashtags.map(function(hashtag) {
+      return '#' + hashtag;
+    }).join(',');
+  
+    console.log(selectedHashtagsString);
+  
+    $('#hashtag-input').val(selectedHashtagsString);
+  }
+  
 
 
 

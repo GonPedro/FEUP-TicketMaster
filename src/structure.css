@@ -118,6 +118,7 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
+        height: min(4em, 10vw);
     }
     
     .ticket label {
@@ -125,7 +126,8 @@
         left: .5em;
     }
     
-    .ticket label[id="title"] {
+    .ticket label[id="title"],
+    .ticket label[id="name"] {
         top: 17.5%;
         height: 100%;
         left: .75em;
@@ -156,7 +158,6 @@
         height: 6em;
     }
     
-    .msginput,
     .userinput {
         position: absolute;
         -ms-transform: translate(-50%, 0);
@@ -168,7 +169,6 @@
         max-width: calc(100% - 50px);
     }
     
-    .msginput input,
     .userinput input {
         position: absolute;
         height: 100%;
@@ -177,13 +177,11 @@
         top: 50%;
     }
     
-    .msginput input[type="submit"],
     .userinput input[type="text"] {
         width: 75%;
         height: calc(100% - 0.3vh);
     }
     
-    .msginput input[type="submit"],
     .userinput input[type="submit"] {
         width: calc(25% - 1em);
         left: calc(75% + 1em);
@@ -593,4 +591,10 @@
     
     .userinput[id="msginput"] {
         top: 13em;
+    }
+    
+    .ticket label[id="remove"] {
+        -ms-transform: translate(-100%, 0%);
+        transform: translate(-100%, 0%);
+        margin-right: .5em;
     }

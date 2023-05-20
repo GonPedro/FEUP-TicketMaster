@@ -29,7 +29,6 @@ span[id="bold"] {
 
 .login input[type="submit"],
 .config input[type="submit"],
-.msginput input[type="submit"],
 .userinput input[type="submit"],
 .profile button,
 .profileedit input[type="submit"],
@@ -101,13 +100,13 @@ select {
     overflow: hidden;
 }
 
-.ticket label[id="title"] {
+.ticket label[id="title"],
+.ticket label[id="name"] {
     color: #D9D9D9;
     font-size: min(35px, 5vw);
     text-overflow: ellipsis;
 }
 
-.msginput input[type="text"],
 .userinput input[type="text"] {
     padding: 0 0 0 0;
     color: #D9D9D9;
@@ -120,7 +119,6 @@ select {
     padding-left: 15px;
 }
 
-.msginput input[type="submit"],
 .userinput input[type="submit"] {
     font-size: min(3vw, 30px);
 }
@@ -236,4 +234,9 @@ select {
     background-color: #3B3B3B;
     border: solid 2px red;
     color: red;
+}
+
+.ticket label[id="remove"] {
+    font-size: min(35px, 5vw);
+    font-weight: bolder;
 }

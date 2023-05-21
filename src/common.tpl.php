@@ -57,6 +57,7 @@ require_once(__DIR__ . '/database/hashtag.class.php');
 <?php function drawTopbar(Session $session){ ?>
     <div class="topbar">
         <button id="a"><a href = "departments.php">DEPARTMENTS</a></button>
+        <button id="faq"><a href = "faqs.php">FAQ</a></button>
         <button id="nticket"><a href = "users.php">USER SEARCH</a></button>
         <button id="mticket"><a href = "index.php">TICKETS</a></button>
         <button id="nticket"><a href = "profile.php?id=<?=$session->getID()?>">PROFILE</a></button>

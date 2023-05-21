@@ -282,6 +282,16 @@
         width: calc(5% + 1em);
     }
     
+    .ticketdata #actions {
+        position: absolute;
+        -ms-transform: translate(-100%, 0%);
+        transform: translate(-100%, 0%);
+        left: 90%;
+        object-fit: cover;
+        aspect-ratio: 1;
+        width: calc(5% + 1em);
+    }
+    
     .listinput {
         top: 5%;
         position: absolute;
@@ -768,3 +778,14 @@
         width: 30%;
         left: 0;
     }
+<<<<<<< HEAD
+=======
+    
+    #changes .msglist {
+        top: 14em;
+    }
+    
+    #changes .msg {
+        width: 100%;
+    }
+>>>>>>> f1696781645e6e1549bd284fd4873e9ed716a4e0

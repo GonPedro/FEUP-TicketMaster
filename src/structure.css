@@ -472,7 +472,7 @@ select,
     left: 10%;
 }
 
-.listinput div {
+.listinput #list {
     position: absolute;
     width: 100%;
     top: 30%;
@@ -482,7 +482,7 @@ select,
     flex-direction: column;
 }
 
-.listinput div label {
+.listinput #list label {
     position: relative;
     width: 85%;
     text-align: center;
@@ -656,20 +656,6 @@ select,
     width: 100%
 }
 
-.autocomplete-results {
-    width: 30%;
-    height: 60%;
-    top: 6em;
-}
-
-#autocomplete-results {
-    position: absolute;
-    width: 50%;
-    height: 50%;
-    top: 20%;
-    z-index: 10;
-}
-
 .buttonlist {
     position: absolute;
     max-width: calc(100% - 50px);
@@ -687,4 +673,18 @@ select,
     width: 100%;
     height: 2em;
     margin-bottom: 1em;
+}
+
+#add {
+    position: absolute;
+    top: 11%;
+    width: 9%;
+    left: 93%;
+    height: 13%;
+    -ms-transform: translate(-100%, 0%);
+    transform: translate(-100%, 0%);
+}
+
+#collaborators #add {
+    left: 87%
 }

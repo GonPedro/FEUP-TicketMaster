@@ -482,6 +482,12 @@ select,
     flex-direction: column;
 }
 
+#autocomplete-results {
+    position: absolute;
+    top: 30%;
+    left:160%;
+}
+
 .listinput div label {
     position: relative;
     width: 85%;

@@ -80,13 +80,13 @@ require_once(__DIR__ . '/database/department.class.php');
         <div class="listinput" id="hashtags">
             <label id="name">Hashtags:</label>
             <input type="text" id="hashtag-ticket-input" data-ticket-id="<?=$ticket->id?>">
-            <div id="autocomplete-results"></div>
             <div id="list">
                 <?php
                 foreach($ticket->hashtags as $hashtag){?>
                 <label class="hashtag-label" data-ticket-id="<?=$ticket->id?>"  data-hashtag-id="<?=$hashtag->id?>">#<?=$hashtag->text?></label>
                 <?php } ?>
             </div>
+            <div id="autocomplete-results"></div>
         </div>
         <div class="listinput" id="collaborators">
             <label id="name">Collaborators:</label>
@@ -149,7 +149,7 @@ require_once(__DIR__ . '/database/department.class.php');
 <?php function drawTicketConfigRefresh(Ticket $ticket, array $departments, array $statuses) { ?>
     <div class="listinput" id="hashtags">
         <label id="name">Hashtags:</label>
-        <input type="text" id="hashtag-ticket-input" data-ticket-id=<?$ticket->id?>>
+        <input type="text" id="hashtag-ticket-input" data-ticket-id=<?=$ticket->id?>>
         <div id="list">
             <?php
             foreach($ticket->hashtags as $hashtag){?>

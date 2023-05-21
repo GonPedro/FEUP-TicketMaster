@@ -125,7 +125,6 @@ $(document).ready(function() {
         // Remove the label from the screen
         label.remove();
         
-        // Call a function to remove the hashtag from the database, passing the hashtag ID as an argument
         removeHashtagFromDatabase(ticketId, hashtag);
     });
 });
@@ -220,22 +219,21 @@ function changePriority(select) {
 function displayAutocompleteTicketOptions(options) {
     var resultsDiv = $('#autocomplete-results');
     resultsDiv.empty();
-  
+
     options.forEach(function(option) {
-        console.log("type");
-      var optionDiv = $('<div class="autocomplete-option">' + option + '</div>');
-  
-      optionDiv.click(function() {
-        console.log("click");
-        var selectedHashtag = '#' + option;
-        displaySelectedTicketHashtag(selectedHashtag);
-        $('#hashtag-input').val('').focus();
-        resultsDiv.empty();
-      });
-  
-      resultsDiv.append(optionDiv);
+        option = '#' + option;
+        var optionDiv = $('<label class="autocomplete-option">' + option + '</label>');
+        resultsDiv.append(optionDiv);
+
+        optionDiv.on('click', function() {
+            console.log("nobr");
+            displaySelectedTicketHashtag(option);
+            $('#hashtag-ticket-input').val('').focus();
+            resultsDiv.empty();
+          });
+
     });
-  }
+}
 
 
   function displaySelectedTicketHashtag(hashtag) {
@@ -262,6 +260,14 @@ function displayAutocompleteOptions(options) {
   
       resultsDiv.append(optionDiv);
     });
+
+    $('.autocomplete-option').click(function () {
+        console.log("click");
+        var selectedHashtag = $(this).text();
+        displaySelectedTicketHashtag(selectedHashtag);
+        $('#hashtag-input').val('').focus();
+        resultsDiv.empty();
+      });
   }
   
   function displaySelectedHashtag(hashtag) {
@@ -297,5 +303,6 @@ function displayAutocompleteOptions(options) {
     $('.hashtag-input').val(selectedHashtagsString);
   }
   
+
 
 

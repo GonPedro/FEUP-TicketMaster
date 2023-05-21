@@ -75,7 +75,7 @@ require_once(__DIR__ . '/database/department.class.php');
     } 
 } ?>
 
-<?php function drawTicketConfig(Ticket $ticket, array $departments, array $statuses) { ?>
+<?php function drawTicketConfig(string $role, Ticket $ticket, array $departments, array $statuses) { ?>
     <div id = "ticketmenu" class="ticketmenu">
         <form action = "action_edit_ticket.php?id=<?=$ticket->id?>" method = "post">
         <div class="listinput" id="hashtags">
@@ -88,6 +88,8 @@ require_once(__DIR__ . '/database/department.class.php');
                 <?php } ?>
             </div>
         </div>
+        <?php
+        if($role != "client"){ ?>
         <div class="listinput" id="collaborators">
             <label id="name">Collaborators:</label>
             <input type="text" name = "agent">
@@ -98,6 +100,8 @@ require_once(__DIR__ . '/database/department.class.php');
                 <?php } ?>
             </div>
         </div>
+        <?php } ?>
+        
         <div class="labels">
             <label id="status">Status:</label>
             <label id="department">Department:</label>
@@ -116,7 +120,7 @@ require_once(__DIR__ . '/database/department.class.php');
                     <option value=<?=$department->name?> <?php if ($department->name == $ticket->department) echo "selected";?>><?=$department->name?></option>
                 <?php } ?>
             </select>
-            <select id="priority" name = "priority" onchange="changePriority(this)">
+            <select id="priority" name = "priority">
                 <option value = "1" <?php if ($ticket->priority == 1) echo "selected";?>>1</option>
                 <option value = "2" <?php if ($ticket->priority == 2) echo "selected";?>>2</option>
                 <option value = "3" <?php if ($ticket->priority == 3) echo "selected";?>>3</option>
@@ -137,70 +141,6 @@ require_once(__DIR__ . '/database/department.class.php');
 <?php } ?>
 
 
-<?php function drawTicketConfigRefresh(Ticket $ticket, array $departments, array $statuses) { ?>
-    <div class="listinput" id="hashtags">
-        <label id="name">Hashtags:</label>
-        <input type="text" id="hashtag-ticket-input" data-ticket-id=<?=$ticket->id?>>
-        <div id="list">
-            <?php
-            foreach($ticket->hashtags as $hashtag){?>
-            <label class="hashtag-label" data-ticket-id="<?=$ticket->id?>" data-hashtag-id="<?=$hashtag->id?>">#<?=$hashtag->text?></label>
-            <?php } ?>
-        </div>
-    </div>
-    <div class="listinput" id="collaborators">
-        <label id="name">Collaborators:</label>
-        <input type="text">
-        <div id="list">
-            <?php
-            foreach($ticket->agents as $agent){ ?>
-                <label><?=$agent?></label>
-            <?php } ?>
-        </div>
-    </div>
-    <div class="labels">
-        <label id="status">Status:</label>
-        <label id="department">Department:</label>
-        <label id="priority">Priority:</label>
-    </div>
-    <div class="othersettings">
-        <form id ="statusChange" action = "action_change_status.php" method = "post">
-            <select id="status" name = "status" onchange="changeStatus(this)">
-                <?php
-                foreach($statuses as $status) { ?>
-                    <option value=<?=$status->name?> <?php if ($status->name == $ticket->status) echo "selected";?>><?=$status->name?></option>
-                <?php } ?>
-            </select>
-            <input type = "hidden" name="ticket" value = <?=$ticket->id?>>
-        </form>
-
-        <form id ="departmentChange" action = "action_change_department.php" method = "post">
-            <select id="department" name = "department" onchange="changeDepartment(this)">
-                <?php
-                foreach($departments as $department){ ?>
-                    <option value=<?=$department->name?> <?php if ($department->name == $ticket->department) echo "selected";?>><?=$department->name?></option>
-                <?php } ?>
-            </select>
-            <input type = "hidden" name="ticket" value = <?=$ticket->id?>>
-        </form>
-        <form id = "priorityChange" action = "/action_change_priority.php" method="post"> 
-            <select id="priority" name = "priority" onchange="changePriority(this)">
-                <option value = "1" <?php if ($ticket->priority == 1) echo "selected";?>>1</option>
-                <option value = "2" <?php if ($ticket->priority == 2) echo "selected";?>>2</option>
-                <option value = "3" <?php if ($ticket->priority == 3) echo "selected";?>>3</option>
-                <option value = "4" <?php if ($ticket->priority == 4) echo "selected";?>>4</option>
-                <option value = "5" <?php if ($ticket->priority == 5) echo "selected";?>>5</option>
-                <option value = "6" <?php if ($ticket->priority == 6) echo "selected";?>>6</option>
-                <option value = "7" <?php if ($ticket->priority == 7) echo "selected";?>>7</option>
-                <option value = "8" <?php if ($ticket->priority == 8) echo "selected";?>>8</option>
-                <option value = "9" <?php if ($ticket->priority == 9) echo "selected";?>>9</option>
-                <option value = "10" <?php if ($ticket->priority == 10) echo "selected";?>>10</option>
-            </select>
-            <input type = "hidden" name="ticket" value = <?=$ticket->id?>>
-        </form>
-    </div>
-
-<?php } ?>
 
 <?php function drawDepartmentTickets(string $department) { ?>
     <div class="list">

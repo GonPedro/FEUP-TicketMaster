@@ -15,6 +15,7 @@ require_once(__DIR__ . '/database/department.class.php');
 require_once(__DIR__ . '/database/hashtag.class.php');
 require_once(__DIR__ . '/database/ticket.class.php');
 require_once(__DIR__ . '/database/status.class.php');
+require_once(__DIR__ . '/database/user.class.php');
 
 setHeader("Ticket Config");
 if($session->isLoggedIn()){
@@ -22,7 +23,8 @@ if($session->isLoggedIn()){
     $statuses = Status::getStatuses($db);
     $departments = Department::getDepartments($db);
     $ticket = Ticket::getTicket($db, (int)$_GET['id']);
-    drawTicketConfig($ticket, $departments, $statuses);
+    $role = User::getRole($db, $session->getID());
+    drawTicketConfig($role, $ticket, $departments, $statuses);
 } else {
     header('Location : /index.php');
 }

@@ -213,6 +213,10 @@ class Ticket{
         WHERE ticketID = ?');
         $stmt->execute(array($ticket_id));
         $depa = $stmt->fetch()['department'];
+
+        if($depa == $department) {
+            return $department;
+        }
         
         $stmt = $db->prepare('UPDATE Ticket SET department = ?
         WHERE ticketID = ?');
@@ -227,6 +231,9 @@ class Ticket{
         $stmt->execute(array($ticket_id));
         $sta = $stmt->fetch()['status_name'];
 
+        if($sta == $status){
+            return;
+        }
         if($sta == "closed"){
             User::decrementTicket($db, $agent_id);
         }
@@ -234,6 +241,7 @@ class Ticket{
         if($status == "closed"){
             User::incrementTicket($db, $agent_id);
         }
+
 
         $stmt = $db->prepare('UPDATE Ticket SET status_name = ?
         WHERE ticketID = ?');
@@ -246,7 +254,11 @@ class Ticket{
         FROM Ticket
         WHERE ticketID = ?');
         $stmt->execute(array($ticket_id));
-        $prio = $stmt->fetch()['priority'];
+        $prio = (int)$stmt->fetch()['priority'];
+
+        if($prio == $priority){
+            return;
+        }
 
         $stmt = $db->prepare('UPDATE Ticket SET priority = ?
         WHERE ticketID = ?');

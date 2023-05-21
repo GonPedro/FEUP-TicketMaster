@@ -38,5 +38,9 @@ if(!Hashtag::checkName($db, $_POST['hashtag'])){
     }
 }
 
+Ticket::changeStatus($db, (int)$_GET['id'], $session->getID(), $_POST['status']);
+Ticket::changeDepartment($db, (int)$_GET['id'], $session->getID(), $_POST['department']);
+Ticket::changePriority($db, (int)$_GET['id'], $session->getID(), (int)$_POST['priority']);
+
 header('Location: ' . $_SERVER['HTTP_REFERER']);
 

@@ -91,9 +91,65 @@ $(document).ready(function() {
           $('#autocomplete-results').empty();
         }
       });
+
+    $('#hashtag-ticket-input').on('input', function() {
+    var inputText = $(this).val();
+    
+    if (inputText.startsWith('#')) {
+        $.ajax({
+        url: '/get_ticket_hashtags.php',
+        method: 'POST',
+        data: {
+            search: inputText.substring(1),
+            ticket: $('#hashtag-ticket-input').data('ticket-id')
+        },
+        success: function(response) {
+            var option = Object.values(response);
+            displayAutocompleteTicketOptions(option);
+        },
+        error: function(xhr, status, error) {
+            console.error('An error occurred:', error);
+        }
+        });
+    } else {
+        $('#autocomplete-results').empty();
+    }
+    });
+
+    // Click-to-remove functionality
+    $(document).on('click', '.hashtag-label', function() {
+        var label = $(this);
+        var ticketId = label.data('ticket-id');
+        var hashtag = label.data('hashtag-id');
+        
+        // Remove the label from the screen
+        label.remove();
+        
+        // Call a function to remove the hashtag from the database, passing the hashtag ID as an argument
+        removeHashtagFromDatabase(ticketId, hashtag);
+    });
 });
 
- function changeRole(select) {
+
+function removeHashtagFromDatabase(ticketId, hashtag){
+    $.ajax({
+        url: '/action_remove_hashtag.php',
+        method: 'POST',
+        data: {
+            ticketID: ticketId,
+            hashtag: hashtag
+        },
+        success: function(response) {
+            console.log("Successfully removed hashtag from ticket");
+        },
+        error: function(xhr, status, error) {
+            // Handle the error here
+            console.error('An error occurred:', error);
+        }
+    });
+}
+
+function changeRole(select) {
     var selectedValue = select.value;
     // Perform an AJAX request to trigger the action
     $.ajax({
@@ -161,6 +217,34 @@ function changePriority(select) {
     });
 }
 
+function displayAutocompleteTicketOptions(options) {
+    var resultsDiv = $('#autocomplete-results');
+    resultsDiv.empty();
+  
+    options.forEach(function(option) {
+        console.log("type");
+      var optionDiv = $('<div class="autocomplete-option">' + option + '</div>');
+  
+      optionDiv.click(function() {
+        console.log("click");
+        var selectedHashtag = '#' + option;
+        displaySelectedTicketHashtag(selectedHashtag);
+        $('#hashtag-input').val('').focus();
+        resultsDiv.empty();
+      });
+  
+      resultsDiv.append(optionDiv);
+    });
+  }
+
+
+  function displaySelectedTicketHashtag(hashtag) {
+    var listDiv = $('#list');
+    var hashtagLabel = $('<label class="hashtag-label">' + hashtag + '</label>');
+  
+    listDiv.append(hashtagLabel);
+  }
+
 function displayAutocompleteOptions(options) {
     var resultsDiv = $('#autocomplete-results');
     resultsDiv.empty();
@@ -189,27 +273,29 @@ function displayAutocompleteOptions(options) {
       updateHashtagsInput();
     });
   
-    // Check if the hashtag already exists before appending
-    var existingHashtag = selectedHashtagsContainer.find('.selected-hashtag:contains("' + hashtag + '")');
-    if (existingHashtag.length === 0) {
-      selectedHashtagsContainer.append(hashtagDiv);
-    }
+    selectedHashtagsContainer.append(hashtagDiv);
   }
   
   function updateHashtagsInput() {
-    var selectedHashtags = $('.selected-hashtag').map(function() {
-      return $(this).text().trim();
-    }).get();
+    var selectedHashtags = [];
+  
+    $('.selected-hashtag').each(function(index) {
+      var hashtag = $(this).text().trim();
+      if (hashtag && selectedHashtags.indexOf(hashtag) === -1) {
+        if (index !== 0) { // Skip the first concatenated word
+          selectedHashtags.push(hashtag);
+        }
+      }
+    });
   
     var selectedHashtagsString = selectedHashtags.map(function(hashtag) {
-      return '#' + hashtag;
+      return '#' + hashtag.replace(/#/g, '').trim();
     }).join(',');
   
     console.log(selectedHashtagsString);
   
-    $('#hashtag-input').val(selectedHashtagsString);
+    $('.hashtag-input').val(selectedHashtagsString);
   }
   
-
 
 

@@ -28,7 +28,7 @@ if($session->isLoggedin()){
     drawTicketInfo($ticket);
     $name = User::getName($db, $session->getID());
     $role = User::getRole($db, $session->getID());
-    if((Ticket::checkAssignedAgent($db, (int)$_GET['id'], $name)) or ($role == "admin")){
+    if((Ticket::checkAssignedAgent($db, (int)$_GET['id'], $name)) or ($role == "admin") or ($name == $ticket->client_name)){
         drawMessageInput();
         drawMessages($session, $messages);
     }

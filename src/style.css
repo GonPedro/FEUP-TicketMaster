@@ -29,7 +29,6 @@ span[id="bold"] {
 
 .login input[type="submit"],
 .config input[type="submit"],
-.msginput input[type="submit"],
 .userinput input[type="submit"],
 .profile button,
 .profileedit input[type="submit"],
@@ -73,7 +72,9 @@ select {
 .config label,
 .profileedit label,
 .ticketmenu label,
-.filterlabels label {
+.filterlabels label,
+#answerlabel,
+#questionlabel {
     text-align: left;
     font-size: 2.5vh;
     color: #D9D9D9;
@@ -84,7 +85,7 @@ select {
     border: none;
     color: #D9D9D9;
     background-color: #2c2c2c;
-    font-size: 1em;
+    font-size: min(1em, 2.25vw);
     border-radius: 10px;
 }
 
@@ -110,33 +111,25 @@ select {
     overflow: hidden;
 }
 
-.ticket label[id="title"] {
+.ticket label[id="title"],
+.ticket label[id="name"] {
     color: #D9D9D9;
     font-size: min(35px, 5vw);
     text-overflow: ellipsis;
 }
 
-.ticket label[id="title"] a {
-    color: #D9D9D9;
-    font-size: min(35px, 5vw);
-    text-overflow: ellipsis;
-    text-decoration: none;
-}
-
-.msginput input[type="text"],
 .userinput input[type="text"] {
     padding: 0 0 0 0;
     color: #D9D9D9;
     font-family: "Georama";
     height: 100%;
-    font-size: 2.5vw;
+    font-size: 2vh;
     border: solid 0.01vh #D9D9D9;
     background-color: #3B3B3B;
     border-radius: 8px;
     padding-left: 15px;
 }
 
-.msginput input[type="submit"],
 .userinput input[type="submit"] {
     font-size: min(3vw, 30px);
 }
@@ -147,9 +140,11 @@ select {
     padding-bottom: 5px;
     background-color: #3B3B3B;
     color: #D9D9D9;
+    box-shadow: 0px 0px 8px #181818;
 }
 
 .msg p {
+    /*HERE*/
     word-wrap: break-word;
     padding-left: 10px;
     font-size: 20px;
@@ -254,3 +249,33 @@ select {
     color: red;
 }
 
+.ticket label[id="remove"],
+.faq label[id="remove"] {
+    font-size: 25px;
+    font-weight: bolder;
+    color: #D9D9D9;
+}
+
+.faq {
+    background-color: #3B3B3B;
+    border-radius: 8px;
+    box-shadow: 0px 0px 8px #181818;
+}
+
+.faq p {
+    word-wrap: break-word;
+    padding-left: 10px;
+    font-size: 20px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin-bottom: 0;
+    margin-top: 0;
+    text-align: justify;
+    text-justify: inter-word;
+    color: #D9D9D9;
+}
+
+#questionlabel,
+#answerlabel {
+    font-size: 25px;
+}

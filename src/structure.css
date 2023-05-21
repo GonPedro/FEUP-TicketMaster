@@ -96,6 +96,7 @@ select,
     margin-right: 10px;
     margin-left: 5px;
     width: 10em;
+    flex-shrink: 1;
 }
 
 .list,
@@ -117,14 +118,17 @@ select,
     display: flex;
     justify-content: space-between;
     align-items: center;
+    height: min(4em, 10vw);
 }
 
-.ticket label {
+.ticket label,
+.faq label {
     position: relative;
     left: .5em;
 }
 
-.ticket label[id="title"] {
+.ticket label[id="title"],
+.ticket label[id="name"] {
     top: 17.5%;
     height: 100%;
     left: .75em;
@@ -155,7 +159,6 @@ select,
     height: 6em;
 }
 
-.msginput,
 .userinput {
     position: absolute;
     -ms-transform: translate(-50%, 0);
@@ -167,7 +170,6 @@ select,
     max-width: calc(100% - 50px);
 }
 
-.msginput input,
 .userinput input {
     position: absolute;
     height: 100%;
@@ -176,16 +178,14 @@ select,
     top: 50%;
 }
 
-.msginput input,
 .userinput input[type="text"] {
     width: 75%;
     height: calc(100% - 0.3vh);
 }
 
-.msginput input,
 .userinput input[type="submit"] {
-    width: calc(25% - 1em);
-    left: calc(75% + 1em);
+    width: calc(25% - 30px);
+    left: calc(75% + 30px);
 }
 
 .msg p {
@@ -571,7 +571,6 @@ select,
     position: fixed;
     width: calc(2em + 1vmin);
     height: calc(2em + 1vmin);
-    ;
     margin: 0;
     padding: 0;
     top: calc(100% - 3em);
@@ -595,4 +594,57 @@ select,
 
 .userlist {
     top: 14em
+}
+
+.userinput[id="msginput"] {
+    top: 13em;
+}
+
+.ticket label[id="remove"],
+.faq label[id="remove"] {
+    -ms-transform: translate(-100%, 0%);
+    transform: translate(-100%, 0%);
+    margin-right: .5em;
+}
+
+.faqlist {
+    position: absolute;
+    max-width: calc(100% - 50px);
+    width: 60em;
+    -ms-transform: translate(-50%, 0%);
+    transform: translate(-50%, 0%);
+    left: 50%;
+    top: 6em;
+}
+
+.faq {
+    width: 100%;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#faqconfig {
+    top: 20em;
+}
+
+#answerlabel,
+#questionlabel {
+    position: absolute;
+    left: max(calc(50% - 19em), 30px);
+    top: 7.5em;
+}
+
+.userinput[id="answerfaq"] {
+    position: absolute;
+    top: 14em;
+}
+
+#faqdesc {
+    width: calc(100% - 1em);
+}
+
+#questionlabel {
+    top: 3.6em;
 }

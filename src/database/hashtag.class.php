@@ -2,6 +2,7 @@
 declare(strict_types = 1);
 
 require_once(__DIR__ . '/user.class.php');
+require_once(__DIR__ . '/change.class.php');
 
 class Hashtag {
     public int $id;
@@ -54,6 +55,15 @@ class Hashtag {
     }
 
 
+    static function addTicketHashtag(PDO $db, int $agent_id, int $ticket_id, string $hashtag){
+        $hashtag_id = Hashtag::getHashtagID($db, $hashtag);
+        $stmt = $db->prepare('INSERT INTO TicketHashtag(ticketID, hashtagID) VALUES (?,?)');
+        $stmt->execute(array($ticket_id, $hashtag_id));
+        Change::addChange($db, $ticket_id, $agent_id, "Added Hashtag " . $hashtag);
+        return;
+    }
+
+
     static function getHashtagID(PDO $db, string $name) : ?int{
         $stmt = $db->prepare('SELECT hashtagID
         FROM Hashtag
@@ -74,9 +84,11 @@ class Hashtag {
         } else return true;
     }
 
-    static function removeHashtag(PDO $db, int $ticket_id, int $id){
+    static function removeHashtag(PDO $db, int $agent_id, int $ticket_id, string $hashtag){
+        $hashtag_id = Hashtag::getHashtagID($db, $hashtag);
         $stmt = $db->prepare('DELETE FROM TicketHashtag WHERE ticketID = ? AND hashtagID = ?');
-        $stmt->execute(array($ticket_id, $id));
+        $stmt->execute(array($ticket_id, $hashtag_id));
+        Change::addChange($db, $ticket_id, $agent_id, "Removed Hashtag " . $hashtag);
         return;
     }
 

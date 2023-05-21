@@ -165,6 +165,20 @@ class User {
     return (int)$tickets['closedTickets'];
   }
 
+  static function decrementTicket(PDO $db, int $id) {
+    $tickets = User::getClosedTickets($db, $id);
+    $stmt = $db->prepare('UPDATE User SET closedTickets = ? WHERE userID = ?');
+    $stmt->execute(array($tickets-1, $id));
+    return;
+  }
+
+  static function incrementTicket(PDO $db, int $id) {
+    $tickets = User::getClosedTickets($db, $id);
+    $stmt = $db->prepare('UPDATE User SET closedTickets = ? WHERE userID = ?');
+    $stmt->execute(array($tickets+1, $id));
+    return;
+  }
+
 
   function save(PDO $db, string $password){
     if(strcmp($password, "") == 0){

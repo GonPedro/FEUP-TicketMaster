@@ -78,6 +78,7 @@ $(document).ready(function() {
 
     // Click-to-remove functionality
     $(document).on('click', '.hashtag-label', function() {
+        console.log("click");
         var label = $(this);
         var ticketId = label.data('ticket-id');
         var hashtag = label.data('hashtag-id');

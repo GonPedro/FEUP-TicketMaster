@@ -192,13 +192,19 @@ class Ticket{
         WHERE ticketID = ?');
         $stmt->execute(array($ticket_id));
         if(!$agent = $stmt->fetch()){
-            Ticket::changeStatus($db, $ticket_id, "assigned");
-            Change::addChange($db, $ticket_id, $agent_id, "Changed Status from " . $this->status . " to assigned");
+            Ticket::changeStatus($db, $ticket_id, $agent_id, "assigned");
+            Change::addChange($db, $ticket_id, $agent_id, "Changed Status to assigned");
         }
         $stmt = $db->prepare('INSERT INTO TicketAgent (ticketID, agentID) VALUES (?,?)');
         $stmt->execute(array($ticket_id, $agent_id));
         $name = User::getName($db, $agent_id);
         Change::addChange($db, $ticket_id, $agent_id, "Assigned " . $name . " to Ticket");
+    }
+
+    static function removeAgent(PDO $db, int $ticket_id, int $agent_id){
+        $stmt = $db->prepare('DELETE FROM TicketAgent WHERE ticketID = ? AND agentID = ?');
+        $stmt->execute(array($ticket_id, $agent_id));
+        Change::addChange($db, $ticket_id, $agent_id, "Removed " . $name . " From Ticket");
     }
 
     static function changeDepartment(PDO $db, int $ticket_id, int $agent_id, string $department){
@@ -221,10 +227,18 @@ class Ticket{
         $stmt->execute(array($ticket_id));
         $sta = $stmt->fetch()['status_name'];
 
+        if($sta == "closed"){
+            User::decrementTicket($db, $agent_id);
+        }
+        
+        if($status == "closed"){
+            User::incrementTicket($db, $agent_id);
+        }
+
         $stmt = $db->prepare('UPDATE Ticket SET status_name = ?
         WHERE ticketID = ?');
         $stmt->execute(array($status, $ticket_id));
-        Change::addChange($db, $ticket_id, $agent_id, "Changed Status from " . $sta . " to " . $status);
+        Change::addChange($db, $ticket_id, $agent_id, "Changed Status to " . $status);
     }
 
     static function changePriority(PDO $db, int $ticket_id, int $agent_id, int $priority){

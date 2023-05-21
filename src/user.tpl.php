@@ -37,6 +37,7 @@ require_once(__DIR__ . "/session.php");
             <img src="/profileImages/gatito.png" id="pfp">
             <label id="usernamelabel">Username:</label>
             <input type="text" value="<?=$user->username?>" name="username" id="username">
+            <input type="hidden" value="<?=$user->username?>" name="confirm">
             <label id="fullnamelabel">Full Name:</label>
             <input type="text" value="<?=$user->fullname?>" name="fullname" id="fullname">
             <label id="emaillabel">E-mail:</label>

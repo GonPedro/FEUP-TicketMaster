@@ -88,11 +88,11 @@ INSERT INTO Task (ticketID, agentID, content) VALUES
 
 -- Status
 INSERT INTO Status (adminID, name) VALUES
-    (3, 'Assigned'),
+    (3, 'closed'),
     (5, 'In Progress'),
     (8, 'Completed'),
-    (3, 'Open'),
-    (8, 'Closed');
+    (3, 'open'),
+    (8, 'assigned');
 
 -- Department
 INSERT INTO Department (adminID, name) VALUES

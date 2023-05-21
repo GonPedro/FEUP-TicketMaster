@@ -4,7 +4,7 @@ require_once(__DIR__ . '/database/faq.class.php');
 ?>
 
 
-<?php function drawFAQs(array $faqs) { ?>
+<?php function drawFAQs(array $faqs, string $role) { ?>
     <div class="faqlist">
         <?php foreach($faqs as $faq){?>
             <div class="faq">
@@ -13,8 +13,10 @@ require_once(__DIR__ . '/database/faq.class.php');
         </div>
         <?php } ?>
     </div>
-
-    <a href = "faq_config.php"><button class="new">+</button></a>
+    
+    <?php if($role != "client") { ?>
+        <a href = "faq_config.php"><button class="new">+</button></a>
+    <?php } ?>
 
 
 <?php } ?>

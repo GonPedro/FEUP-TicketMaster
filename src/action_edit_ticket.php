@@ -12,15 +12,16 @@ require_once(__DIR__ . '/database/ticket.class.php');
 require_once(__DIR__ . '/database/user.class.php');
 require_once(__DIR__ . '/database/hashtag.class.php');
 
-
-if(User::findName($db, $_POST['agent'])){
-    if(!Ticket::checkAssignedAgent($db, (int)$_GET['id'], $_POST['agent'])){
-        Ticket::addAgent($db, (int)$_GET['id'], User::getID($db, $_POST['agent']));
+if($_POST['agent'] != ""){
+    if(User::findName($db, $_POST['agent'])){
+        if(!Ticket::checkAssignedAgent($db, (int)$_GET['id'], $_POST['agent'])){
+            Ticket::addAgent($db, (int)$_GET['id'], User::getID($db, $_POST['agent']));
+        } else {
+            Ticket::removeAgent($db, (int)$_GET['id'], User::getID($db, $_POST['agent']));
+        }
     } else {
-        Ticket::removeAgent($db, (int)$_GET['id'], User::getID($db, $_POST['agent']));
+        header('Location :' . $_SERVER['HTTP_REFERER']);
     }
-} else {
-    header('Location :' . $_SERVER['HTTP_REFERER']);
 }
 
 if(!Hashtag::checkName($db, $_POST['hashtag'])){

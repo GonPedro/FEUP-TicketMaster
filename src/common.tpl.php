@@ -168,7 +168,7 @@ require_once(__DIR__ . '/database/hashtag.class.php');
         <label id="rnamelabel">Username:</label> <br>
         <input type="text" name = "rname" id="rname" required>
         <label id="rmaillabel">E-mail:</label> <br>
-        <input type="text" name ="rmail" id="rmail" required>
+        <input type="email" name ="rmail" id="rmail" required>
         <label id="rpasslabel">Password:</label> <br>
         <input type="password" name = "rpass" id="rpass" required>
         <label id="rpassrepeatlabel">Repeat Your Password:</label> <br>

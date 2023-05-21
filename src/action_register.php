@@ -19,10 +19,6 @@ $white_space_regex = '/\s/';
 
 $flag = 1;
 
-if(!filter_val($_POST['rmail'], FILTER_VALIDATE_EMAIL)){
-    $flag = 0;
-    $session->addMessage('failure', 'Invalid email');
-}
 
 if(User::findName($db, $_POST['rname'])){
     $flag = 0;

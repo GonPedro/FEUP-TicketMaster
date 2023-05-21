@@ -15,12 +15,12 @@ $flag = 1;
 
 $password_regex = "^(.{0,7}|[^0-9]*|[^A-Z]*|[^a-z]*|[a-zA-Z0-9]*)$";
 
-if((preg_match($password_regex, $_POST['password'])) != 0){
+if((preg_match($password_regex, $_POST['password'])) != 0 and $_POST['password'] != ""){
     $flag = 0;
     $session->addMessage('failure', 'Invalid Password');
 }
 
-if(User::findName($db, $_POST['username'])){
+if(User::findName($db, $_POST['username']) and $_POST['username'] != $_POST['confirm']){
     $flag = 0;
     $session->addMessage('failure', 'Username already exists');
 }

@@ -15,16 +15,15 @@ require_once(__DIR__ . '/database/user.class.php');
 
 setHeader("Users");
 
-if($session->isLoggedIn()){
-    $role = User::getRole($db, $session->getID());
-    if($role == "admin"){
-        $users = User::getUsers($db);
-        drawTopbar($session);
-        drawUsers($session, $users);
-    } else {
-        header('Location : /index.php');
-    }
-} else header('Location : /index.php');
+$role = User::getRole($db, $session->getID());
+
+if($session->isLoggedIn() and strcmp($role, "admin") == 0){
+    $users = User::getUsers($db);
+    drawTopbar($session);
+    drawUsers($session, $users);
+} else{
+    header("Location: /index.php");
+}
 
 
 

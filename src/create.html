@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+    <title>Create - Ticketinator</title>
+    <meta charset="UTF-8">
+    <link href="style.css" rel="stylesheet">
+    <link href="structure.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="topbar">
+        <button id="a">ADMIN</button>
+        <button id="faq">FAQ</button>
+        <button id="nticket">USERS</button>
+        <button id="mticket">TICKETS</button>
+        <button id="nticket">PROFILE</button>
+    </div>
+
+    <div class="config">
+        <label id="titlelabel">Ticket Name:</label>
+        <input type="text" id="title">
+        <label id="departmentlabel">Department:</label>
+        <select id="department">
+            <option value = "none">-- Select the Department --</option>
+        </select>
+
+        <label id="hashinputlabel">Hashtags:</label>
+        <input type="text" id="hashinput">
+
+        <label id="prioritylabel">Priority:</label>
+        <select id="priority">
+            <option value = "1">1</option>
+            <option value = "2">2</option>
+            <option value = "3">3</option>
+            <option value = "4">4</option>
+            <option value = "5">5</option>
+        </select>
+
+        <input type="submit" value="CREATE">
+
+        <div class="hashcontainer">
+            <label>Repair</label>
+        </div>
+    </div>
+</body>
+
+</html>

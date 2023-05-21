@@ -17,7 +17,7 @@
         $session->setID($user->id);
         $session->setName($user->username);
         $session->addMessage('sucess', 'Login successful');
-        header('Location: ' . index.php);
+        header('Location: /index.php');
     } else {
         $session->addMessage('failure', 'Wrong password');
         header('Location: ' . $_SERVER['HTTP_REFERER']);

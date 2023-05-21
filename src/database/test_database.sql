@@ -21,9 +21,11 @@ DROP TABLE IF EXISTS User;
 
 CREATE TABLE User (
     userID INTEGER PRIMARY KEY AUTOINCREMENT,
+    fullname TEXT NOT NULL,
     username TEXT NOT NULL,
     password TEXT NOT NULL,
-    email TEXT NOT NULL
+    email TEXT NOT NULL,
+    closedTickets INTEGER NOT NULL
 
 );
 
@@ -53,10 +55,12 @@ CREATE TABLE FAQ (
 
 CREATE TABLE Task (
     taskID INTEGER PRIMARY KEY AUTOINCREMENT,
-    agentID INTEGER NOT NULL,
+    ticketID INTEGER,
+    agentID INTEGER,
     content TEXT NOT NULL,
 
-    FOREIGN KEY (agentID) REFERENCES Agent(userID)
+    FOREIGN KEY (agentID) REFERENCES Agent(userID),
+    FOREIGN KEY (ticketID) REFERENCES Ticket(ticketID)
 );
 
 CREATE TABLE Status (
@@ -86,16 +90,14 @@ CREATE TABLE Hashtag (
 CREATE TABLE Ticket (
     ticketID INTEGER PRIMARY KEY AUTOINCREMENT,
     clientID INTEGER NOT NULL,
-    departmentID INTEGER NOT NULL,
-    taskID INTEGER NOT NULL,
+    department TEXT NOT NULL,
     status_name TEXT NOT NULL,
     title TEXT NOT NULL,
     priority INTEGER NOT NULL,
-    da DATE NOT NULL,
+    da TEXT NOT NULL,
 
     FOREIGN KEY (clientID) REFERENCES User(userID),
-    FOREIGN KEY (departmentID) REFERENCES Department(departmentID),
-    FOREIGN KEY (taskID) REFERENCES Task(taskID),
+    FOREIGN KEY (department) REFERENCES Department(name),
     FOREIGN KEY (status_name) REFERENCES Status(name)
 );
 
@@ -121,7 +123,7 @@ CREATE TABLE Message (
     messageID INTEGER PRIMARY KEY AUTOINCREMENT,
     userID INTEGER NOT NULL,
     ticketID INTEGER NOT NULL,
-    da DATE NOT NULL,
+    da TEXT NOT NULL,
     content TEXT NOT NULL,
 
     FOREIGN KEY (userID) REFERENCES User(userID),
@@ -132,7 +134,7 @@ CREATE TABLE Change (
     changeID INTEGER PRIMARY KEY AUTOINCREMENT,
     agentID INTEGER NOT NULL,
     ticketID INTEGER NOT NULL,
-    da DATE NOT NULL,
+    da TEXT NOT NULL,
     content TEXT NOT NULL,
 
     FOREIGN KEY (agentID) REFERENCES Agent(userID),

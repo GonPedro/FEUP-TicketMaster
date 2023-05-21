@@ -7,7 +7,7 @@ $session = new Session();
 require_once(__DIR__ . '/common.tpl.php');
 
 
-setHeader();
+setHeader("Register");
 if(!$session->isLoggedin()) drawRegister();
 else header('Location : index.php')
 ?>

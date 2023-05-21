@@ -7,17 +7,16 @@ require_once(__DIR__ . '/database/connection.db.php');
 
 $db = getDatabaseConnection();
 require_once(__DIR__ . '/common.tpl.php');
+require_once(__DIR__ . '/faq.tpl.php');
 
 
-if(!$session->isLoggedin()){
-    setHeader("Start");
-    drawStart();
+if($session->isLoggedin()){
+    setHeader("FAQs");
+    drawTopbar($session);
+    $faqs = Faq::getFaqs($db);
+    drawFAQs($faqs);
 } 
 else{
-    setHeader("Tickets");
-    drawTopbar($session);
-    drawFilterBoxes();
-    drawTickets($session);
+    header('Location: /index.php');
 }
 ?>
-

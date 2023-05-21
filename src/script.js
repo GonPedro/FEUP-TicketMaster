@@ -72,49 +72,9 @@ $(document).ready(function() {
         });
     });
 
-    $('#hashtag-input').on('input', function() {
-        var inputText = $(this).val();
-      
-        if (inputText.startsWith('#')) {
-          $.ajax({
-            url: '/get_hashtags.php',
-            method: 'POST',
-            data: { search: inputText.substring(1) },
-            success: function(response) {
-              displayAutocompleteOptions(response);
-            },
-            error: function(xhr, status, error) {
-              console.error('An error occurred:', error);
-            }
-          });
-        } else {
-          $('#autocomplete-results').empty();
-        }
-      });
-
     $('#hashtag-ticket-input').on('input', function() {
     var inputText = $(this).val();
     
-    if (inputText.startsWith('#')) {
-        $.ajax({
-        url: '/get_ticket_hashtags.php',
-        method: 'POST',
-        data: {
-            search: inputText.substring(1),
-            ticket: $('#hashtag-ticket-input').data('ticket-id')
-        },
-        success: function(response) {
-            var option = Object.values(response);
-            displayAutocompleteTicketOptions(option);
-        },
-        error: function(xhr, status, error) {
-            console.error('An error occurred:', error);
-        }
-        });
-    } else {
-        $('#autocomplete-results').empty();
-    }
-    });
 
     // Click-to-remove functionality
     $(document).on('click', '.hashtag-label', function() {
@@ -127,6 +87,7 @@ $(document).ready(function() {
         
         removeHashtagFromDatabase(ticketId, hashtag);
     });
+});
 });
 
 
@@ -216,92 +177,7 @@ function changePriority(select) {
     });
 }
 
-function displayAutocompleteTicketOptions(options) {
-    var resultsDiv = $('#autocomplete-results');
-    resultsDiv.empty();
 
-    options.forEach(function(option) {
-        option = '#' + option;
-        var optionDiv = $('<label class="autocomplete-option">' + option + '</label>');
-        resultsDiv.append(optionDiv);
-
-        optionDiv.on('click', function() {
-            console.log("nobr");
-            displaySelectedTicketHashtag(option);
-            $('#hashtag-ticket-input').val('').focus();
-            resultsDiv.empty();
-          });
-
-    });
-}
-
-
-  function displaySelectedTicketHashtag(hashtag) {
-    var listDiv = $('#list');
-    var hashtagLabel = $('<label class="hashtag-label">' + hashtag + '</label>');
-  
-    listDiv.append(hashtagLabel);
-  }
-
-function displayAutocompleteOptions(options) {
-    var resultsDiv = $('#autocomplete-results');
-    resultsDiv.empty();
-  
-    options.forEach(function(option) {
-      var optionDiv = $('<div class="autocomplete-option">' + option + '</div>');
-  
-      optionDiv.click(function() {
-        var selectedHashtag = '#' + option;
-        displaySelectedHashtag(selectedHashtag);
-        updateHashtagsInput();
-        $('#hashtag-input').val('').focus();
-        resultsDiv.empty();
-      });
-  
-      resultsDiv.append(optionDiv);
-    });
-
-    $('.autocomplete-option').click(function () {
-        console.log("click");
-        var selectedHashtag = $(this).text();
-        displaySelectedTicketHashtag(selectedHashtag);
-        $('#hashtag-input').val('').focus();
-        resultsDiv.empty();
-      });
-  }
-  
-  function displaySelectedHashtag(hashtag) {
-    var selectedHashtagsContainer = $('#selected-hashtags');
-    var hashtagDiv = $('<div class="selected-hashtag">' + hashtag + '</div>');
-  
-    hashtagDiv.click(function() {
-      $(this).remove();
-      updateHashtagsInput();
-    });
-  
-    selectedHashtagsContainer.append(hashtagDiv);
-  }
-  
-  function updateHashtagsInput() {
-    var selectedHashtags = [];
-  
-    $('.selected-hashtag').each(function(index) {
-      var hashtag = $(this).text().trim();
-      if (hashtag && selectedHashtags.indexOf(hashtag) === -1) {
-        if (index !== 0) { // Skip the first concatenated word
-          selectedHashtags.push(hashtag);
-        }
-      }
-    });
-  
-    var selectedHashtagsString = selectedHashtags.map(function(hashtag) {
-      return '#' + hashtag.replace(/#/g, '').trim();
-    }).join(',');
-  
-    console.log(selectedHashtagsString);
-  
-    $('.hashtag-input').val(selectedHashtagsString);
-  }
   
 
 

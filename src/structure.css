@@ -188,6 +188,7 @@ select,
     left: calc(75% + 30px);
 }
 
+
 .msg p {
     left: 50%;
     width: calc(100% - 20px);
@@ -641,4 +642,28 @@ select,
 
 #questionlabel {
     top: 3.6em;
+}
+
+.labels label,
+    .othersettings form {
+        flex-shrink: 1;
+        position: relative;
+        left: 0%;
+        width: 25%;
+        top: 0%;
+        height: 100%;
+    }
+    
+    .othersettings select {
+        height: 100%;
+        width: 100%;
+    }
+
+
+#autocomplete-results{
+    position:absolute;
+    width: 50%;
+    height: 50%;
+    top:20%;
+    z-index: 10;
 }

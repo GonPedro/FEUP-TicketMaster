@@ -41,10 +41,10 @@ class Hashtag {
     static function getHashtagID(PDO $db, string $name) : ?int{
         $stmt = $db->prepare('SELECT hashtagID
         FROM Hashtag
-        where name = ?');
+        WHERE name = ?');
         $stmt->execute(array($name));
         $hashtag = $stmt->fetch();
-        $id = (int)$hashtag;
+        $id = (int)$hashtag['hashtagID'];
         return $id;
     }
 

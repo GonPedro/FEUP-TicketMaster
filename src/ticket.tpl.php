@@ -77,6 +77,7 @@ require_once(__DIR__ . '/database/department.class.php');
 
 <?php function drawTicketConfig(Ticket $ticket, array $departments, array $statuses) { ?>
     <div id = "ticketmenu" class="ticketmenu">
+    <div id="autocomplete-results"></div>
         <div class="listinput" id="hashtags">
             <label id="name">Hashtags:</label>
             <input type="text" id="hashtag-ticket-input" data-ticket-id="<?=$ticket->id?>">
@@ -86,7 +87,6 @@ require_once(__DIR__ . '/database/department.class.php');
                 <label class="hashtag-label" data-ticket-id="<?=$ticket->id?>"  data-hashtag-id="<?=$hashtag->id?>">#<?=$hashtag->text?></label>
                 <?php } ?>
             </div>
-            <div id="autocomplete-results"></div>
         </div>
         <div class="listinput" id="collaborators">
             <label id="name">Collaborators:</label>
@@ -117,7 +117,7 @@ require_once(__DIR__ . '/database/department.class.php');
                 <select id="department" name = "department" onchange="changeDepartment(this)">
                     <?php
                     foreach($departments as $department){ ?>
-                        <option value=<?=$department->name?><?php if ($department->name == $ticket->department) echo "selected";?>><?=$department->name?></option>
+                        <option value=<?=$department->name?> <?php if ($department->name == $ticket->department) echo "selected";?>><?=$department->name?></option>
                     <?php } ?>
                 </select>
                 <input type = "hidden" name="ticket" value = <?=$ticket->id?>>
@@ -138,8 +138,6 @@ require_once(__DIR__ . '/database/department.class.php');
                 <input type = "hidden" name="ticket" value = <?=$ticket->id?>>
             </form>
         </div>
-
-        <input type="submit" id="edit" value="SAVE">
     </div>
 </body>
 
@@ -187,7 +185,7 @@ require_once(__DIR__ . '/database/department.class.php');
             <select id="department" name = "department" onchange="changeDepartment(this)">
                 <?php
                 foreach($departments as $department){ ?>
-                    <option value=<?=$department->name?><?php if ($department->name == $ticket->department) echo "selected";?>><?=$department->name?></option>
+                    <option value=<?=$department->name?> <?php if ($department->name == $ticket->department) echo "selected";?>><?=$department->name?></option>
                 <?php } ?>
             </select>
             <input type = "hidden" name="ticket" value = <?=$ticket->id?>>

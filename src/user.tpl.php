@@ -50,7 +50,7 @@ require_once(__DIR__ . "/session.php");
 
 <?php function drawUserInfo(Session $session, User $user) { ?>
     <div class="ticket">
-        <label id="title"><a href = "profile.php?id=<?=$user->id?>"><?=$user->username?></a></label>
+        <label id="title"><a href = "user.php?id=<?=$user->id?>"><?=$user->username?></a></label>
         <?php
         $db = getDatabaseConnection();
         if((strcmp(User::getRole($db, (int)$session->getID()), "admin") == 0) and ($session->getID() != $user->id)){ 
@@ -86,4 +86,36 @@ require_once(__DIR__ . "/session.php");
 
 
 </body>
+<?php } ?>
+
+
+<?php function drawUserConfig(User $user, array $user_departments,array $departments, string $role){ ?>
+    <div class="usermenu">
+        <form action = "action_edit_user.php?id=<?=$user->id?>.php" method="post">
+            <label id="RoleSelectLabel">Role:</label>
+            <select id="RoleSelect" name = "role">
+                <option value = "client" <?php if($role == "client") echo "selected";?>>Client</option>
+                <option value = "agent" <?php if($role == "agent") echo "selected";?>>Agent</option>
+                <option value = "admin" <?php if($role == "admin") echo "selected";?>>Admin</option>
+            </select>
+            <?php if ($role == "agent" or $role == "admin"){?>
+                <label id="DepartmentSelectLabel">Department:</label>
+                <select id="DepartmentSelect" name="department">
+                    <?php foreach($departments as $department) { ?>
+                        <option><?=$department->name?></option>
+                    <?php } ?>
+                </select>
+            <?php } ?>
+            <div id="list">
+                <?php foreach($user_departments as $department){ ?>
+                    <label><?=$department->name?></label>
+                <?php } ?>
+            </div>
+            <input type="submit" id="edit" value="SAVE">
+        </form>
+    </div>
+
+    </div>
+</body>
+
 <?php } ?>

@@ -29,7 +29,7 @@ class Change {
             $agent = $sub->fetch();
 
             $changes[] = new Change(
-                $agent,
+                $agent['username'],
                 $change['content'],
                 $change['da']
             );

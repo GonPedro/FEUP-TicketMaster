@@ -6,6 +6,7 @@ require_once(__DIR__ . '/common.tpl.php');
 require_once(__DIR__ . '/database/ticket.class.php');
 require_once(__DIR__ . '/database/hashtag.class.php');
 require_once(__DIR__ . '/database/department.class.php');
+require_once(__DIR__ . '/database/change.class.php');
 ?>
 
 <?php function drawTicketInfo(Ticket $ticket){ ?>
@@ -17,8 +18,24 @@ require_once(__DIR__ . '/database/department.class.php');
             <label id="department"><span id="bold">DEPARTMENT:</span> <?=$ticket->department?></label>
         </div>
         <a href = "/config.php?id=<?=$ticket->id?>"><img id="confi" src="/profileImages/gear.png"></a>
+        <a href = "/changes.php?id=<?=$ticket->id?>"><img id="actions" src="profileImages/action.png"></a>
     </div>
 <?php } ?>
+
+<?php function drawChangesTicketInfo(Ticket $ticket){ ?>
+    <div class="ticketdata">
+        <label id="title"><?=$ticket->title?></label>
+        <div class="extradata">
+            <label id="author"><span id="bold">BY:</span> <?=$ticket->client_name?></label>
+            <label id="status"><span id="bold">STATUS:</span> <?=$ticket->status?></label>
+            <label id="department"><span id="bold">DEPARTMENT:</span> <?=$ticket->department?></label>
+        </div>
+        <a href = "/config.php?id=<?=$ticket->id?>"><img id="confi" src="/profileImages/gear.png"></a>
+        <a href = "/ticket.php?id=<?=$ticket->id?>"><img id="actions" src="profileImages/action.png"></a>
+    </div>
+<?php } ?>
+
+
 
 <?php function drawMessageInput() { ?>
     <div class="userinput" id = "msginput">
@@ -53,6 +70,7 @@ require_once(__DIR__ . '/database/department.class.php');
     </div>
 <?php } ?>
 
+
 <?php function drawRefreshedMessages(Session $session, array $messages) {
     foreach($messages as $message){
         if(strcmp($message->author, $session->getName()) == 0){ ?>
@@ -74,6 +92,25 @@ require_once(__DIR__ . '/database/department.class.php');
         <?php }
     } 
 } ?>
+
+
+<?php function drawTicketChanges(array $changes){ ?>
+    <div class="msglist">
+        <?php foreach($changes as $change){?>
+            <div class="msg">
+                <p id="content "><?=$change->content?></p>
+                <div class="extradata">
+                    <label id="author">by <?=$change->author?></label>
+                    <label id="date"><?=$change->date?></label>
+                </div>
+             </div>
+        <?php } ?>
+
+    </div>
+
+</body>
+
+<?php } ?>
 
 <?php function drawTicketConfig(string $role, Ticket $ticket, array $departments, array $statuses) { ?>
     <div id = "ticketmenu" class="ticketmenu">

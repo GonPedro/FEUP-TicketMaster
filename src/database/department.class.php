@@ -90,6 +90,15 @@ class Department{
         return;
     }
 
+    static function getDepartmentID(PDO $db, string $name){
+        $stmt = $db->prepare('SELECT departmentID
+        FROM Department
+        WHERE name = ?');
+        $stmt->execute(array($name));
+        $department = $stmt->fetch();
+        return (int)$department['departmentID'];
+    }
+
     static function getDepartmentName(PDO $db, int $id) : ?string{
         $stmt = $db->prepare('SELECT name
         FROM Department
@@ -106,6 +115,13 @@ class Department{
         $stmt->execute(array($id));
         return;
     }
+
+    static function addAgentToDepartment(PDO $db, int $department_id, int $agent_id){
+        $stmt = $db->prepare('INSERT INTO AgentDepartment(agentID, departmentID) VALUES (?,?)');
+        $stmt->execute(array($agent_id, $department_id));
+        return;
+    }
+
 }
 
 ?>

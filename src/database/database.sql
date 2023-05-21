@@ -1,56 +1,152 @@
 PRAGMA FOREIGN_KEYS = ON;
 
+/*Drop Tables*/
+
+DROP TABLE IF EXISTS AgentDepartment;
+DROP TABLE IF EXISTS Change;
+DROP TABLE IF EXISTS Message;
 DROP TABLE IF EXISTS TicketHashtag;
+DROP TABLE IF EXISTS TicketAgent;
 DROP TABLE IF EXISTS Ticket;
-DROP TABLE IF EXISTS TicketStatus;
 DROP TABLE IF EXISTS Hashtag;
+DROP TABLE IF EXISTS Department;
+DROP TABLE IF EXISTS Status;
+DROP TABLE IF EXISTS Task;
+DROP TABLE IF EXISTS FAQ;
+DROP TABLE IF EXISTS Admin;
+DROP TABLE IF EXISTS Agent;
 DROP TABLE IF EXISTS User;
 
-/*******************************************************************************
-   Create Tables
-********************************************************************************/
+/*Create Tables*/
 
 CREATE TABLE User (
-    userID INTEGER NOT NULL AUTOINCREMENT,
+    userID INTEGER PRIMARY KEY AUTOINCREMENT,
+    fullname TEXT NOT NULL,
     username TEXT NOT NULL,
-    firstName TEXT NOT NULL,
-    lastName TEXT NOT NULL,
     password TEXT NOT NULL,
     email TEXT NOT NULL,
-    phone CHAR(9),
+    closedTickets INTEGER NOT NULL
 
-    CONSTRAINT PK_User PRIMARY KEY (userID)
+);
+
+CREATE TABLE Agent (
+    userID INTEGER NOT NULL,
+
+    FOREIGN KEY (userID) REFERENCES User(userID),
+    CONSTRAINT PK_Agent PRIMARY KEY (userID)
+);
+
+CREATE TABLE Admin (
+    userID INTEGER NOT NULL,
+
+    FOREIGN KEY (userID) REFERENCES Agent(userID),
+    CONSTRAINT PK_Admin PRIMARY KEY (userID)
+);
+
+
+CREATE TABLE FAQ (
+    faqID INTEGER PRIMARY KEY AUTOINCREMENT,
+    userID INTEGER NOT NULL,
+    title TEXT NOT NULL,
+    content TEXT NOT NULL,
+
+    FOREIGN KEY (userID) REFERENCES Agent(userID)
+);
+
+CREATE TABLE Task (
+    taskID INTEGER PRIMARY KEY AUTOINCREMENT,
+    ticketID INTEGER,
+    agentID INTEGER,
+    content TEXT NOT NULL,
+
+    FOREIGN KEY (agentID) REFERENCES Agent(userID),
+    FOREIGN KEY (ticketID) REFERENCES Ticket(ticketID)
+);
+
+CREATE TABLE Status (
+    statusID INTEGER PRIMARY KEY AUTOINCREMENT,
+    adminID INTEGER NOT NULL,
+    name TEXT NOT NULL,
+
+    FOREIGN KEY (adminID) REFERENCES Admin(userID)
+);
+
+CREATE TABLE Department (
+    departmentID INTEGER PRIMARY KEY AUTOINCREMENT,
+    adminID INTEGER NOT NULL,
+    name TEXT NOT NULL,
+
+    FOREIGN KEY (adminID) REFERENCES Admin(userID)
 );
 
 CREATE TABLE Hashtag (
-    hashtagID INTEGER NOT NULL AUTOINCREMENT,
-    hastag UNIQUE TEXT NOT NULL,
+    hashtagID INTEGER PRIMARY KEY AUTOINCREMENT,
+    adminID INTEGER NOT NULL,
+    name TEXT NOT NULL,
 
-    constraint PK_Hashtag PRIMARY KEY (hashtagID)
-);
-
-CREATE TABLE TicketStatus (
-    ticketStatusID INTEGER NOT NULL AUTOINCREMENT,
-    statusName TEXT NOT NULL,
-
-    CONSTRAINT PK_TicketStatus PRIMARY KEY (ticketStatusID)
+    FOREIGN KEY (adminID) REFERENCES Admin(userID)
 );
 
 CREATE TABLE Ticket (
-    ticketID INTEGER NOT NULL AUTOINCREMENT,
-    userID INTEGER NOT NULL,
-    ticketStatusID INTEGER NOT NULL,
+    ticketID INTEGER PRIMARY KEY AUTOINCREMENT,
+    clientID INTEGER NOT NULL,
+    department TEXT NOT NULL,
+    status_name TEXT NOT NULL,
+    title TEXT NOT NULL,
+    priority INTEGER NOT NULL,
+    da TEXT NOT NULL,
 
-    CONSTRAINT PK_Ticket PRIMARY KEY (ticketID),
-    FOREIGN KEY (userID) REFERENCES User(userID) ON UPDATE CASCADE,
-    FOREIGN KEY (ticketStatusID) REFERENCES TicketStatus(ticketStatusID) ON UPDATE CASCADE
+    FOREIGN KEY (clientID) REFERENCES User(userID),
+    FOREIGN KEY (department) REFERENCES Department(name),
+    FOREIGN KEY (status_name) REFERENCES Status(name)
+);
+
+CREATE TABLE TicketAgent (
+    ticket_agentID INTEGER PRIMARY KEY AUTOINCREMENT,
+    ticketID INTEGER NOT NULL,
+    agentID INTEGER NOT NULL,
+
+    FOREIGN KEY (ticketID) REFERENCES Ticket(ticketID),
+    FOREIGN KEY (agentID) REFERENCES Agent(userID)
 );
 
 CREATE TABLE TicketHashtag (
+    ticket_hashtagID INTEGER PRIMARY KEY AUTOINCREMENT,
     ticketID INTEGER NOT NULL,
     hashtagID INTEGER NOT NULL,
 
-    CONSTRAINT PK_TicketHashtag PRIMARY KEY (ticketID, hashtagID),
     FOREIGN KEY (ticketID) REFERENCES Ticket(ticketID),
     FOREIGN KEY (hashtagID) REFERENCES Hashtag(hashtagID)
+);
+
+CREATE TABLE Message (
+    messageID INTEGER PRIMARY KEY AUTOINCREMENT,
+    userID INTEGER NOT NULL,
+    ticketID INTEGER NOT NULL,
+    da TEXT NOT NULL,
+    content TEXT NOT NULL,
+
+    FOREIGN KEY (userID) REFERENCES User(userID),
+    FOREIGN KEY (ticketID) REFERENCES Ticket(ticketID)
+);
+
+CREATE TABLE Change (
+    changeID INTEGER PRIMARY KEY AUTOINCREMENT,
+    agentID INTEGER NOT NULL,
+    ticketID INTEGER NOT NULL,
+    da TEXT NOT NULL,
+    content TEXT NOT NULL,
+
+    FOREIGN KEY (agentID) REFERENCES Agent(userID),
+    FOREIGN KEY (ticketID) REFERENCES Ticket(ticketID) 
+);
+
+
+CREATE TABLE AgentDepartment (
+    agent_departmentID INTEGER PRIMARY KEY AUTOINCREMENT,
+    agentID INTEGER NOT NULL,
+    departmentID INTEGER NOT NULL,
+
+    FOREIGN KEY (agentID) REFERENCES Agent(userID),
+    FOREIGN KEY (departmentID) REFERENCES Department(departmentID)
 );

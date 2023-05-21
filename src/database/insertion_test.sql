@@ -31,9 +31,9 @@ insert into Agent (userID) values (14);
 insert into Agent (userID) values (1);
 
 -- Admin
-insert into Admins (userID) values (3);
-insert into Admins (userID) values (5);
-insert into Admins (userID) values (8);
+insert into Admin (userID) values (3);
+insert into Admin (userID) values (5);
+insert into Admin (userID) values (8);
 
 -- FAQ
 INSERT INTO FAQ (userID, title, content) VALUES

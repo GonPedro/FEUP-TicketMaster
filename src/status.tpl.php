@@ -11,14 +11,14 @@ require_once(__DIR__ . "/database/user.class.php");
 
 ?>
 
-<?php function drawDepartments(Session $session, array $departments) { ?>
+<?php function drawStatuses(Session $session, array $statuses) { ?>
     <?php
     $db = getDatabaseConnection();
     $role = User::getRole($db, $session->getID());
     if($role == "admin"){ ?>
-        <form action = "action_create_department.php" method = "post">
+        <form action = "action_create_status.php" method = "post">
             <div class="userinput">
-                <input type="text" name ="department">
+                <input type="text" name ="status">
                 <input type="submit" value="Add">
             </div>
         </form>
@@ -27,10 +27,10 @@ require_once(__DIR__ . "/database/user.class.php");
 
     <div class = "userlist">
         <?php
-        foreach($departments as $department) { ?>
+        foreach($statuses as $status) { ?>
             <div class = "ticket">
-                <a href="department.php?id=<?=$department->id?>"><label id="name"><?=$department->name?></label></a>
-                <form action = "action_delete_department.php?id=<?=$department->id?>" method = "post">
+                <label id="name"><?=$status->name?></label>
+                <form action = "action_delete_status.php?id=<?=$status->id?>" method = "post">
                     <button id="remove">X</button>
                 </form>
             </div>

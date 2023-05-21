@@ -4,6 +4,7 @@ declare(strict_types = 1);
 require_once(__DIR__ . '/change.class.php');
 require_once(__DIR__ . '/user.class.php');
 require_once(__DIR__ . '/hashtag.class.php');
+require_once(__DIR__ . '/department.class.php');
 
 class Ticket{
     public int $id;
@@ -61,6 +62,17 @@ class Ticket{
         } else return null;
     }
 
+    static function getAgentTickets(PDO $db, int $agent_id) : ?array{
+        $result = Ticket::getTickets($db, $agent_id);
+        $stmt->prepare('SELECT Ticket.ticketID, Ticket.title
+        FROM Ticket, TicketAgent
+        WHERE Ticket.ticketID = TicketAgent.ticketID AND TicketAgent.agentID = ?');
+        $stmt->execute(array($agent_id));
+        if($tickets = $stmt->fetchall()){
+            $result = array_merge($tickets, $result);
+        }
+        return $result;
+    }
     static function checkAssignedAgent(PDO $db, int $ticket_id, string $agent) : ?bool{
         if(strcmp($agent,"") == 0) return true;
         $stmt = $db->prepare('SELECT agentID
@@ -148,6 +160,15 @@ class Ticket{
         FROM Ticket
         where clientID = ?');
         $stmt->execute(array($client_id));
+        if($tickets = $stmt->fetchAll()){
+            return $tickets;
+        } else return array();
+    }
+
+    static function getAllTickets(PDO $db) :?array{
+        $stmt = $db->prepare('SELECT ticketID, title
+        FROM Ticket');
+        $stmt->execute(array());
         if($tickets = $stmt->fetchAll()){
             return $tickets;
         } else return array();

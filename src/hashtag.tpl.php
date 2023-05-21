@@ -6,19 +6,19 @@ require_once(__DIR__ . "/session.php");
 
 require_once(__DIR__ . "/database/connection.db.php");
 
-require_once(__DIR__ . "/database/department.class.php");
+require_once(__DIR__ . "/database/hashtag.class.php");
 require_once(__DIR__ . "/database/user.class.php");
 
 ?>
 
-<?php function drawDepartments(Session $session, array $departments) { ?>
+<?php function drawHashtags(Session $session, array $hashtags) { ?>
     <?php
     $db = getDatabaseConnection();
     $role = User::getRole($db, $session->getID());
     if($role == "admin"){ ?>
-        <form action = "action_create_department.php" method = "post">
+        <form action = "action_create_hashtag.php" method = "post">
             <div class="userinput">
-                <input type="text" name ="department">
+                <input type="text" name ="hashtag">
                 <input type="submit" value="Add">
             </div>
         </form>
@@ -27,10 +27,10 @@ require_once(__DIR__ . "/database/user.class.php");
 
     <div class = "userlist">
         <?php
-        foreach($departments as $department) { ?>
+        foreach($hashtags as $hashtag) { ?>
             <div class = "ticket">
-                <a href="department.php?id=<?=$department->id?>"><label id="name"><?=$department->name?></label></a>
-                <form action = "action_delete_department.php?id=<?=$department->id?>" method = "post">
+                <label id="name"><?=$hashtag->text?></label>
+                <form action = "action_delete_hashtag.php?id=<?=$hashtag->id?>" method = "post">
                     <button id="remove">X</button>
                 </form>
             </div>

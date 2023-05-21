@@ -31,6 +31,22 @@ class Hashtag {
         return $hashtags;
     }
 
+    static function getHashtags(PDO $db) : ?array {
+        $stmt = $db->prepare('SELECT hashtagID, adminID, name
+        FROM Hashtag');
+        $stmt->execute(array());
+        $hashtags = array();
+        while($hashtag = $stmt->fetch()){
+            $name = User::getName($db, (int)$hashtag['adminID']);
+            $hashtags[] = new Hashtag(
+                (int)$hashtag['hashtagID'],
+                $name,
+                $hashtag['name']
+            );
+        }
+        return $hashtags;
+    }
+
     static function addHashtag(PDO $db, int $admin_id, string $name){
         $stmt = $db->prepare('INSERT INTO Hashtag(adminID, name) VALUES (?,?)');
         $stmt->execute(array($admin_id, $name));
@@ -48,17 +64,19 @@ class Hashtag {
         return $id;
     }
 
+    static function checkName(PDO $db, string $name){
+        $stmt = $db->prepare('SELECT name
+        FROM Hashtag
+        WHERE name = ?');
+        $stmt->execute(array($name));
+        if($hashtag = $stmt->fetch()){
+            return false;
+        } else return true;
+    }
+
     static function removeHashtag(PDO $db, int $ticket_id, int $id){
         $stmt = $db->prepare('DELETE FROM TicketHashtag WHERE ticketID = ? AND hashtagID = ?');
         $stmt->execute(array($ticket_id, $id));
-        $affectedRows = $stmt->rowCount();
-
-        // Check if any rows were affected
-        if ($affectedRows > 0) {
-            echo "Row was successfully removed.";
-        } else {
-            echo "No rows were removed.";
-        }
         return;
     }
 
@@ -84,6 +102,13 @@ class Hashtag {
             $hashtags[] = $hashtag['name'];
         }
         return $hashtags;
+    }
+
+
+    static function deleteHashtag(PDO $db, int $hashtag_id){
+        $stmt = $db->prepare('DELETE FROM Hashtag WHERE hashtagID = ?');
+        $stmt->execute(array($hashtag_id));
+        return;
     }
 
 }

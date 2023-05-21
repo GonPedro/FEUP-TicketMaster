@@ -4,6 +4,7 @@ declare(strict_types = 1);
 
 require_once(__DIR__ . '/session.php');
 require_once(__DIR__ . '/database/ticket.class.php');
+require_once(__DIR__ . '/database/user.class.php');
 require_once(__DIR__ . '/database/connection.db.php');
 require_once(__DIR__ . '/database/department.class.php');
 require_once(__DIR__ . '/database/status.class.php');
@@ -41,14 +42,14 @@ require_once(__DIR__ . '/database/hashtag.class.php');
 <?php function drawTicket(array $ticket){ ?>
     <div class="ticket">
         <label id="title"><a href="ticket.php?id=<?=$ticket['ticketID']?>"><?=$ticket['title']?></a></label>
-        <img id="config" src="/profileImages/gear.png">
+        <a href = "config.php?id=<?=$ticket->id?>"><img id="config" src="/profileImages/gear.png"></a>
     </div>
 <?php } ?> 
 
 <?php function drawFilteredTicket(Ticket $ticket) { ?>
     <div class="ticket">
         <a href="ticket.php?id=<?=$ticket->id?>"><label id="title"><?=$ticket->title?></label></a>
-        <img id="config" src="/profileImages/gear.png">
+        <a href = "config.php?id=<?=$ticket->id?>"><img id="config" src="/profileImages/gear.png"></a>
     </div>
 <?php } ?>
 
@@ -56,7 +57,12 @@ require_once(__DIR__ . '/database/hashtag.class.php');
 
 <?php function drawTopbar(Session $session){ ?>
     <div class="topbar">
-        <button id="a"><a href = "departments.php">DEPARTMENTS</a></button>
+        <?php 
+        $db = getDatabaseConnection();
+        $role = User::getRole($db, $session->getID());
+        if($role == "admin"){ ?>
+            <button id="a"><a href = "admin.php">ADMIN</a></button>
+        <?php } ?>
         <button id="faq"><a href = "faqs.php">FAQ</a></button>
         <button id="nticket"><a href = "users.php">USER SEARCH</a></button>
         <button id="mticket"><a href = "index.php">TICKETS</a></button>
@@ -69,7 +75,14 @@ require_once(__DIR__ . '/database/hashtag.class.php');
     <div id ="list" class="list">
         <?php
         $db = getDatabaseConnection();
-        $tickets = Ticket::getTickets($db, $session->getID());
+        $role = User::getRole($db, $session->getID());
+        if($role == "client"){
+            $tickets = Ticket::getTickets($db, $session->getID());
+        } else if($role == "agent"){
+            $tickets = Ticket::getAgentTickets($db, $session->getID());
+        } else {
+            $tickets = Ticket::getAllTickets($db);
+        }
         foreach($tickets as $ticket){
             drawTicket($ticket);
         }
@@ -199,6 +212,18 @@ require_once(__DIR__ . '/database/hashtag.class.php');
             <input type="submit" value="CREATE">
         </div>
     </form>
+</body>
+
+<?php } ?>
+
+
+<?php function drawAdminButtons(){?>
+    <div class="buttonlist">
+        <button><a href = "departments.php">Departments</a></button>
+        <button><a href = "statuses.php">Status</a></button>
+        <button><a href = "hashtags.php">Hashtags</a></button>
+    </div>
+
 </body>
 
 <?php } ?>

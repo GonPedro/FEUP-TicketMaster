@@ -21,10 +21,10 @@ if($session->isLoggedIn()){
     drawTopbar($session);
     if(strcmp(User::getRole($db, $session->getID()), "admin") == 0){
         $departments = Department::getDepartments($db);
-        drawDepartments($departments);
+        drawDepartments($session, $departments);
     } else if(strcmp(User::getRole($db, $session->getID()), "agent") == 0){
         $departments = Department::getAgentDepartments($db, $session->getID());
-        drawDepartments($departments);
+        drawDepartments($session, $departments);
     } else {
         header('Location : /index.php');
     }

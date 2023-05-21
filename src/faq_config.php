@@ -11,7 +11,7 @@ require_once(__DIR__ . '/faq.tpl.php');
 
 
 if($session->isLoggedin()){
-    setHeader("fAQ_config");
+    setHeader("FAQ_config");
     drawTopbar($session);
     $faqs = Faq::getFaqs($db);
     drawFAQConfig($faqs);

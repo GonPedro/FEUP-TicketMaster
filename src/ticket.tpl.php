@@ -21,7 +21,7 @@ require_once(__DIR__ . '/database/department.class.php');
 <?php } ?>
 
 <?php function drawMessageInput() { ?>
-    <div class="msginput">
+    <div class="userinput" id = "msginput">
     <form id ="messageForm" action = "/action_add_message.php?id=<?=$_GET['id']?>" method = "post">
         <input type="text" name = "message">
         <input type="submit" value="Send">

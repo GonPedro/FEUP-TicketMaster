@@ -78,6 +78,13 @@ class Department{
     }
 
     static function addDepartment(PDO $db, int $creator, string $name){
+        $stmt = $db->prepare('SELECT *
+        FROM Department
+        WHERE name = ?');
+        $stmt->execute(array($name));
+        if($stmt->fetch()){
+            return;
+        }
         $stmt = $db->prepare('INSERT INTO Department(adminID, name) VALUES (?,?)');
         $stmt->execute(array($creator, $name));
         return;
@@ -92,6 +99,12 @@ class Department{
             return $department['name'];
         }
         else return null;
+    }
+
+    static function deleteDepartment(PDO $db, int $id){
+        $stmt = $db->prepare('DELETE FROM Department WHERE departmentID = ?');
+        $stmt->execute(array($id));
+        return;
     }
 }
 

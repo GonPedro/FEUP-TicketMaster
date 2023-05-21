@@ -11,7 +11,7 @@
 
     $db = getDatabaseConnection();
 
-    Department::addDepartment($db, $session->getID(), $_POST['department']);
+    Department::deleteDepartment($db, (int)$_GET['id']);
 
     header('Location: ' . $_SERVER['HTTP_REFERER']);
 

@@ -19,14 +19,19 @@ $ticket = Ticket::getTicket($db, (int)$_GET['id']);
 
 require_once(__DIR__ . "/common.tpl.php");
 require_once(__DIR__ . "/ticket.tpl.php");
+require_once(__DIR__ . '/database/user.class.php');
 
 setHeader("Ticket");
 
 if($session->isLoggedin()){
     drawTopbar($session);
     drawTicketInfo($ticket);
-    drawMessageInput();
-    drawMessages($session, $messages);
+    $name = User::getName($db, $session->getID());
+    $role = User::getRole($db, $session->getID());
+    if((Ticket::checkAssignedAgent($db, (int)$_GET['id'], $name)) or ($role == "admin")){
+        drawMessageInput();
+        drawMessages($session, $messages);
+    }
 } else {
     header("Location : /index.php");
 }

@@ -756,14 +756,14 @@
         height: 10%;
     }
     
-    .othersettings form {
-        height: 100%;
+    .othersettings {
+        height: 10%;
         width: 100%;
         display: flex;
         justify-content: space-around;
     }
     
-    .othersettings form select {
+    .othersettings select {
         position: relative;
         width: 30%;
         left: 0;

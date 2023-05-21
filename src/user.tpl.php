@@ -10,7 +10,7 @@ require_once(__DIR__ . "/session.php");
 
 <?php function drawProfile(PDO $db, Session $session, User $user) { ?>
     <div class="profile">
-        <img src="/profileImages/kaguya-sama-pelicula-min.jpg" id="pfp">
+        <img src="/profileImages/gatito.png" id="pfp">
         <label id="username"><span id="bold">USERNAME:</span> <?=$user->username?></label>
         <label id="fullname"><span id="bold">FULL NAME:</span> <?=$user->fullname?></label>
         <label id="email"><span id="bold">E-MAIL:</span> <?=$user->email?></label>
@@ -34,7 +34,7 @@ require_once(__DIR__ . "/session.php");
 <?php function drawEditProfile(PDO $db, User $user){ ?>
     <form action = "action_edit_profile.php" method = "post">
         <div class="profileedit">
-            <img src="/profileImages/kaguya-sama-pelicula-min.jpg" id="pfp">
+            <img src="/profileImages/gatito.png" id="pfp">
             <label id="usernamelabel">Username:</label>
             <input type="text" value="<?=$user->username?>" name="username" id="username">
             <label id="fullnamelabel">Full Name:</label>

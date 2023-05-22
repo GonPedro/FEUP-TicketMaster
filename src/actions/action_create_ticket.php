@@ -13,6 +13,6 @@ $db = getDatabaseConnection();
 
 Ticket::addTicket($db, $session->getID(),$_POST['title'], (int)$_POST['priority'], $_POST['department']);
 
-header('Location: /index.php');
+header('Location: ../index.php');
 
 ?>

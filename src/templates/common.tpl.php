@@ -94,7 +94,7 @@ require_once(__DIR__ . '/../database/hashtag.class.php');
 <?php } ?>
 
 <?php function drawFilterBoxes(){ ?>
-    <form id ="ticketFilter" action = "/action_filter_tickets.php" method = "post">
+    <form id ="ticketFilter" action = "../actions/action_filter_tickets.php" method = "post">
         <div class="filterlabels" id="row1">
             <label>Author:</label>
             <label>Department:</label>
@@ -182,7 +182,7 @@ require_once(__DIR__ . '/../database/hashtag.class.php');
 
 
 <?php function drawTicketForm(){ ?>
-    <form action = "/action_create_ticket.php" method ="post" class = "create">
+    <form action = "../actions/action_create_ticket.php" method ="post" class = "create">
         <div class="config"> 
             <label id="titlelabel">Ticket Name:</label>
             <input type="text" name = "title" id="title">

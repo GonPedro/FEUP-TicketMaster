@@ -7,9 +7,9 @@
     $db = getDatabaseConnection();
     if($session->isLoggedin()){
         Faq::removeFaq($db, (int)$_GET['id']);
-        header('Location: /faq_config.php');
+        header('Location: ../pages/faq_config.php');
     }
     else {
-        header('Location : /index.php');
+        header('Location : ../index.php');
     }
 ?>

@@ -10,7 +10,7 @@ require_once(__DIR__ . "/../session.php");
 
 <?php function drawProfile(PDO $db, Session $session, User $user) { ?>
     <div class="profile">
-        <img src="/profileImages/gatito.png" id="pfp">
+        <img src="../profileImages/gatito.png" id="pfp">
         <label id="username"><span id="bold">USERNAME:</span> <?=$user->username?></label>
         <label id="fullname"><span id="bold">FULL NAME:</span> <?=$user->fullname?></label>
         <label id="email"><span id="bold">E-MAIL:</span> <?=$user->email?></label>
@@ -56,7 +56,7 @@ require_once(__DIR__ . "/../session.php");
         $db = getDatabaseConnection();
         if((strcmp(User::getRole($db, (int)$session->getID()), "admin") == 0) and ($session->getID() != $user->id)){ 
             $userRole = User::getRole($db, $user->id); ?>
-            <form id = "roleChange" action = "/action_promote_user.php" method = "post">
+            <form id = "roleChange" action = "../actions/action_promote_user.php" method = "post">
                 <select name = "role" onchange = "changeRole(this)">
                     <option value="client" <?php if($userRole == "client") echo "selected"; ?>>Client</option>
                     <option value="agent" <?php if($userRole == "agent") echo "selected"; ?>>Agent</option>
@@ -71,7 +71,7 @@ require_once(__DIR__ . "/../session.php");
 
 <?php function drawUsers(Session $session, array $users) { ?>
     <div class="userinput">
-        <form id = "searchUser" action = "/action_search_user.php" method = "post">
+        <form id = "searchUser" action = "../actions/action_search_user.php" method = "post">
                 <input type="text" name = "user">
                 <input type="submit" value="Search">
         </form>

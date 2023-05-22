@@ -17,8 +17,8 @@ require_once(__DIR__ . '/../database/change.class.php');
             <label id="status"><span id="bold">STATUS:</span> <?=$ticket->status?></label>
             <label id="department"><span id="bold">DEPARTMENT:</span> <?=$ticket->department?></label>
         </div>
-        <a href = "/config.php?id=<?=$ticket->id?>"><img id="confi" src="/profileImages/gear.png"></a>
-        <a href = "/changes.php?id=<?=$ticket->id?>"><img id="actions" src="../profileImages/action.png"></a>
+        <a href = "../pages/config.php?id=<?=$ticket->id?>"><img id="confi" src="/profileImages/gear.png"></a>
+        <a href = "../pages/changes.php?id=<?=$ticket->id?>"><img id="actions" src="../profileImages/action.png"></a>
     </div>
 <?php } ?>
 
@@ -30,8 +30,8 @@ require_once(__DIR__ . '/../database/change.class.php');
             <label id="status"><span id="bold">STATUS:</span> <?=$ticket->status?></label>
             <label id="department"><span id="bold">DEPARTMENT:</span> <?=$ticket->department?></label>
         </div>
-        <a href = "/config.php?id=<?=$ticket->id?>"><img id="confi" src="/profileImages/gear.png"></a>
-        <a href = "/ticket.php?id=<?=$ticket->id?>"><img id="actions" src="../profileImages/action.png"></a>
+        <a href = "../pages/config.php?id=<?=$ticket->id?>"><img id="confi" src="/profileImages/gear.png"></a>
+        <a href = "../pages/ticket.php?id=<?=$ticket->id?>"><img id="actions" src="../profileImages/action.png"></a>
     </div>
 <?php } ?>
 
@@ -39,7 +39,7 @@ require_once(__DIR__ . '/../database/change.class.php');
 
 <?php function drawMessageInput() { ?>
     <div class="userinput" id = "msginput">
-    <form id ="messageForm" action = "/action_add_message.php?id=<?=$_GET['id']?>" method = "post">
+    <form id ="messageForm" action = "/../actions/action_add_message.php?id=<?=$_GET['id']?>" method = "post">
         <input type="text" name = "message">
         <input type="submit" value="Send">
     </form>

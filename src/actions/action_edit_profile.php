@@ -35,7 +35,7 @@ if($user and $flag == 1){
     $user->save($db, $_POST['password']);
 
     $session->setName($user->username);
-    header('Location: /profile.php?id='.$user->id);
+    header('Location: ../pages/profile.php?id='.$user->id);
 }else{
     header('Location: ' . $_SERVER['HTTP_REFERER']);
 }

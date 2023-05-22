@@ -15,7 +15,7 @@ require_once(__DIR__ . "/../database/user.class.php");
 $user = User::getUserFromID($db, (int)$_GET['id']);
 
 require_once(__DIR__ . "/../templates/user.tpl.php");
-require_once(__DIR__ . "/../common.tpl.php");
+require_once(__DIR__ . "/../templates/common.tpl.php");
 
 setHeader("Edit Profile");
 if($session->isLoggedin()){

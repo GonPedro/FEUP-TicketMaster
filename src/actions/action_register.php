@@ -3,15 +3,15 @@
 
 declare(strict_types = 1);
 
-require_once(__DIR__ . '/session.php');
+require_once(__DIR__ . '/../session.php');
 
 $session = new Session();
 
-require_once(__DIR__ . '/database/connection.db.php');
+require_once(__DIR__ . '/../database/connection.db.php');
 
 $db = getDatabaseConnection();
 
-require_once(__DIR__ . '/database/user.class.php');
+require_once(__DIR__ . '/../database/user.class.php');
 
 $password_regex = "^(.{0,7}|[^0-9]*|[^A-Z]*|[^a-z]*|[a-zA-Z0-9]*)$";
 

@@ -15,15 +15,18 @@ $departments = Department::getAgentDepartments($db, (int)$_GET['id']);
 
 $flag = 1;
 
-foreach($departments as $department){
-    if(strcmp($department->name, $_POST['department']) == 0){
-        $flag = 0;
+if($_POST['department']){
+    foreach($departments as $department){
+        if(strcmp($department->name, $_POST['department']) == 0){
+            $flag = 0;
+        }
     }
-}
-
-if($flag == 1){
-    $department_id = Department::getDepartmentID($db, $_POST['department']);
-    Department::addAgentToDepartment($db, $department_id, (int)$_GET['id']);
+    
+    
+    if($flag == 1){
+            $department_id = Department::getDepartmentID($db, $_POST['department']);
+            Department::addAgentToDepartment($db, $department_id, (int)$_GET['id']);
+    }
 }
 
 User::promote($db, (int)$_GET['id'], $_POST['role']);

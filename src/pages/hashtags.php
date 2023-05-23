@@ -8,7 +8,7 @@ require_once(__DIR__ . '/../templates/common.tpl.php');
 
 $db = getDatabaseConnection();
 
-require_once(__DIR__ . '/session.php');
+require_once(__DIR__ . '/../session.php');
 
 $session = new Session();
 

@@ -100,7 +100,7 @@ require_once(__DIR__ . '/../database/change.class.php');
             <div class="msg">
                 <p id="content "><?=$change->content?></p>
                 <div class="extradata">
-                    <label id="author">by <?=$change->author?></label>
+                    <label id="author">by <?=$change->agent?></label>
                     <label id="date"><?=$change->date?></label>
                 </div>
              </div>

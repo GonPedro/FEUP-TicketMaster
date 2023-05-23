@@ -94,7 +94,7 @@ $(document).ready(function() {
 
 function removeHashtagFromDatabase(ticketId, hashtag){
     $.ajax({
-        url: '/action_remove_hashtag.php',
+        url: '../actions/action_remove_hashtag.php',
         method: 'POST',
         data: {
             ticketID: ticketId,
@@ -114,7 +114,7 @@ function changeRole(select) {
     var selectedValue = select.value;
     // Perform an AJAX request to trigger the action
     $.ajax({
-        url: '/action_promote_user.php',
+        url: '../actions/action_promote_user.php',
         method: 'POST',
         data: $('#roleChange').serialize(),
         success: function(response) {
@@ -131,7 +131,7 @@ function changeStatus(select) {
     var selectedValue = select.value;
     // Perform an AJAX request to trigger the action
     $.ajax({
-        url: '/action_change_status.php',
+        url: '../actions/action_change_status.php',
         method: 'POST',
         data: $('#statusChange').serialize(),
         success: function(response) {
@@ -148,7 +148,7 @@ function changeDepartment(select) {
     var selectedValue = select.value;
     // Perform an AJAX request to trigger the action
     $.ajax({
-        url: '/action_change_department.php',
+        url: '../actions/action_change_department.php',
         method: 'POST',
         data: $('#departmentChange').serialize(),
         success: function(response) {
@@ -165,7 +165,7 @@ function changePriority(select) {
     var selectedValue = select.value;
     // Perform an AJAX request to trigger the action
     $.ajax({
-        url: '/action_change_priority.php',
+        url: '../actions/action_change_priority.php',
         method: 'POST',
         data: $('#priorityChange').serialize(),
         success: function(response) {

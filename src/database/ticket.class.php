@@ -101,7 +101,7 @@ class Ticket{
         return $agents;
     }
 
-    static function getFilteredTickets(PDO $db, string $author, string $department, array $hashtag, string $status, string $date, int $priority, string $agent) : ?array{
+    static function getFilteredTickets(PDO $db, string $author, string $department, string $hashtag, string $status, string $date, int $priority, string $agent) : ?array{
         if(strcmp($author, "") == 0){
             $stmt = $db->prepare('SELECT ticketID, clientID, department, status_name, title, priority, da
             FROM Ticket
@@ -125,9 +125,10 @@ class Ticket{
             if(strcmp($date, "") == 0) $dateflag = true;
             $hashtags = Hashtag::getTicketHashtags($db, (int)$ticket['ticketID']);
             $flag = 1;
-            $diff = array_diff($hashtag, $hashtags);
-            if(empty($diff) or empty($hashtag)){
-                $flag = 0;
+            foreach($hashtags as $hash){
+                if($hash->text == $hashtag){
+                    $flag = 0;
+                }
             }
             if(Ticket::checkAssignedAgent($db, (int)$ticket['ticketID'], $agent) and ($dateString1 == $date or $dateflag) and $flag == 0){
                 $tickets[] = new Ticket(

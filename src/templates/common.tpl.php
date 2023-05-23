@@ -152,7 +152,7 @@ require_once(__DIR__ . '/../database/hashtag.class.php');
 <?php } ?>
 
 <?php function drawLogin() { ?>
-    <form action="/action_login.php" method="post" class="login">
+    <form action="../actions/action_login.php" method="post" class="login">
         <label id="namelabel">Username:</label> <br>
         <input type="text" name = "username" placeholder = "Username" id="name" required>
         <label id="passlabel">Password:</label> <br>
@@ -164,7 +164,7 @@ require_once(__DIR__ . '/../database/hashtag.class.php');
 <?php } ?>
 
 <?php function drawRegister(){ ?>
-    <form action = "/action_register.php" method ="post" class = "login">
+    <form action = "../actions/action_register.php" method ="post" class = "login">
         <label id="rnamelabel">Username:</label> <br>
         <input type="text" name = "rname" id="rname" required>
         <label id="rmaillabel">E-mail:</label> <br>
